@@ -49,36 +49,45 @@ public class Bunny
 	
 	public void move(Ground ground, Input input) throws SlickException
 	{
-		fallDown();
-
-		if (y > WINDOW_HEIGHT - 200)
+		if (isInTheAir())
 		{
-			if (input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE))
-			{
-				gravity.resetGravity();
-
-				y += gravity.getForce();
-
-				ground.increaseSpeedFactor();
-
-				gravity.biggerJump();
-			}
-			else
-			{
-				ground.decreaseSpeedFactor();
-
-				gravity.smallerJump();
-			}
+			fallDown();
+		}
+		else
+		{
+			checkInput(ground, input);
 		}
 	}
 
+	private void checkInput(Ground ground, Input input)
+    {
+	    if (input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE))
+	    {
+	    	gravity.resetGravity();
+
+			fallDown();
+
+	    	ground.increaseSpeedFactor();
+
+	    	gravity.biggerJump();
+	    }
+	    else
+	    {
+	    	ground.decreaseSpeedFactor();
+
+	    	gravity.smallerJump();
+	    }
+    }
+
 	private void fallDown()
 	{
-		if (y < WINDOW_HEIGHT - 200)
-		{
-			gravity.increaseGravity();
-			y += gravity.getForce();
-		}
+		gravity.increaseGravity();
+		y += gravity.getForce();
+	}
+
+	private boolean isInTheAir()
+	{
+		return y < WINDOW_HEIGHT - 200;
 	}
 
 }
