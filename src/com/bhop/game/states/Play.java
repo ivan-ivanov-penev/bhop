@@ -8,8 +8,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bhop.game.environment.Sky;
-import com.bhop.game.objects.Bunny;
 import com.bhop.game.objects.Ground;
+import com.bhop.game.objects.bunny.Bunny;
 
 public class Play extends BasicGameState
 {
@@ -26,7 +26,7 @@ public class Play extends BasicGameState
 	{
 		sky = new Sky();
 		ground = new Ground();
-		bunny = new Bunny();
+		bunny = new Bunny(ground);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class Play extends BasicGameState
 	{
 		checkForExitGame(container);
 		ground.move();
-		bunny.move(ground, container.getInput());
+		bunny.move(container.getInput());
 	}
 
 	@Override

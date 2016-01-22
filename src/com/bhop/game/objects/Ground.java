@@ -37,11 +37,6 @@ public class Ground
 		@Override
 		public void move()
 		{
-			if (speedFactor < 1)
-			{
-				speedFactor = 1;
-			}
-			
 			x -= GameUtils.CAMERA_SPEED * speedFactor;
 		}
 		
@@ -91,12 +86,18 @@ public class Ground
 	
 	public void increaseSpeedFactor()
 	{
-		speedFactor += speedFactor >= 6 ? 0 : 0.4;
+		if (speedFactor < 6)
+		{
+			speedFactor += 0.4;
+		}
 	}
 	
 	public void decreaseSpeedFactor()
 	{
-		speedFactor -= 0.05;
+		if (speedFactor > 1)
+		{
+			speedFactor -= 0.05;
+		}
 	}
 
 }
