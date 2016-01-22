@@ -53,14 +53,14 @@ public class Bunny
 	{
 		normalizeHeight();
 
-		return y == WINDOW_HEIGHT - 200;
+		return y == WINDOW_HEIGHT - 220;
 	}
 
 	private void normalizeHeight()
 	{
-		if (y > WINDOW_HEIGHT - 200)
+		if (y > WINDOW_HEIGHT - 220)
 		{
-			y = WINDOW_HEIGHT - 200;
+			y = WINDOW_HEIGHT - 220;
 		}
 	}
 
@@ -82,12 +82,11 @@ public class Bunny
 			physics.increaseGravityPullingForce();
 
 			updateHeightPosition();
+			setJumpAnimation();
 		}
-
-		animation.setRightAnimation(isOnTopOfAnObject());
 	}
 
-	private void checkInput(boolean isButtonPressed)
+	private void checkInput(boolean isButtonPressed) throws SlickException
 	{
 		if (isButtonPressed)
 		{
@@ -107,7 +106,7 @@ public class Bunny
 		setAnimationToRuning();
 	}
 
-	private void jump()
+	private void jump() throws SlickException
 	{
 		jump.increaseNextJumpHeight();
 
@@ -115,7 +114,6 @@ public class Bunny
 
 		updateHeightPosition();
 		increaseSpeed();
-		setJumpAnimation();
 	}
 
 	private void decreaseSpeed()
@@ -125,6 +123,7 @@ public class Bunny
 
 	private void setAnimationToRuning()
 	{
+		animation.setAnimationToRunning();
 	}
 
 	private void increaseSpeed()
@@ -132,8 +131,9 @@ public class Bunny
 		ground.increaseSpeedFactor();
 	}
 
-	private void setJumpAnimation()
+	private void setJumpAnimation() throws SlickException
 	{
+		animation.setJumpingAnimation(physics.getGravityForce());
 	}
 
 }
