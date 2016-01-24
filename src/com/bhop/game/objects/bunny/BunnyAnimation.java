@@ -1,64 +1,123 @@
 package com.bhop.game.objects.bunny;
 
-import org.newdawn.slick.Animation;
+import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.util.GameUtils;
-
 class BunnyAnimation
 {
-	private static final int DURATION = (int) (GameUtils.FPS * 1.25);
-
-	private Animation animation;
-
-	private Animation animationRunning;
-
-//	private Animation animationJumping;
-
+	private static final float FPS = 2;
+	
+	private final Image[] jumpImages;
+	
+	private final Image[] runImages;
+	
+	private Image currentFrame;
+	
+	private float frameCounter;
+	
 	public BunnyAnimation() throws SlickException
 	{
-		animationRunning = new Animation(GameUtils.createImageArrayFromDirectory("res/bunny/test"), DURATION);
-//		animationJumping = new Animation(GameUtils.createImageArrayFromDirectory("res/bunny/jumping"), DURATION);
-		animation = animationRunning;
-	}
-
-	void setAnimationToRunning()
-	{
-		animation = animationRunning;
+		jumpImages = new Image[] {
+				new Image("res/bunny/jump/sBunnyBlue_Jump_0.png"),
+				new Image("res/bunny/jump/sBunnyBlue_Jump_1.png"),
+				new Image("res/bunny/jump/sBunnyBlue_Jump_2.png"),
+				new Image("res/bunny/jump/sBunnyBlue_Jump_3.png"),
+				new Image("res/bunny/jump/sBunnyBlue_Jump_4.png"),
+				new Image("res/bunny/jump/sBunnyBlue_Jump_5.png"),
+				new Image("res/bunny/jump/sBunnyBlue_Jump_7.png")
+		};
+		
+		runImages = new Image[] {
+				new Image("res/bunny/run/sBunnyBlue_Run_0.png"),
+				new Image("res/bunny/run/sBunnyBlue_Run_1.png"),
+				new Image("res/bunny/run/sBunnyBlue_Run_2.png"),
+				new Image("res/bunny/run/sBunnyBlue_Run_3.png"),
+				new Image("res/bunny/run/sBunnyBlue_Run_4.png"),
+				new Image("res/bunny/run/sBunnyBlue_Run_5.png")
+		};
 	}
 
 	void draw(float x, float y, float height, float width)
 	{
-		animation.draw(x, y, width, height);
+		incrementFrameCounter();
+		
+		currentFrame.draw(x, y, width, height);
 	}
 
-	void setJumpingAnimation(float gravityForce) throws SlickException
+	private void incrementFrameCounter()
 	{
-		int frameNumber = 0;
-
-		if (gravityForce < -8)
+		if (frameCounter > FPS)
 		{
-			frameNumber = 0;
-		}
-		else if (gravityForce < 0)
-		{
-			frameNumber = 1;
-		}
-		else if (gravityForce < 2)
-		{
-			frameNumber = 2;
-		}
-		else if (gravityForce < 8)
-		{
-			frameNumber = 3;
+			frameCounter = 0;
 		}
 		else
 		{
-			frameNumber = 4;
+			frameCounter += 1;
 		}
+	}
 
-		animation = new Animation(new Image[] { new Image("res/bunny/jumping/sBunnyBlue_Jump_" + frameNumber + ".png") }, DURATION);
+	void update(float gravityForce, float y) throws SlickException
+	{
+		if (gravityForce < -6)
+		{
+			currentFrame = jumpImages[0];
+		}
+		else if (gravityForce < -3)
+		{
+			currentFrame = jumpImages[1];
+		}
+		else if (gravityForce < 2)
+		{
+			currentFrame = jumpImages[2];
+		}
+		else if (gravityForce < 6)
+		{
+			currentFrame = jumpImages[3];
+		}
+		else if (y >= WINDOW_HEIGHT - 220)
+		{
+			preciseLandSprite();
+		}
+		else if (y > WINDOW_HEIGHT - 235)
+		{
+			currentFrame = jumpImages[5];
+		}
+		else
+		{
+			currentFrame = jumpImages[4];
+		}
+	}
+	
+	private void preciseLandSprite()
+	{
+		if (currentFrame.equals(jumpImages[5]))
+		{
+			currentFrame = jumpImages[6];
+		}
+		else if (frameCounter == FPS)
+		{
+			currentFrame = getNextRunFrame();
+		}
+	}
+
+	private Image getNextRunFrame()
+	{
+		for (int i = 0; i < runImages.length - 1; i++)
+		{
+			if (currentFrame.equals(runImages[i]))
+			{
+				return runImages[i + 1];
+			}
+		}
+		
+		return runImages[0];
+	}
+	
+	boolean isNotInTheAir()
+	{
+		return currentFrame.equals(runImages[1]) && frameCounter == FPS;
 	}
 
 }

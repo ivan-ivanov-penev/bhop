@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.objects.Ground;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 
+// TODO: more refactoring after game is finished
 public class Bunny
 {
 
@@ -21,8 +22,10 @@ public class Bunny
 	private final BunnyPhysics physics;
 
 	private final BunnyJump jump;
-	
+
 	private final BunnyAnimation animation;
+
+	private boolean hasToJump;
 
 	public Bunny(Ground ground) throws SlickException
 	{
@@ -43,10 +46,24 @@ public class Bunny
 	{
 		return y;
 	}
-	
+
 	public void draw()
 	{
 		animation.draw(x, y, 96, 96);
+	}
+
+	private void updateHeightPosition()
+	{
+		y += physics.getGravityForce();
+	}
+
+	// XXX consider inlining this method
+	private void normalizeHeight()
+	{
+		if (y > WINDOW_HEIGHT - 220)
+		{
+			y = WINDOW_HEIGHT - 220;
+		}
 	}
 
 	private boolean isOnTopOfAnObject()
@@ -56,41 +73,46 @@ public class Bunny
 		return y == WINDOW_HEIGHT - 220;
 	}
 
-	private void normalizeHeight()
-	{
-		if (y > WINDOW_HEIGHT - 220)
-		{
-			y = WINDOW_HEIGHT - 220;
-		}
-	}
-
-	private void updateHeightPosition()
-	{
-		y += physics.getGravityForce();
-	}
-
 	public void move(Input input) throws SlickException
 	{
-		if (isOnTopOfAnObject())
+		if (hasToJump)
 		{
-			physics.setGravityToFalling();
-
-			checkInput(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
+			attemptJump();
+		}
+		else if (isOnTopOfAnObject())
+		{
+			attemptRun(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
 		}
 		else
 		{
-			physics.increaseGravityPullingForce();
+			fall();
+		}
+
+		animation.update(physics.getGravityForce(), y);
+	}
+
+	private void attemptJump() throws SlickException
+	{
+		if (animation.isNotInTheAir())
+		{
+			jump.increaseNextJumpHeight();
+			
+			physics.setGravityToJumping(jump.getJumpHeight());
 
 			updateHeightPosition();
-			setJumpAnimation();
+			increaseSpeed();
+
+			hasToJump = false;
 		}
 	}
 
-	private void checkInput(boolean isButtonPressed) throws SlickException
+	private void attemptRun(boolean buttonIsPressed) throws SlickException
 	{
-		if (isButtonPressed)
+		if (buttonIsPressed)
 		{
-			jump();
+			hasToJump = true;
+
+			attemptJump();
 		}
 		else
 		{
@@ -100,20 +122,19 @@ public class Bunny
 
 	private void run()
 	{
+		// XXX this might cause a bug in the future - consider moving it ot top of attemptRun
+		physics.resetGravityFallingBaseForce();
+		
 		jump.decreaseNextJumpHeight();
 
 		decreaseSpeed();
-		setAnimationToRuning();
 	}
 
-	private void jump() throws SlickException
+	private void fall()
 	{
-		jump.increaseNextJumpHeight();
-
-		physics.setGravityToJumping(jump.getJumpHeight());
+		physics.increaseGravityPullingForce();
 
 		updateHeightPosition();
-		increaseSpeed();
 	}
 
 	private void decreaseSpeed()
@@ -121,19 +142,9 @@ public class Bunny
 		ground.decreaseSpeedFactor();
 	}
 
-	private void setAnimationToRuning()
-	{
-		animation.setAnimationToRunning();
-	}
-
 	private void increaseSpeed()
 	{
 		ground.increaseSpeedFactor();
-	}
-
-	private void setJumpAnimation() throws SlickException
-	{
-		animation.setJumpingAnimation(physics.getGravityForce());
 	}
 
 }

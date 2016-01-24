@@ -19,7 +19,7 @@ class BunnyPhysics
 		gravityForce = -(BASE_FORCE * jumpHeight);
 	}
 
-	void setGravityToFalling()
+	void resetGravityFallingBaseForce()
 	{
 		gravityForce = BASE_FORCE;
 	}

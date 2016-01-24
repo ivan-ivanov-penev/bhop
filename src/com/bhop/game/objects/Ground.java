@@ -18,7 +18,7 @@ public class Ground
 		
 		public GroundPiece() throws SlickException
 		{
-			super("res/grass.png");
+			super("res/grass2.png");
 			
 			x = getLastGroundPieceX() + image.getWidth();
 			y = GameUtils.WINDOW_HEIGHT - image.getHeight();
