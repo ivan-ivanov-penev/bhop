@@ -8,8 +8,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bhop.game.environment.Sky;
-import com.bhop.game.objects.Ground;
 import com.bhop.game.objects.bunny.Bunny;
+import com.bhop.game.objects.ground.Ground;
 
 public class Play extends BasicGameState
 {

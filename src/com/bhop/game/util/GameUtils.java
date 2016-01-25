@@ -18,7 +18,7 @@ public final class GameUtils
 
 	public static final float CAMERA_SPEED = 3.5f;
 	
-	public static final int FPS = 6;
+	public static final int FPS = 60;
 
 	public static int[] createArrayOfAnimationFPS(Image[] animation)
 	{

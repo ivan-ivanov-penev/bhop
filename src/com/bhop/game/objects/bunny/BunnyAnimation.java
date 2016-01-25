@@ -2,13 +2,17 @@ package com.bhop.game.objects.bunny;
 
 import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
 
+import java.util.HashMap;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-class BunnyAnimation
+import com.bhop.game.util.GameUtils;
+
+public class BunnyAnimation
 {
-	private static final float FPS = 2;
-	
+	private float fps;
+
 	private final Image[] jumpImages;
 	
 	private final Image[] runImages;
@@ -17,26 +21,11 @@ class BunnyAnimation
 	
 	private float frameCounter;
 	
-	public BunnyAnimation() throws SlickException
+	BunnyAnimation() throws SlickException
 	{
-		jumpImages = new Image[] {
-				new Image("res/bunny/jump/sBunnyBlue_Jump_0.png"),
-				new Image("res/bunny/jump/sBunnyBlue_Jump_1.png"),
-				new Image("res/bunny/jump/sBunnyBlue_Jump_2.png"),
-				new Image("res/bunny/jump/sBunnyBlue_Jump_3.png"),
-				new Image("res/bunny/jump/sBunnyBlue_Jump_4.png"),
-				new Image("res/bunny/jump/sBunnyBlue_Jump_5.png"),
-				new Image("res/bunny/jump/sBunnyBlue_Jump_7.png")
-		};
-		
-		runImages = new Image[] {
-				new Image("res/bunny/run/sBunnyBlue_Run_0.png"),
-				new Image("res/bunny/run/sBunnyBlue_Run_1.png"),
-				new Image("res/bunny/run/sBunnyBlue_Run_2.png"),
-				new Image("res/bunny/run/sBunnyBlue_Run_3.png"),
-				new Image("res/bunny/run/sBunnyBlue_Run_4.png"),
-				new Image("res/bunny/run/sBunnyBlue_Run_5.png")
-		};
+		jumpImages = GameUtils.createImageArrayFromDirectory("res/bunny/jump");
+		runImages = GameUtils.createImageArrayFromDirectory("res/bunny/run");
+		fps = 1.5f;
 	}
 
 	void draw(float x, float y, float height, float width)
@@ -48,18 +37,20 @@ class BunnyAnimation
 
 	private void incrementFrameCounter()
 	{
-		if (frameCounter > FPS)
+		if (frameCounter > fps)
 		{
 			frameCounter = 0;
 		}
 		else
 		{
-			frameCounter += 1;
+			frameCounter += 0.5;
 		}
 	}
 
-	void update(float gravityForce, float y) throws SlickException
+	void update(float gravityForce, float y, float speedFactor) throws SlickException
 	{
+		setSpeed(speedFactor);
+
 		if (gravityForce < -6)
 		{
 			currentFrame = jumpImages[0];
@@ -90,13 +81,29 @@ class BunnyAnimation
 		}
 	}
 	
+	private void setSpeed(float speedFactor)
+	{
+		if (speedFactor < 1.8)
+		{
+			fps = 1.5f;
+		}
+		else if (speedFactor < 2.7)
+		{
+			fps = 1.0f;
+		}
+		else
+		{
+			fps = 0.5f;
+		}
+	}
+
 	private void preciseLandSprite()
 	{
 		if (currentFrame.equals(jumpImages[5]))
 		{
 			currentFrame = jumpImages[6];
 		}
-		else if (frameCounter == FPS)
+		else if (frameCounter == fps)
 		{
 			currentFrame = getNextRunFrame();
 		}
@@ -117,7 +124,36 @@ class BunnyAnimation
 	
 	boolean isNotInTheAir()
 	{
-		return currentFrame.equals(runImages[1]) && frameCounter == FPS;
+		return currentFrame.equals(runImages[1]) && frameCounter == fps;
+	}
+
+	RunSpeedBoost getSpeedBoost()
+	{
+		if (currentFrame.equals(runImages[1]))
+		{
+			return RunSpeedBoost.MAX;
+		}
+		else if (currentFrame.equals(runImages[0]))
+		{
+			return RunSpeedBoost.AVERAGE;
+		}
+		else if (currentFrame.equals(runImages[5]))
+		{
+			return RunSpeedBoost.MIN;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public static enum RunSpeedBoost
+	{
+
+		MIN,
+		AVERAGE,
+		MAX
+
 	}
 
 }

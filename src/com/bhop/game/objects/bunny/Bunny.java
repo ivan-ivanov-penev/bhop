@@ -6,8 +6,9 @@ import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.objects.Ground;
+import com.bhop.game.objects.bunny.BunnyAnimation.RunSpeedBoost;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
+import com.bhop.game.objects.ground.Ground;
 
 // TODO: more refactoring after game is finished
 public class Bunny
@@ -26,6 +27,8 @@ public class Bunny
 	private final BunnyAnimation animation;
 
 	private boolean hasToJump;
+
+	private RunSpeedBoost runSpeedBoost;
 
 	public Bunny(Ground ground) throws SlickException
 	{
@@ -88,7 +91,7 @@ public class Bunny
 			fall();
 		}
 
-		animation.update(physics.getGravityForce(), y);
+		animation.update(physics.getGravityForce(), y, ground.getSpeedFactor());
 	}
 
 	private void attemptJump() throws SlickException
@@ -108,7 +111,9 @@ public class Bunny
 
 	private void attemptRun(boolean buttonIsPressed) throws SlickException
 	{
-		if (buttonIsPressed)
+		runSpeedBoost = animation.getSpeedBoost();
+
+		if (buttonIsPressed && runSpeedBoost != null)
 		{
 			hasToJump = true;
 
@@ -139,12 +144,12 @@ public class Bunny
 
 	private void decreaseSpeed()
 	{
-		ground.decreaseSpeedFactor();
+		ground.decreaseSpeed();
 	}
 
 	private void increaseSpeed()
 	{
-		ground.increaseSpeedFactor();
+		ground.increaseSpeed(runSpeedBoost);
 	}
 
 }
