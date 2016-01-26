@@ -1,15 +1,11 @@
 package com.bhop.game.objects.ground;
 
-import com.bhop.game.objects.bunny.BunnyAnimation.RunSpeedBoost;
-
-class GroundPhysics
+public class GroundPhysics
 {
 
-	private static final float MAX_SPEED_FACTOR = 3.5f;
+	public static final float MAX_SPEED_FACTOR = 3.5f;
 
-	private static final float MIN_SPEED_FACTOR = 1;
-
-//	private static final float SPEED_FACTOR_INCREMENT = 0.5f;
+	public static final float MIN_SPEED_FACTOR = 1;
 
 	private static final float SPEED_FACTOR_DECREMENT = 0.025f;
 
@@ -24,28 +20,12 @@ class GroundPhysics
 
 	void increaseSpeedFactor(RunSpeedBoost runSpeedBoost)
 	{
-		System.out.println(convertBoostToSpeedFactor(runSpeedBoost));
-		speedFactor += convertBoostToSpeedFactor(runSpeedBoost);
+		speedFactor += runSpeedBoost.speedFactor;
 
 		if (speedFactor > MAX_SPEED_FACTOR)
 		{
 			speedFactor = MAX_SPEED_FACTOR;
 //			start = System.currentTimeMillis();
-		}
-	}
-	
-	private float convertBoostToSpeedFactor(RunSpeedBoost runSpeedBoost)
-	{
-		switch (runSpeedBoost)
-        {
-			case MAX:
-				return 1f;
-				
-			case AVERAGE:
-				return 0.5f;
-
-			default:
-				return 0.1f;
 		}
 	}
 
@@ -68,6 +48,22 @@ class GroundPhysics
 	float getSpeedFactor()
 	{
 		return speedFactor;
+	}
+
+	public static enum RunSpeedBoost
+	{
+
+		MAX(1f),
+		AVERAGE(0.5f),
+		MIN(0.1f);
+
+		private final float speedFactor;
+
+		private RunSpeedBoost(float speedFactor)
+		{
+			this.speedFactor = speedFactor;
+		}
+
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.bunny.BunnyAnimation.RunSpeedBoost;
+import com.bhop.game.objects.ground.GroundPhysics.RunSpeedBoost;
 import com.bhop.game.util.GameUtils;
 
 public class Ground

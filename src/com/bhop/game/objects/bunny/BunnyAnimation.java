@@ -3,15 +3,20 @@ package com.bhop.game.objects.bunny;
 import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.bhop.game.objects.ground.GroundPhysics.RunSpeedBoost;
 import com.bhop.game.util.GameUtils;
 
-public class BunnyAnimation
+import static com.bhop.game.objects.ground.GroundPhysics.*;
+
+class BunnyAnimation
 {
-	private float fps;
+
+	private Map<Image, RunSpeedBoost> speedBoostsForFrame;
 
 	private final Image[] jumpImages;
 	
@@ -19,13 +24,24 @@ public class BunnyAnimation
 	
 	private Image currentFrame;
 	
-	private float frameCounter;
+	private int frameCounter;
 	
+	private int fps;
+
 	BunnyAnimation() throws SlickException
 	{
 		jumpImages = GameUtils.createImageArrayFromDirectory("res/bunny/jump");
 		runImages = GameUtils.createImageArrayFromDirectory("res/bunny/run");
-		fps = 1.5f;
+
+		initializeSpeedBoostsForFrame();
+	}
+
+	private void initializeSpeedBoostsForFrame()
+	{
+		speedBoostsForFrame = new HashMap<Image, RunSpeedBoost>();
+		speedBoostsForFrame.put(runImages[1], RunSpeedBoost.MAX);
+		speedBoostsForFrame.put(runImages[0], RunSpeedBoost.AVERAGE);
+		speedBoostsForFrame.put(runImages[5], RunSpeedBoost.MIN);
 	}
 
 	void draw(float x, float y, float height, float width)
@@ -43,13 +59,13 @@ public class BunnyAnimation
 		}
 		else
 		{
-			frameCounter += 0.5;
+			frameCounter += 1;
 		}
 	}
 
-	void update(float gravityForce, float y, float speedFactor) throws SlickException
+	void update(float gravityForce, float y, float speedFactor, boolean isOnTopOfAnObject) throws SlickException
 	{
-		setSpeed(speedFactor);
+		adjustSpeed(speedFactor);
 
 		if (gravityForce < -6)
 		{
@@ -67,7 +83,7 @@ public class BunnyAnimation
 		{
 			currentFrame = jumpImages[3];
 		}
-		else if (y >= WINDOW_HEIGHT - 220)
+		else if (isOnTopOfAnObject)
 		{
 			preciseLandSprite();
 		}
@@ -81,19 +97,19 @@ public class BunnyAnimation
 		}
 	}
 	
-	private void setSpeed(float speedFactor)
+	private void adjustSpeed(float speedFactor)
 	{
-		if (speedFactor < 1.8)
+		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3) + MIN_SPEED_FACTOR)
 		{
-			fps = 1.5f;
+			fps = 3;
 		}
-		else if (speedFactor < 2.7)
+		else if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 2) + MIN_SPEED_FACTOR)
 		{
-			fps = 1.0f;
+			fps = 2;
 		}
 		else
 		{
-			fps = 0.5f;
+			fps = 1;
 		}
 	}
 
@@ -129,31 +145,7 @@ public class BunnyAnimation
 
 	RunSpeedBoost getSpeedBoost()
 	{
-		if (currentFrame.equals(runImages[1]))
-		{
-			return RunSpeedBoost.MAX;
-		}
-		else if (currentFrame.equals(runImages[0]))
-		{
-			return RunSpeedBoost.AVERAGE;
-		}
-		else if (currentFrame.equals(runImages[5]))
-		{
-			return RunSpeedBoost.MIN;
-		}
-		else
-		{
-			return null;
-		}
-	}
-
-	public static enum RunSpeedBoost
-	{
-
-		MIN,
-		AVERAGE,
-		MAX
-
+		return speedBoostsForFrame.get(currentFrame);
 	}
 
 }

@@ -6,9 +6,9 @@ import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.objects.bunny.BunnyAnimation.RunSpeedBoost;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.ground.Ground;
+import com.bhop.game.objects.ground.GroundPhysics.RunSpeedBoost;
 
 // TODO: more refactoring after game is finished
 public class Bunny
@@ -91,7 +91,7 @@ public class Bunny
 			fall();
 		}
 
-		animation.update(physics.getGravityForce(), y, ground.getSpeedFactor());
+		animation.update(physics.getGravityForce(), y, ground.getSpeedFactor(), isOnTopOfAnObject());
 	}
 
 	private void attemptJump() throws SlickException

@@ -39,7 +39,7 @@ public class Game extends StateBasedGame
 		appGameContainer.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
 //		appGameContainer.setIcon("res/grass.png");
 		appGameContainer.setTargetFrameRate(FPS);
-		appGameContainer.setVSync(true);
+//		appGameContainer.setVSync(true);
 		appGameContainer.start();
 	}
 
