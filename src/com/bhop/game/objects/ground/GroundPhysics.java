@@ -54,8 +54,8 @@ public class GroundPhysics
 	{
 
 		MAX(1f),
-		AVERAGE(0.5f),
-		MIN(0.1f);
+		AVERAGE(0.75f),
+		MIN(0.5f);
 
 		private final float speedFactor;
 

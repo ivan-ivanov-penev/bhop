@@ -113,7 +113,12 @@ public class Bunny
 	{
 		runSpeedBoost = animation.getSpeedBoost();
 
-		if (buttonIsPressed && runSpeedBoost != null)
+		if (runSpeedBoost == null)
+		{
+			runSpeedBoost = RunSpeedBoost.MIN;
+		}
+
+		if (buttonIsPressed /* && runSpeedBoost != null */)
 		{
 			hasToJump = true;
 

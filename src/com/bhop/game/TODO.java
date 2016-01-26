@@ -8,9 +8,9 @@ public final class TODO
 	 * 
 	 * Animation jump height adjustment
 	 * 
-	 * Refactor code so far
+	 * Improve running animation slowest state
 	 * 
-	 * Increase Animation smoothing
+	 * Increase Animation smoothing by adding more frames in folder run
 	 * 
 	 * Consider adding singletons
 	 */

@@ -5,6 +5,7 @@ import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -24,6 +25,10 @@ class BunnyAnimation
 	
 	private Image currentFrame;
 	
+	private Animation a;
+
+	private boolean isRunning;
+
 	private int frameCounter;
 	
 	private int fps;
@@ -32,6 +37,7 @@ class BunnyAnimation
 	{
 		jumpImages = GameUtils.createImageArrayFromDirectory("res/bunny/jump");
 		runImages = GameUtils.createImageArrayFromDirectory("res/bunny/run");
+		a = new Animation(runImages, 60);
 
 		initializeSpeedBoostsForFrame();
 	}
@@ -46,8 +52,14 @@ class BunnyAnimation
 
 	void draw(float x, float y, float height, float width)
 	{
+		if (isRunning)
+		{
+			a.draw(x, y, width, height);
+			return;
+		}
+
 		incrementFrameCounter();
-		
+
 		currentFrame.draw(x, y, width, height);
 	}
 
@@ -69,6 +81,7 @@ class BunnyAnimation
 
 		if (gravityForce < -6)
 		{
+			isRunning = false;
 			currentFrame = jumpImages[0];
 		}
 		else if (gravityForce < -3)
@@ -101,14 +114,17 @@ class BunnyAnimation
 	{
 		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3) + MIN_SPEED_FACTOR)
 		{
+			a.setSpeed(0.8f);
 			fps = 3;
 		}
 		else if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 2) + MIN_SPEED_FACTOR)
 		{
+			a.setSpeed(1.0f);
 			fps = 2;
 		}
 		else
 		{
+			a.setSpeed(1.2f);
 			fps = 1;
 		}
 	}
@@ -121,7 +137,8 @@ class BunnyAnimation
 		}
 		else if (frameCounter == fps)
 		{
-			currentFrame = getNextRunFrame();
+			// currentFrame = getNextRunFrame();
+			isRunning = true;
 		}
 	}
 
@@ -140,7 +157,8 @@ class BunnyAnimation
 	
 	boolean isNotInTheAir()
 	{
-		return currentFrame.equals(runImages[1]) && frameCounter == fps;
+//		return currentFrame.equals(runImages[1]) && frameCounter == fps;
+		return a.getCurrentFrame().equals(runImages[1]);
 	}
 
 	RunSpeedBoost getSpeedBoost()
