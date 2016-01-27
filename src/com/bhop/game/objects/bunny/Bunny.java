@@ -37,7 +37,8 @@ public class Bunny
 		animation = new BunnyAnimation();
 		jump = new BunnyJump();
 		x = WINDOW_WIDTH / 6;
-		y = WINDOW_HEIGHT / 3;
+//		y = WINDOW_HEIGHT / 3;
+		y = WINDOW_HEIGHT - 220;
 	}
 
 	public float getX()

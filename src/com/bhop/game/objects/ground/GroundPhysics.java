@@ -9,8 +9,6 @@ public class GroundPhysics
 
 	private static final float SPEED_FACTOR_DECREMENT = 0.025f;
 
-//	private long start;
-
 	private float speedFactor;
 
 	public GroundPhysics()
@@ -25,7 +23,6 @@ public class GroundPhysics
 		if (speedFactor > MAX_SPEED_FACTOR)
 		{
 			speedFactor = MAX_SPEED_FACTOR;
-//			start = System.currentTimeMillis();
 		}
 	}
 
@@ -36,12 +33,6 @@ public class GroundPhysics
 		if (speedFactor < MIN_SPEED_FACTOR)
 		{
 			speedFactor = MIN_SPEED_FACTOR;
-
-//			if (start != 0)
-//			{
-//				System.out.println((System.currentTimeMillis() - start) + " milisec");
-//				System.exit(0);
-//			}
 		}
 	}
 
