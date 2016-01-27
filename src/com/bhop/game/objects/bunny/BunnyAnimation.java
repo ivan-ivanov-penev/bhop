@@ -8,10 +8,9 @@ import java.util.Map;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.objects.ground.GroundPhysics.RunSpeedBoost;
 import com.bhop.game.util.GameUtils;
 
-import static com.bhop.game.objects.ground.GroundPhysics.*;
+import static com.bhop.game.objects.bunny.CameraMovement.*;
 
 class BunnyAnimation
 {
@@ -36,22 +35,6 @@ class BunnyAnimation
 		fps = 3;
 
 		initializeSpeedBoostsForFrame();
-
-//		new Thread()
-//		{
-//			public void run()
-//			{
-//				try
-//				{
-//					Thread.sleep(1_000);
-//					System.exit(0);
-//				}
-//				catch (InterruptedException e)
-//				{
-//					e.printStackTrace();
-//				}
-//			};
-//		}.start();
 	}
 
 	private void initializeSpeedBoostsForFrame()
@@ -81,6 +64,7 @@ class BunnyAnimation
 		}
 	}
 
+	// XXX Consider dividing this class in three subclasses - jump, run, hit
 	void update(float gravityForce, float y, float speedFactor, boolean isOnTopOfAnObject) throws SlickException
 	{
 		adjustSpeed(speedFactor);
@@ -105,7 +89,7 @@ class BunnyAnimation
 		{
 			preciseLandSprite();
 		}
-		else if (y > WINDOW_HEIGHT - 235)
+		else if (y > WINDOW_HEIGHT - 230)
 		{
 			currentFrame = jumpImages[5];
 		}
@@ -117,7 +101,7 @@ class BunnyAnimation
 	
 	private void adjustSpeed(float speedFactor)
 	{
-		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3) + MIN_SPEED_FACTOR)
+		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 1) + MIN_SPEED_FACTOR)
 		{
 			fps = 3;
 		}

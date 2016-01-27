@@ -6,19 +6,19 @@ import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
-import com.bhop.game.objects.ground.Ground;
-import com.bhop.game.objects.ground.GroundPhysics.RunSpeedBoost;
+import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
 
 // TODO: more refactoring after game is finished
-public class Bunny
+public class Bunny implements GameObject
 {
 
 	private float x;
 
 	private float y;
 
-	private final Ground ground;
+	private final CameraMovement movement;
 
 	private final BunnyPhysics physics;
 
@@ -30,15 +30,15 @@ public class Bunny
 
 	private RunSpeedBoost runSpeedBoost;
 
-	public Bunny(Ground ground) throws SlickException
+	public Bunny() throws SlickException
 	{
-		this.ground = ground;
+		movement = CameraMovement.getInstance();
 		physics = new BunnyPhysics();
 		animation = new BunnyAnimation();
 		jump = new BunnyJump();
 		x = WINDOW_WIDTH / 6;
 //		y = WINDOW_HEIGHT / 3;
-		y = WINDOW_HEIGHT - 220;
+		y = WINDOW_HEIGHT - 215;
 	}
 
 	public float getX()
@@ -51,7 +51,8 @@ public class Bunny
 		return y;
 	}
 
-	public void draw()
+	@Override
+	public void render()
 	{
 		animation.draw(x, y, 96, 96);
 	}
@@ -61,23 +62,18 @@ public class Bunny
 		y += physics.getGravityForce();
 	}
 
-	// XXX consider inlining this method
-	private void normalizeHeight()
-	{
-		if (y > WINDOW_HEIGHT - 220)
-		{
-			y = WINDOW_HEIGHT - 220;
-		}
-	}
-
 	private boolean isOnTopOfAnObject()
 	{
-		normalizeHeight();
+		if (y > WINDOW_HEIGHT - 215)
+		{
+			y = WINDOW_HEIGHT - 215;
+		}
 
-		return y == WINDOW_HEIGHT - 220;
+		return y == WINDOW_HEIGHT - 215;
 	}
 
-	public void move(Input input) throws SlickException
+	@Override
+	public void update(Input input) throws SlickException
 	{
 		if (hasToJump)
 		{
@@ -92,7 +88,7 @@ public class Bunny
 			fall();
 		}
 
-		animation.update(physics.getGravityForce(), y, ground.getSpeedFactor(), isOnTopOfAnObject());
+		animation.update(physics.getGravityForce(), y, movement.getSpeedFactor(), isOnTopOfAnObject());
 	}
 
 	private void attemptJump() throws SlickException
@@ -104,7 +100,8 @@ public class Bunny
 			physics.setGravityToJumping(jump.getJumpHeight());
 
 			updateHeightPosition();
-			increaseSpeed();
+			
+			movement.increaseSpeedFactor(runSpeedBoost);
 
 			hasToJump = false;
 		}
@@ -138,7 +135,7 @@ public class Bunny
 		
 		jump.decreaseNextJumpHeight();
 
-		decreaseSpeed();
+		movement.decreaseSpeedFactor();
 	}
 
 	private void fall()
@@ -146,16 +143,6 @@ public class Bunny
 		physics.increaseGravityPullingForce();
 
 		updateHeightPosition();
-	}
-
-	private void decreaseSpeed()
-	{
-		ground.decreaseSpeed();
-	}
-
-	private void increaseSpeed()
-	{
-		ground.increaseSpeed(runSpeedBoost);
 	}
 
 }

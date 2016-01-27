@@ -15,22 +15,8 @@ public final class GameUtils
 	public static final int WINDOW_HEIGHT = 480;
 
 	public static final String GAME_NAME = "BHop";
-
-	public static final float CAMERA_SPEED = 3.5f;
 	
 	public static final int FPS = 60;
-
-	public static int[] createArrayOfAnimationFPS(Image[] animation)
-	{
-		int[] animationFPS = new int[animation.length];
-
-		for (int i = 0; i < animationFPS.length; i++)
-		{
-			animationFPS[i] = FPS;
-		}
-
-		return animationFPS;
-	}
 
 	public static Image[] createImageArrayFromDirectory(String directoryName) throws SlickException
 	{

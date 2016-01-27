@@ -3,9 +3,12 @@ package com.bhop.game.environment;
 import java.util.Calendar;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Sky
+import com.bhop.game.objects.GameObject;
+
+public class Sky implements GameObject
 {
 	
 	private final Image image;
@@ -31,10 +34,16 @@ public class Sky
 		
 		return new Image("res/backgrounds/night.png");
 	}
-	
-	public void draw()
+
+	@Override
+	public void render() throws SlickException
 	{
 		image.draw();
+	}
+
+	@Override
+	public void update(Input input) throws SlickException
+	{
 	}
 
 }

@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.bhop.game.states.Menu;
 import com.bhop.game.states.Play;
 
 import static com.bhop.game.util.GameUtils.*;
@@ -17,7 +16,6 @@ public class Game extends StateBasedGame
 	{
 		super(GAME_NAME);
 		
-		addState(new Menu());
 		addState(new Play());
 	}
 
@@ -47,7 +45,6 @@ public class Game extends StateBasedGame
 	public void initStatesList(GameContainer gameContainer) throws SlickException
 	{
 		getState(Play.ID).init(gameContainer, this);
-		getState(Menu.ID).init(gameContainer, this);
 		
 		enterState(Play.ID);
 	}
