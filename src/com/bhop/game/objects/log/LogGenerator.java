@@ -13,11 +13,18 @@ import com.bhop.game.util.GameUtils;
 public class LogGenerator implements GameObject
 {
 
+	private static final LogGenerator INSTANCE = new LogGenerator();
+
 	private final List<Log> logs;
 
 	private final Random random;
 
-	public LogGenerator()
+	public static LogGenerator getInstance()
+	{
+		return INSTANCE;
+	}
+
+	private LogGenerator()
 	{
 		random = new Random();
 		logs = new ArrayList<Log>();
@@ -37,7 +44,7 @@ public class LogGenerator implements GameObject
 			{
 				logs.add(new Log());
 			}
-			else if (logs.get(logs.size() - 1).getX() < GameUtils.WINDOW_WIDTH - 100)
+			else if (logs.get(logs.size() - 1).getX() < GameUtils.WINDOW_WIDTH - 200)
 			{
 				logs.add(new Log());
 			}
@@ -50,6 +57,11 @@ public class LogGenerator implements GameObject
 		{
 			logs.remove(0);
 		}
+	}
+
+	public List<Log> getAllLogs()
+	{
+		return logs;
 	}
 
 	@Override

@@ -9,6 +9,8 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
+import com.bhop.game.objects.log.Log;
+import com.bhop.game.objects.log.LogGenerator;
 
 // TODO: more refactoring after game is finished
 public class Bunny implements GameObject
@@ -75,6 +77,8 @@ public class Bunny implements GameObject
 	@Override
 	public void update(Input input) throws SlickException
 	{
+		collisionCheck();
+
 		if (hasToJump)
 		{
 			attemptJump();
@@ -143,6 +147,35 @@ public class Bunny implements GameObject
 		physics.increaseGravityPullingForce();
 
 		updateHeightPosition();
+	}
+
+	private void collisionCheck()
+	{
+		for (Log log : LogGenerator.getInstance().getAllLogs())
+		{
+			checkForCollision(log);
+		}
+	}
+
+	private void checkForCollision(Log log)
+	{
+		if (x + animation.getImageWidth() * 0.5 > log.getX() && log.getX() > x)
+		{
+//			if (y < log.getY() + log.getImage().getHeight() * 0.75)
+//			{
+//				System.out.println();
+//				System.out.println("collision");
+//				System.out.println();
+				try
+				{
+					Thread.sleep(150);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+//			}
+		}
 	}
 
 }

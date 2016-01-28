@@ -150,4 +150,9 @@ class BunnyAnimation
 		return speedBoostsForFrame.get(currentFrame);
 	}
 
+	float getImageWidth()
+	{
+		return currentFrame.getWidth();
+	}
+
 }

@@ -28,7 +28,7 @@ public class Play extends BasicGameState
 		gameObjects = new ArrayList<GameObject>();
 		gameObjects.add(new Sky());
 		gameObjects.add(new Ground());
-		gameObjects.add(new LogGenerator());
+		gameObjects.add(LogGenerator.getInstance());
 		gameObjects.add(new Bunny());
 	}
 
