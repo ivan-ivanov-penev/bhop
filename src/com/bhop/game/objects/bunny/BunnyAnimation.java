@@ -2,6 +2,8 @@ package com.bhop.game.objects.bunny;
 
 import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +49,8 @@ class BunnyAnimation
 
 	void draw(float x, float y, float height, float width)
 	{
+		main();
+
 		incrementFrameCounter();
 
 		currentFrame.draw(x, y, width, height);
@@ -153,6 +157,109 @@ class BunnyAnimation
 	float getImageWidth()
 	{
 		return currentFrame.getWidth();
+	}
+
+	private void main()
+	{
+		try
+		{
+			main2();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		System.exit(0);
+	}
+
+	private void main2() throws Exception
+	{
+		Image image = new Image("res/from_drago/tst.png");
+		System.out.println(image.getTexture().getTextureData().length);
+		
+		File file = new File("res/log.txt");
+
+		if (!file.exists())
+		{
+			file.createNewFile();
+		}
+
+		PrintWriter out = new PrintWriter(file);
+
+//		Image image = new Image("res/from_drago/cross.png");
+
+		byte[] array = image.getTexture().getTextureData();
+
+		byte[][] b = new byte[32][8];
+
+		int c = 3;
+
+		int ones = 0;
+
+		for (int i = 0; i < b.length; i++)
+		{
+			for (int j = 0; j < b[i].length; j++)
+			{
+				b[i][j] = array[c];
+
+				if (array[c] == 0)
+				{
+					out.print(" " + array[c]);
+				}
+				else
+				{
+					out.print(" " + -array[c]);
+				}
+
+				if (array[c] == -1)
+				{
+					ones++;
+				}
+
+				c += 4;
+			}
+			out.println();
+		}
+
+		out.println();
+		out.println("number of ones: " + ones);
+		out.println(c + " : " + array.length);
+		out.println();
+		out.println(image.getHeight());
+		out.println(image.getTexture().getHeight());
+		out.println(image.getTextureHeight());
+		out.println(image.getTexture().getImageHeight());
+		out.println("----------------------------------------------------");
+
+		Image image2 = new Image("res/from_drago/dots.png");
+
+		out.println();
+		out.println(image2.getHeight());
+		out.println(image2.getTexture().getHeight());
+		out.println(image2.getTextureHeight());
+		out.println(image2.getTexture().getImageHeight());
+		out.println(image2.getTexture());
+		out.println(image2.getTexture().getTextureData().length);
+		out.println("----------------------------------------------------");
+		out.println();
+		out.println(currentFrame.getWidth());
+		out.println(currentFrame.getHeight());
+		out.println(currentFrame.getTexture().getHeight());
+		out.println(currentFrame.getTexture().getWidth());
+		out.println(currentFrame.getTextureHeight());
+		out.println(currentFrame.getTexture().getImageHeight());
+		out.println(currentFrame.getTexture().getTextureData().length);
+		out.println("----------------------------------------------------");
+		out.close();
+//		System.out.println();
+//		for (int i = 0; i < array.length; i++)
+//		{
+//			System.out.println(array[i]);
+//		}
+//
+//		System.out.println(array.length);
+
 	}
 
 }
