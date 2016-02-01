@@ -13,9 +13,20 @@ public final class TODO
 	 * Animation jump height adjustment
 	 * 
 	 * Increase Animation smoothing
-	 * 
 	 */
 	
 	private TODO() {}
+
+	/*
+	 * XXX Solutions:
+	 * 
+	 * Slow down speed to base
+	 * 
+	 * Change animation
+	 * 
+	 * Throw back
+	 * 
+	 * Blink (invulnerable for time)
+	 */
 
 }

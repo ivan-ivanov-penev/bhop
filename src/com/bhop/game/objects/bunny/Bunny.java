@@ -181,10 +181,17 @@ public class Bunny implements GameObject
 			
 			if (log.getImagePixelLocations().contains(new PixelLocation(x, y)))
 			{
-				sleep();
+				collide();
+
 				return;
 			}
 		}
+	}
+
+	private void collide()
+	{
+		movement.setToBaseSpeedFactor();
+		// sleep();
 	}
 
 	private void sleep()

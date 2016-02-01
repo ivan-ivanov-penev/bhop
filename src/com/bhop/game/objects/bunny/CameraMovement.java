@@ -46,6 +46,11 @@ public class CameraMovement
 		}
 	}
 	
+	void setToBaseSpeedFactor()
+	{
+		speedFactor = -MIN_SPEED_FACTOR;
+	}
+
 	float getSpeedFactor()
 	{
 		return speedFactor;
