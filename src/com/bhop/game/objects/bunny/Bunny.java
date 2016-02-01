@@ -2,11 +2,13 @@ package com.bhop.game.objects.bunny;
 
 import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
 import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
+import static com.bhop.game.objects.bunny.BunnyAnimation.*;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.GameObject;
+import com.bhop.game.objects.PixelLocation;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
 import com.bhop.game.objects.log.Log;
@@ -56,7 +58,7 @@ public class Bunny implements GameObject
 	@Override
 	public void render()
 	{
-		animation.draw(x, y, 96, 96);
+		animation.draw(x, y);
 	}
 
 	private void updateHeightPosition()
@@ -159,22 +161,45 @@ public class Bunny implements GameObject
 
 	private void checkForCollision(Log log)
 	{
-		if (x + animation.getImageWidth() * 0.5 > log.getX() && log.getX() > x)
+		if (imageCollision(log))
 		{
-//			if (y < log.getY() + log.getImage().getHeight() * 0.75)
-//			{
-//				System.out.println();
-//				System.out.println("collision");
-//				System.out.println();
-				try
-				{
-					Thread.sleep(150);
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-//			}
+			checkForPixelCollision(log);
+		}
+	}
+
+	private boolean imageCollision(Log log)
+	{
+		return x + IMAGE_WIDTH >= log.getX() && x <= log.getX() + Log.IMAGE_WIDTH && y <= log.getY() + Log.IMAGE_HEIGHT && y + IMAGE_HEIGHT >= log.getY();
+	}
+	
+	private void checkForPixelCollision(Log log)
+	{
+		for (PixelLocation location : animation.getCurrentFramePixelLocations())
+		{
+			int x = (int) (this.x + location.getX() - log.getX());
+			int y = (int) (this.y + location.getY() - log.getY());
+			
+			if (log.getImagePixelLocations().contains(new PixelLocation(x, y)))
+			{
+				sleep();
+				return;
+			}
+		}
+	}
+
+	private void sleep()
+	{
+		try
+		{
+			Thread.sleep(50);
+			
+//			System.exit(0);
+			
+//			System.out.println("COLLISION");
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
 		}
 	}
 

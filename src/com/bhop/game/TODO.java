@@ -6,13 +6,14 @@ public final class TODO
 	/*
 	 * TODO:
 	 * 
+	 * Think about what happens when Collision
+	 * 
+	 * Optimize pixel Location Set in ImageUtils
+	 * 
 	 * Animation jump height adjustment
 	 * 
-	 * Improve running animation slowest state
+	 * Increase Animation smoothing
 	 * 
-	 * Increase Animation smoothing by adding more frames in folder run
-	 * 
-	 * Consider adding singletons
 	 */
 	
 	private TODO() {}
