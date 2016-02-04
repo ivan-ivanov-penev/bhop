@@ -87,6 +87,7 @@ public class Bunny implements GameObject
 		}
 		else if (isOnTopOfAnObject())
 		{
+			movement.setRunning();
 			attemptRun(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
 		}
 		else
@@ -141,7 +142,7 @@ public class Bunny implements GameObject
 		
 		jump.decreaseNextJumpHeight();
 
-		movement.decreaseSpeedFactor();
+		movement.adjustMovementPattern();
 	}
 
 	private void fall()
@@ -190,24 +191,24 @@ public class Bunny implements GameObject
 
 	private void collide()
 	{
-		movement.setToBaseSpeedFactor();
+		movement.setHit();
 		// sleep();
 	}
 
-	private void sleep()
-	{
-		try
-		{
-			Thread.sleep(50);
-			
-//			System.exit(0);
-			
-//			System.out.println("COLLISION");
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	private void sleep()
+//	{
+//		try
+//		{
+//			Thread.sleep(50);
+//			
+////			System.exit(0);
+//			
+////			System.out.println("COLLISION");
+//		}
+//		catch (InterruptedException e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 
 }

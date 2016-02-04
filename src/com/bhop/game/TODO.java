@@ -6,7 +6,13 @@ public final class TODO
 	/*
 	 * TODO:
 	 * 
-	 * Think about what happens when Collision
+	 * Revert movement on hit (with physics)
+	 * 
+	 * Fall down mechanism (set gravity to 0)
+	 * 
+	 * Change animation
+	 * 
+	 * animation and background bug
 	 * 
 	 * Optimize pixel Location Set in ImageUtils
 	 * 
@@ -16,17 +22,5 @@ public final class TODO
 	 */
 	
 	private TODO() {}
-
-	/*
-	 * XXX Solutions:
-	 * 
-	 * Slow down speed to base
-	 * 
-	 * Change animation
-	 * 
-	 * Throw back
-	 * 
-	 * Blink (invulnerable for time)
-	 */
 
 }

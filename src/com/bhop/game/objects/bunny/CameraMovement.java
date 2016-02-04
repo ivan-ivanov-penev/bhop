@@ -16,6 +16,8 @@ public class CameraMovement
 
 	private float speedFactor;
 	
+	private boolean bunnyIsHit;
+
 	public static CameraMovement getInstance()
 	{
 		return INSTANCE;
@@ -36,19 +38,47 @@ public class CameraMovement
 		}
 	}
 
-	void decreaseSpeedFactor()
+	void adjustMovementPattern()
 	{
-		speedFactor -= SPEED_FACTOR_DECREMENT;
+		if (bunnyIsHit)
+		{
+			revertMovement();
+		}
+		else
+		{
+			decreaseSpeedFactor();
+		}
+	}
+
+	private void revertMovement()
+	{
+		speedFactor += SPEED_FACTOR_DECREMENT;
+
+		if (speedFactor > 0)
+		{
+			speedFactor = 0;
+		}
+	}
+
+	private void decreaseSpeedFactor()
+    {
+	    speedFactor -= SPEED_FACTOR_DECREMENT;
 
 		if (speedFactor < MIN_SPEED_FACTOR)
 		{
 			speedFactor = MIN_SPEED_FACTOR;
 		}
-	}
+    }
 	
-	void setToBaseSpeedFactor()
+	void setHit()
 	{
-		speedFactor = -MIN_SPEED_FACTOR;
+		bunnyIsHit = true;
+		speedFactor *= -1;
+	}
+
+	void setRunning()
+	{
+		bunnyIsHit = false;
 	}
 
 	float getSpeedFactor()
