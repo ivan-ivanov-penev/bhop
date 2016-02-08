@@ -25,6 +25,8 @@ class BunnyAnimation
 	private Map<Image, RunSpeedBoost> speedBoostsForFrame;
 
 	private Map<Image, Set<PixelLocation>> imagePixelLocations;
+	
+	private final Image[] hitImages;
 
 	private final Image[] jumpImages;
 	
@@ -32,12 +34,15 @@ class BunnyAnimation
 	
 	private Image currentFrame;
 	
+	private boolean bunnyIsHit;
+	
 	private int frameCounter;
 	
 	private int fps;
 
 	BunnyAnimation() throws SlickException
 	{
+		hitImages = GameUtils.createImageArrayFromDirectory("res/bunny/hit");
 		jumpImages = GameUtils.createImageArrayFromDirectory("res/bunny/jump");
 		runImages = GameUtils.createImageArrayFromDirectory("res/bunny/run");
 		currentFrame = runImages[0];
@@ -58,8 +63,9 @@ class BunnyAnimation
 	private void initializeImagePixelLocations()
 	{
 		imagePixelLocations = new HashMap<Image, Set<PixelLocation>>();
-		putPixelLocationsForImageInMap(runImages);
+		putPixelLocationsForImageInMap(hitImages);
 		putPixelLocationsForImageInMap(jumpImages);
+		putPixelLocationsForImageInMap(runImages);
 	}
 	
 	private void putPixelLocationsForImageInMap(Image[] imageArray)
@@ -93,8 +99,64 @@ class BunnyAnimation
 	void update(float gravityForce, float y, float speedFactor, boolean isOnTopOfAnObject) throws SlickException
 	{
 		adjustSpeed(speedFactor);
+		
+		if (bunnyIsHit)
+		{
+			preciseHitFrame(gravityForce, y);
+		}
+		else
+		{
+			preciseJumpFrame(gravityForce, y, isOnTopOfAnObject);
+		}
+	}
+	
+	private void adjustSpeed(float speedFactor)
+	{
+		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 1) + MIN_SPEED_FACTOR)
+		{
+			fps = 3;
+		}
+		else if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 2) + MIN_SPEED_FACTOR)
+		{
+			fps = 2;
+		}
+		else
+		{
+			fps = 1;
+		}
+	}
+	
+	private void preciseHitFrame(float gravityForce, float y)
+	{
+	    if (gravityForce < -6)
+		{
+			currentFrame = hitImages[0];
+		}
+		else if (gravityForce < -3)
+		{
+			currentFrame = hitImages[1];
+		}
+		else if (gravityForce < 2)
+		{
+			currentFrame = hitImages[2];
+		}
+		else if (gravityForce < 6)
+		{
+			currentFrame = hitImages[3];
+		}
+		else if (y > WINDOW_HEIGHT - 230)
+		{
+			currentFrame = hitImages[5];
+		}
+		else
+		{
+			currentFrame = hitImages[4];
+		}
+	}
 
-		if (gravityForce < -6)
+	private void preciseJumpFrame(float gravityForce, float y, boolean isOnTopOfAnObject)
+    {
+	    if (gravityForce < -6)
 		{
 			currentFrame = jumpImages[0];
 		}
@@ -122,23 +184,7 @@ class BunnyAnimation
 		{
 			currentFrame = jumpImages[4];
 		}
-	}
-	
-	private void adjustSpeed(float speedFactor)
-	{
-		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 1) + MIN_SPEED_FACTOR)
-		{
-			fps = 3;
-		}
-		else if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 2) + MIN_SPEED_FACTOR)
-		{
-			fps = 2;
-		}
-		else
-		{
-			fps = 1;
-		}
-	}
+    }
 
 	private void preciseLandSprite()
 	{
@@ -183,6 +229,16 @@ class BunnyAnimation
 	Set<PixelLocation> getCurrentFramePixelLocations()
 	{
 		return imagePixelLocations.get(currentFrame);
+	}
+	
+	void alertBunnyIsHit()
+	{
+		bunnyIsHit = true;
+	}
+	
+	void bunnyHasRecovered()
+	{
+		bunnyIsHit = false;
 	}
 
 }

@@ -3,6 +3,8 @@ package com.bhop.game.util;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.bhop.game.objects.bunny.CameraMovement;
+
 public abstract class GameObject
 {
 	
@@ -39,7 +41,7 @@ public abstract class GameObject
 	
 	public void move()
 	{
-		x += GameUtils.CAMERA_SPEED;
+		x += CameraMovement.CAMERA_SPEED;
 	}
 
 }

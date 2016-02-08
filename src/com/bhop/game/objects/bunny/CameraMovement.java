@@ -18,8 +18,6 @@ public class CameraMovement
 	
 	private boolean bunnyIsHit;
 	
-	private boolean needsToRevert;
-
 	public static CameraMovement getInstance()
 	{
 		return INSTANCE;
@@ -74,22 +72,7 @@ public class CameraMovement
 	{
 		float speed = CAMERA_SPEED * speedFactor;
 		
-		if (needsToRevert)
-		{
-			return - CAMERA_SPEED;
-		}
-		
-		return bunnyIsHit ? /*-speed * 0.4f*/ 0 : speed;
-	}
-	
-	void needsToRevert()
-	{
-		needsToRevert = true;
-	}
-	
-	void noLongerNeedsToRevert()
-	{
-		needsToRevert = false;
+		return bunnyIsHit ? speed * -0.8f : speed;
 	}
 
 	public static enum RunSpeedBoost

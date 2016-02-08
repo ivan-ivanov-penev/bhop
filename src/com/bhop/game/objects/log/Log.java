@@ -21,7 +21,7 @@ public class Log extends BasicGameObject
 	
 	private boolean isFalling;
 	
-	private float speed = 0.7f;
+	private float speed = 0.9f;
 
 	public Log() throws SlickException
 	{
