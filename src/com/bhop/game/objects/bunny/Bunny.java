@@ -87,7 +87,7 @@ public class Bunny implements GameObject
 		}
 		else if (isOnTopOfAnObject())
 		{
-			movement.setRunning();
+			physics.bunnyRecoveredFromHit();
 			attemptRun(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
 		}
 		else
@@ -142,7 +142,7 @@ public class Bunny implements GameObject
 		
 		jump.decreaseNextJumpHeight();
 
-		movement.adjustMovementPattern();
+		movement.decreaseSpeedFactor();
 	}
 
 	private void fall()
@@ -154,6 +154,8 @@ public class Bunny implements GameObject
 
 	private void collisionCheck()
 	{
+		movement.bunnyRecoveredFromHit();
+		
 		for (Log log : LogGenerator.getInstance().getAllLogs())
 		{
 			checkForCollision(log);
@@ -182,8 +184,17 @@ public class Bunny implements GameObject
 			
 			if (log.getImagePixelLocations().contains(new PixelLocation(x, y)))
 			{
+				movement.needsToRevert();
+			}
+			else
+			{
+//				movement.noLongerNeedsToRevert();
+			}
+			
+			if (log.getImagePixelLocations().contains(new PixelLocation(x + 1, y)))
+			{
 				collide();
-
+				
 				return;
 			}
 		}
@@ -191,7 +202,9 @@ public class Bunny implements GameObject
 
 	private void collide()
 	{
-		movement.setHit();
+		movement.alertBunnyIsHit();
+		jump.alertBunnyIsHit();
+		physics.alertBunnyIsHit();
 		// sleep();
 	}
 
@@ -200,10 +213,6 @@ public class Bunny implements GameObject
 //		try
 //		{
 //			Thread.sleep(50);
-//			
-////			System.exit(0);
-//			
-////			System.out.println("COLLISION");
 //		}
 //		catch (InterruptedException e)
 //		{

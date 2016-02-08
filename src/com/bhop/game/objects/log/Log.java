@@ -21,15 +21,15 @@ public class Log extends BasicGameObject
 	
 	private boolean isFalling;
 	
-	private float speed = 0.6f;
+	private float speed = 0.7f;
 
 	public Log() throws SlickException
 	{
 		super("res/obsticales/log4.png");
 		
 		x = GameUtils.WINDOW_WIDTH;
-		y = GameUtils.WINDOW_HEIGHT - 240;
-//		y = GameUtils.WINDOW_HEIGHT - 40;
+//		y = GameUtils.WINDOW_HEIGHT - 240;
+		y = GameUtils.WINDOW_HEIGHT - 40;
 		
 		imagePixelLocations = ImageUtils.getPixelsLocations(image);
 	}
@@ -52,15 +52,15 @@ public class Log extends BasicGameObject
 			isFalling = true;
 		}
 
-		if (y > GameUtils.WINDOW_HEIGHT - 240)
-		{
-			isFalling = false;
-		}
-
-//		if (y > GameUtils.WINDOW_HEIGHT - 40)
+//		if (y > GameUtils.WINDOW_HEIGHT - 240)
 //		{
 //			isFalling = false;
 //		}
+
+		if (y > GameUtils.WINDOW_HEIGHT - 40)
+		{
+			isFalling = false;
+		}
 	}
 	
 	public Set<PixelLocation> getImagePixelLocations()

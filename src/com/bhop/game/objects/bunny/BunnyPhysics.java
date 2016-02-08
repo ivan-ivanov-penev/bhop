@@ -5,12 +5,19 @@ class BunnyPhysics
 
 	private float gravityForce;
 
-	private static final float BASE_FORCE = 8;
+	private static final float BASE_FORCE = 8; // 8
 
 	private static final float FORCE_INCREMENTATION = 0.75f;
+	
+	private boolean bunnyIsHit;
 
 	void increaseGravityPullingForce()
 	{
+		if (bunnyIsHit && gravityForce < 0)
+		{
+			gravityForce = 0;
+		}
+		
 		gravityForce += FORCE_INCREMENTATION;
 	}
 
@@ -28,10 +35,20 @@ class BunnyPhysics
     {
 	    return gravityForce;
     }
+	
+	void alertBunnyIsHit()
+	{
+		bunnyIsHit = true;
+	}
+	
+	void bunnyRecoveredFromHit()
+	{
+		bunnyIsHit = false;
+	}
 
 	static class BunnyJump
 	{
-
+		
 		private static final float MAX_JUMP_COEFFICIENT = 2.2f;
 
 		private static final float MIN_JUMP_COEFFICIENT = 1.2f;
@@ -66,6 +83,11 @@ class BunnyPhysics
 		float getJumpHeight()
 		{
 			return jumpHeight;
+		}
+		
+		void alertBunnyIsHit()
+		{
+			jumpHeight = MIN_JUMP_COEFFICIENT;
 		}
 
 	}

@@ -38,7 +38,7 @@ public class LogGenerator implements GameObject
 
 	private void attemptToCreateLog() throws SlickException
 	{
-		if (random.nextInt(20) == 1)
+		if (random.nextInt(100) == 1)
 		{
 			if (logs.isEmpty())
 			{

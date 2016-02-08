@@ -17,6 +17,8 @@ public class CameraMovement
 	private float speedFactor;
 	
 	private boolean bunnyIsHit;
+	
+	private boolean needsToRevert;
 
 	public static CameraMovement getInstance()
 	{
@@ -38,46 +40,28 @@ public class CameraMovement
 		}
 	}
 
-	void adjustMovementPattern()
+	void decreaseSpeedFactor()
 	{
-		if (bunnyIsHit)
-		{
-			revertMovement();
-		}
-		else
-		{
-			decreaseSpeedFactor();
-		}
-	}
-
-	private void revertMovement()
-	{
-		speedFactor += SPEED_FACTOR_DECREMENT;
-
-		if (speedFactor > 0)
-		{
-			speedFactor = 0;
-		}
-	}
-
-	private void decreaseSpeedFactor()
-    {
 	    speedFactor -= SPEED_FACTOR_DECREMENT;
 
 		if (speedFactor < MIN_SPEED_FACTOR)
 		{
 			speedFactor = MIN_SPEED_FACTOR;
 		}
-    }
+	}
 	
-	void setHit()
+	void alertBunnyIsHit()
 	{
 		bunnyIsHit = true;
-		speedFactor *= -1;
 	}
 
-	void setRunning()
+	void bunnyRecoveredFromHit()
 	{
+		if (bunnyIsHit)
+		{
+			speedFactor = MIN_SPEED_FACTOR;
+		}
+		
 		bunnyIsHit = false;
 	}
 
@@ -88,7 +72,24 @@ public class CameraMovement
 
 	public float getMovementSpeed()
 	{
-		return CAMERA_SPEED * speedFactor;
+		float speed = CAMERA_SPEED * speedFactor;
+		
+		if (needsToRevert)
+		{
+			return - CAMERA_SPEED;
+		}
+		
+		return bunnyIsHit ? /*-speed * 0.4f*/ 0 : speed;
+	}
+	
+	void needsToRevert()
+	{
+		needsToRevert = true;
+	}
+	
+	void noLongerNeedsToRevert()
+	{
+		needsToRevert = false;
 	}
 
 	public static enum RunSpeedBoost
