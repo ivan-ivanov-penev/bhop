@@ -33,6 +33,8 @@ public class Bunny implements GameObject
 	private boolean hasToJump;
 
 	private RunSpeedBoost runSpeedBoost;
+	
+	private boolean isHit;
 
 	public Bunny() throws SlickException
 	{
@@ -191,29 +193,39 @@ public class Bunny implements GameObject
 				return;
 			}
 		}
+		
+		isHit = false;
 	}
 
 	private void collide()
 	{
 		movement.alertBunnyIsHit();
 		jump.alertBunnyIsHit();
-	    physics.setGravityToJumping(BunnyJump.MIN_JUMP_COEFFICIENT);
 	    animation.alertBunnyIsHit();
+	    
+	    if (!isHit)
+	    {
+	    	physics.setGravityToJumping(BunnyJump.MIN_JUMP_COEFFICIENT);
 
-	    updateHeightPosition();
-		// sleep();
+	    	updateHeightPosition();
+	    	
+	    	isHit = true;
+	    	
+//			sleep();
+	    }
+//		 sleep();
 	}
 
-//	private void sleep()
-//	{
-//		try
-//		{
-//			Thread.sleep(50);
-//		}
-//		catch (InterruptedException e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
+	void sleep()
+	{
+		try
+		{
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -42,7 +42,7 @@ class BunnyAnimation
 
 	BunnyAnimation() throws SlickException
 	{
-		hitImages = GameUtils.createImageArrayFromDirectory("res/bunny/hit");
+		hitImages = GameUtils.createImageArrayFromDirectory("res/bunny/hit_new");
 		jumpImages = GameUtils.createImageArrayFromDirectory("res/bunny/jump");
 		runImages = GameUtils.createImageArrayFromDirectory("res/bunny/run");
 		currentFrame = runImages[0];
@@ -128,6 +128,15 @@ class BunnyAnimation
 	
 	private void preciseHitFrame(float gravityForce, float y)
 	{
+//		try
+//        {
+//	        Thread.sleep(200);
+//        }
+//        catch (InterruptedException e)
+//        {
+//	        e.printStackTrace();
+//        }
+		
 	    if (gravityForce < -6)
 		{
 			currentFrame = hitImages[0];
@@ -136,21 +145,25 @@ class BunnyAnimation
 		{
 			currentFrame = hitImages[1];
 		}
-		else if (gravityForce < 2)
+		else if (gravityForce < -1)
 		{
 			currentFrame = hitImages[2];
 		}
-		else if (gravityForce < 6)
+		else if (gravityForce < 2)
 		{
 			currentFrame = hitImages[3];
 		}
-		else if (y > WINDOW_HEIGHT - 230)
+		else if (gravityForce < 5)
+		{
+			currentFrame = hitImages[4];
+		}
+		else if (gravityForce < 7)
 		{
 			currentFrame = hitImages[5];
 		}
-		else
+		else if (y > WINDOW_HEIGHT - 250)
 		{
-			currentFrame = hitImages[4];
+			currentFrame = hitImages[9];
 		}
 	}
 
