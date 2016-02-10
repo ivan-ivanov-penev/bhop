@@ -6,24 +6,21 @@ public final class TODO
 	/*
 	 * TODO:
 	 * 
-	 * On Collision:
-	 * - X axis movement changes
-	 * - Y axis physics changes
-	 * - Change animation
-	 * 
-	 * Refactor
+	 * Refactor code so far
 	 * 
 	 * Change FPS to 100 or 120
 	 * 
-	 * Optimize pixel Location Set in ImageUtils
-	 * 
 	 * Add background movement and Drago features
 	 * 
-	 * Increase FPS to 100
+	 * More time before ground disapears
+	 * 
+	 * Optimize pixel Location Set in ImageUtils
+	 * 
+	 * ???Collision animation changes???
 	 * 
 	 * Game balance
 	 * 
-	 * Increase Animation smoothing
+	 * ???Add more features???
 	 */
 	
 	private TODO() {}

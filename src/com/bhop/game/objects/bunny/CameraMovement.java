@@ -71,8 +71,9 @@ public class CameraMovement
 	public float getMovementSpeed()
 	{
 		float speed = CAMERA_SPEED * speedFactor;
+		float reverseSpeed = speedFactor == MIN_SPEED_FACTOR ? -1.2f : -0.8f;
 		
-		return bunnyIsHit ? speed * -0.8f : speed;
+		return bunnyIsHit ? speed * reverseSpeed : speed;
 	}
 
 	public static enum RunSpeedBoost

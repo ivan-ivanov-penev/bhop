@@ -30,9 +30,11 @@ public class Bunny implements GameObject
 
 	private final BunnyAnimation animation;
 
-	private boolean hasToJump;
-
 	private RunSpeedBoost runSpeedBoost;
+	
+	private CollisionChecker collisionChecker;
+
+	private boolean hasToJump;
 	
 	private boolean isHit;
 
@@ -42,6 +44,7 @@ public class Bunny implements GameObject
 		physics = new BunnyPhysics();
 		animation = new BunnyAnimation();
 		jump = new BunnyJump();
+		collisionChecker = new CollisionChecker();
 		x = WINDOW_WIDTH / 6;
 //		y = WINDOW_HEIGHT / 3;
 		y = WINDOW_HEIGHT - 215;
@@ -91,7 +94,7 @@ public class Bunny implements GameObject
 		{
 			animation.bunnyHasRecovered();
 			movement.bunnyRecoveredFromHit();
-//			physics.bunnyRecoveredFromHit();
+			
 			attemptRun(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
 		}
 		else
@@ -108,15 +111,20 @@ public class Bunny implements GameObject
 		{
 			jump.increaseNextJumpHeight();
 			
-			physics.setGravityToJumping(jump.getJumpHeight());
-			
-			updateHeightPosition();
-			
 			movement.increaseSpeedFactor(runSpeedBoost);
 			
-			hasToJump = false;
+			jump();
 		}
 	}
+
+	private void jump()
+    {
+	    hasToJump = false;
+	    
+	    physics.setGravityToJumping(jump.getJumpHeight());
+	    
+	    updateHeightPosition();
+    }
 
 	private void attemptRun(boolean buttonIsPressed) throws SlickException
 	{
@@ -158,23 +166,30 @@ public class Bunny implements GameObject
 
 	private void collisionCheck()
 	{
-//		movement.bunnyRecoveredFromHit();
+//		for (Log log : LogGenerator.getInstance().getAllLogs())
+//		{
+//			checkForCollision(log);
+//		}
 		
-		for (Log log : LogGenerator.getInstance().getAllLogs())
+		if (collisionChecker.collisionCheck(x, y, animation))
 		{
-			checkForCollision(log);
+			collide();
+		}
+		else
+		{
+			isHit = false;
 		}
 	}
 
 	private void checkForCollision(Log log)
 	{
-		if (imageCollision(log))
+		if (checkForImageCollision(log))
 		{
 			checkForPixelCollision(log);
 		}
 	}
 
-	private boolean imageCollision(Log log)
+	private boolean checkForImageCollision(Log log)
 	{
 		return x + IMAGE_WIDTH >= log.getX() && x <= log.getX() + Log.IMAGE_WIDTH && y <= log.getY() + Log.IMAGE_HEIGHT && y + IMAGE_HEIGHT >= log.getY();
 	}
@@ -199,21 +214,16 @@ public class Bunny implements GameObject
 
 	private void collide()
 	{
+	    animation.alertBunnyIsHit();
 		movement.alertBunnyIsHit();
 		jump.alertBunnyIsHit();
-	    animation.alertBunnyIsHit();
-	    
-	    if (!isHit)
-	    {
-	    	physics.setGravityToJumping(BunnyJump.MIN_JUMP_COEFFICIENT);
 
-	    	updateHeightPosition();
-	    	
+		if (!isHit)
+	    {
 	    	isHit = true;
 	    	
-//			sleep();
+	    	jump();
 	    }
-//		 sleep();
 	}
 
 	void sleep()
@@ -221,6 +231,7 @@ public class Bunny implements GameObject
 		try
 		{
 			Thread.sleep(500);
+			System.out.println(collisionChecker);
 		}
 		catch (InterruptedException e)
 		{

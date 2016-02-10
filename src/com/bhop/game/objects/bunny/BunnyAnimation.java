@@ -161,6 +161,10 @@ class BunnyAnimation
 		{
 			currentFrame = hitImages[5];
 		}
+		else if (y > WINDOW_HEIGHT - 230)
+		{
+			currentFrame = hitImages[10];
+		}
 		else if (y > WINDOW_HEIGHT - 250)
 		{
 			currentFrame = hitImages[9];
