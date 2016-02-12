@@ -12,9 +12,9 @@ public final class SingletonManager
 	private SingletonManager() {}
 	
 	@SuppressWarnings("unchecked")
-    public static <T extends Singleton>T createSingleotnIfMissingInMap(Class<T> clazz) throws Exception
+    public static <T extends Singleton>T createAndRegisterSingleotnIfMissingInMap(Class<T> clazz) throws Exception
 	{
-		if ((T) SINGLETONS.get(clazz) == null)
+		if (!SINGLETONS.containsKey(clazz))
 		{
 			Constructor<T> constructor =  clazz.getDeclaredConstructor();
 			
@@ -30,7 +30,7 @@ public final class SingletonManager
 	{
 		try
         {
-	        return createSingleotnIfMissingInMap(clazz);
+	        return createAndRegisterSingleotnIfMissingInMap(clazz);
         }
         catch (Exception e)
         {
@@ -40,13 +40,4 @@ public final class SingletonManager
         }
 	}
 	
-	public abstract static class Singleton
-	{
-		
-		protected Singleton(Class<?> clazz)
-		{
-			SINGLETONS.put(clazz, this);
-		}
-		
-	}
 }

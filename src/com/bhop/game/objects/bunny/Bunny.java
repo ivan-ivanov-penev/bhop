@@ -9,11 +9,11 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
+import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonManager;
-import com.bhop.game.util.singleton.SingletonManager.Singleton;
 
 // TODO: more refactoring after game is finished
-public class Bunny extends Singleton implements GameObject
+public class Bunny implements GameObject, Singleton
 {
 	
 	private float x;
@@ -38,12 +38,11 @@ public class Bunny extends Singleton implements GameObject
 
 	private Bunny() throws SlickException
 	{
-		super(Bunny.class);
-		movement = CameraMovement.getInstance();
+		movement = SingletonManager.getSingleton(CameraMovement.class);
+		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();
 		animation = new BunnyAnimation();
 		jump = new BunnyJump();
-		collisionChecker = SingletonManager.getSingleton(CollisionChecker.class);
 		x = WINDOW_WIDTH / 6;
 		y = WINDOW_HEIGHT - 215;
 	}

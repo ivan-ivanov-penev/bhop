@@ -5,6 +5,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.bunny.CameraMovement;
+import com.bhop.game.util.singleton.SingletonManager;
 
 public abstract class BasicGameObject implements GameObject
 {
@@ -19,7 +20,7 @@ public abstract class BasicGameObject implements GameObject
 
 	public BasicGameObject(String path) throws SlickException
 	{
-		movement = CameraMovement.getInstance();
+		movement = SingletonManager.getSingleton(CameraMovement.class);
 		image = new Image(path);
 	}
 

@@ -1,11 +1,11 @@
 package com.bhop.game.objects.bunny;
 
+import com.bhop.game.util.singleton.Singleton;
 
-public class CameraMovement extends BunnyIsHitEventWatcher
+
+public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 {
 	
-	private static final CameraMovement INSTANCE = new CameraMovement();
-
 	public static final float CAMERA_SPEED = 3.5f;
 
 	public static final float MAX_SPEED_FACTOR = 3.5f;
@@ -15,11 +15,6 @@ public class CameraMovement extends BunnyIsHitEventWatcher
 	private static final float SPEED_FACTOR_DECREMENT = 0.025f;
 
 	private float speedFactor;
-	
-	public static CameraMovement getInstance()
-	{
-		return INSTANCE;
-	}
 
 	private CameraMovement()
 	{

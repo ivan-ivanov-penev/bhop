@@ -9,9 +9,9 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.util.GameUtils;
-import com.bhop.game.util.singleton.SingletonManager.Singleton;
+import com.bhop.game.util.singleton.Singleton;
 
-public class LogGenerator extends Singleton implements GameObject
+public class LogGenerator implements GameObject, Singleton
 {
 
 	private final List<Log> logs;
@@ -20,8 +20,6 @@ public class LogGenerator extends Singleton implements GameObject
 
 	private LogGenerator()
 	{
-		super(LogGenerator.class);
-		
 		random = new Random();
 		logs = new ArrayList<Log>();
 	}
