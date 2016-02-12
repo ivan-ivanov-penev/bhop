@@ -12,7 +12,6 @@ import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonManager;
 
-// TODO: more refactoring after game is finished
 public class Bunny implements GameObject, Singleton
 {
 	
@@ -33,8 +32,6 @@ public class Bunny implements GameObject, Singleton
 	private final BunnyAnimation animation;
 
 	private final CollisionChecker collisionChecker;
-
-	private RunSpeedBoost runSpeedBoost;
 
 	private Bunny() throws SlickException
 	{
@@ -72,6 +69,7 @@ public class Bunny implements GameObject, Singleton
 	public void update(Input input) throws SlickException
 	{
 		collisionCheck();
+		
 		updateMovement(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
 		
 		animation.update(physics.getGravityForce(), y, movement.getSpeedFactor(), isOnTopOfAnObject());
@@ -83,8 +81,6 @@ public class Bunny implements GameObject, Singleton
 		{
 			BunnyIsHitEventWatcher.alertWatchersBunnyHasRecovered();
 			
-			physics.resetGravityFallingBaseForce();
-			
 			attemptRun(buttonIsPressed);
 		}
 		else
@@ -93,7 +89,23 @@ public class Bunny implements GameObject, Singleton
 		}
     }
 
-	private void attemptJump() throws SlickException
+	private void attemptRun(boolean buttonIsPressed) throws SlickException
+	{
+		RunSpeedBoost runSpeedBoost = animation.getSpeedBoost() == null ? RunSpeedBoost.MIN : animation.getSpeedBoost();
+
+		if (hasToJump || buttonIsPressed /* XXX && runSpeedBoost != null */)
+		{
+			hasToJump = true;
+
+			attemptJump(runSpeedBoost);
+		}
+		else
+		{
+			run();
+		}
+	}
+
+	private void attemptJump(RunSpeedBoost runSpeedBoost) throws SlickException
 	{
 		if (animation.isNotInTheAir())
 		{
@@ -114,25 +126,8 @@ public class Bunny implements GameObject, Singleton
 	    updateHeightPosition();
     }
 
-	private void attemptRun(boolean buttonIsPressed) throws SlickException
-	{
-		runSpeedBoost = animation.getSpeedBoost() == null ? RunSpeedBoost.MIN : animation.getSpeedBoost();
-
-		if (hasToJump || buttonIsPressed /* && runSpeedBoost != null */)
-		{
-			hasToJump = true;
-
-			attemptJump();
-		}
-		else
-		{
-			run();
-		}
-	}
-
 	private void run()
 	{
-		// XXX this might cause a bug in the future - consider moving it ot top of attemptRun
 		physics.resetGravityFallingBaseForce();
 		
 		jump.decreaseNextJumpHeight();
@@ -161,11 +156,11 @@ public class Bunny implements GameObject, Singleton
 
 	private void collide()
 	{
-		BunnyIsHitEventWatcher.alertWatchersBunnyIsHit();
-
 		if (!isHit)
 	    {
 	    	isHit = true;
+	    	
+			BunnyIsHitEventWatcher.alertWatchersBunnyIsHit();
 	    	
 	    	jump();
 	    }
