@@ -2,25 +2,27 @@ package com.bhop.game.objects.bunny;
 
 import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
 import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
-import static com.bhop.game.objects.bunny.BunnyAnimation.*;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.PixelLocation;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
-import com.bhop.game.objects.log.Log;
-import com.bhop.game.objects.log.LogGenerator;
+import com.bhop.game.util.singleton.SingletonManager;
+import com.bhop.game.util.singleton.SingletonManager.Singleton;
 
 // TODO: more refactoring after game is finished
-public class Bunny implements GameObject
+public class Bunny extends Singleton implements GameObject
 {
-
+	
 	private float x;
 
 	private float y;
+
+	private boolean hasToJump;
+	
+	private boolean isHit;
 
 	private final CameraMovement movement;
 
@@ -30,34 +32,20 @@ public class Bunny implements GameObject
 
 	private final BunnyAnimation animation;
 
+	private final CollisionChecker collisionChecker;
+
 	private RunSpeedBoost runSpeedBoost;
-	
-	private CollisionChecker collisionChecker;
 
-	private boolean hasToJump;
-	
-	private boolean isHit;
-
-	public Bunny() throws SlickException
+	private Bunny() throws SlickException
 	{
+		super(Bunny.class);
 		movement = CameraMovement.getInstance();
 		physics = new BunnyPhysics();
 		animation = new BunnyAnimation();
 		jump = new BunnyJump();
-		collisionChecker = new CollisionChecker();
+		collisionChecker = SingletonManager.getSingleton(CollisionChecker.class);
 		x = WINDOW_WIDTH / 6;
-//		y = WINDOW_HEIGHT / 3;
 		y = WINDOW_HEIGHT - 215;
-	}
-
-	public float getX()
-	{
-		return x;
-	}
-
-	public float getY()
-	{
-		return y;
 	}
 
 	@Override
@@ -69,15 +57,15 @@ public class Bunny implements GameObject
 	private void updateHeightPosition()
 	{
 		y += physics.getGravityForce();
-	}
 
-	private boolean isOnTopOfAnObject()
-	{
 		if (y > WINDOW_HEIGHT - 215)
 		{
 			y = WINDOW_HEIGHT - 215;
 		}
+	}
 
+	private boolean isOnTopOfAnObject()
+	{
 		return y == WINDOW_HEIGHT - 215;
 	}
 
@@ -85,35 +73,36 @@ public class Bunny implements GameObject
 	public void update(Input input) throws SlickException
 	{
 		collisionCheck();
+		updateMovement(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
+		
+		animation.update(physics.getGravityForce(), y, movement.getSpeedFactor(), isOnTopOfAnObject());
+	}
 
-		if (hasToJump)
+	private void updateMovement(boolean buttonIsPressed) throws SlickException
+    {
+	    if (isOnTopOfAnObject())
 		{
-			attemptJump();
-		}
-		else if (isOnTopOfAnObject())
-		{
-			animation.bunnyHasRecovered();
-			movement.bunnyRecoveredFromHit();
+			BunnyIsHitEventWatcher.alertWatchersBunnyHasRecovered();
 			
-			attemptRun(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
+			physics.resetGravityFallingBaseForce();
+			
+			attemptRun(buttonIsPressed);
 		}
 		else
 		{
 			fall();
 		}
-		
-		animation.update(physics.getGravityForce(), y, movement.getSpeedFactor(), isOnTopOfAnObject());
-	}
+    }
 
 	private void attemptJump() throws SlickException
 	{
 		if (animation.isNotInTheAir())
 		{
-			jump.increaseNextJumpHeight();
-			
 			movement.increaseSpeedFactor(runSpeedBoost);
 			
 			jump();
+			
+			jump.increaseNextJumpHeight();
 		}
 	}
 
@@ -128,14 +117,9 @@ public class Bunny implements GameObject
 
 	private void attemptRun(boolean buttonIsPressed) throws SlickException
 	{
-		runSpeedBoost = animation.getSpeedBoost();
+		runSpeedBoost = animation.getSpeedBoost() == null ? RunSpeedBoost.MIN : animation.getSpeedBoost();
 
-		if (runSpeedBoost == null)
-		{
-			runSpeedBoost = RunSpeedBoost.MIN;
-		}
-
-		if (buttonIsPressed /* && runSpeedBoost != null */)
+		if (hasToJump || buttonIsPressed /* && runSpeedBoost != null */)
 		{
 			hasToJump = true;
 
@@ -166,11 +150,6 @@ public class Bunny implements GameObject
 
 	private void collisionCheck()
 	{
-//		for (Log log : LogGenerator.getInstance().getAllLogs())
-//		{
-//			checkForCollision(log);
-//		}
-		
 		if (collisionChecker.collisionCheck(x, y, animation))
 		{
 			collide();
@@ -181,42 +160,9 @@ public class Bunny implements GameObject
 		}
 	}
 
-	private void checkForCollision(Log log)
-	{
-		if (checkForImageCollision(log))
-		{
-			checkForPixelCollision(log);
-		}
-	}
-
-	private boolean checkForImageCollision(Log log)
-	{
-		return x + IMAGE_WIDTH >= log.getX() && x <= log.getX() + Log.IMAGE_WIDTH && y <= log.getY() + Log.IMAGE_HEIGHT && y + IMAGE_HEIGHT >= log.getY();
-	}
-	
-	private void checkForPixelCollision(Log log)
-	{
-		for (PixelLocation location : animation.getCurrentFramePixelLocations())
-		{
-			int x = (int) (this.x + location.getX() - log.getX());
-			int y = (int) (this.y + location.getY() - log.getY());
-			
-			if (log.getImagePixelLocations().contains(new PixelLocation(x + 1, y)))
-			{
-				collide();
-				
-				return;
-			}
-		}
-		
-		isHit = false;
-	}
-
 	private void collide()
 	{
-	    animation.alertBunnyIsHit();
-		movement.alertBunnyIsHit();
-		jump.alertBunnyIsHit();
+		BunnyIsHitEventWatcher.alertWatchersBunnyIsHit();
 
 		if (!isHit)
 	    {
@@ -231,7 +177,6 @@ public class Bunny implements GameObject
 		try
 		{
 			Thread.sleep(500);
-			System.out.println(collisionChecker);
 		}
 		catch (InterruptedException e)
 		{

@@ -16,6 +16,8 @@ import com.bhop.game.objects.bunny.Bunny;
 import com.bhop.game.objects.ground.Ground;
 import com.bhop.game.objects.log.LogGenerator;
 
+import static com.bhop.game.util.singleton.SingletonManager.*;
+
 public class Play extends BasicGameState
 {
 	public static final int ID = 1;
@@ -28,8 +30,8 @@ public class Play extends BasicGameState
 		gameObjects = new ArrayList<GameObject>();
 		gameObjects.add(new Sky());
 		gameObjects.add(new Ground());
-		gameObjects.add(LogGenerator.getInstance());
-		gameObjects.add(new Bunny());
+		gameObjects.add(getSingleton(LogGenerator.class));
+		gameObjects.add(getSingleton(Bunny.class));
 	}
 
 	@Override

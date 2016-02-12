@@ -29,7 +29,7 @@ class BunnyPhysics
 	    return gravityForce;
     }
 
-	static class BunnyJump
+	static class BunnyJump extends BunnyIsHitEventWatcher
 	{
 		
 		static final float MAX_JUMP_COEFFICIENT = 2.2f;
@@ -68,7 +68,8 @@ class BunnyPhysics
 			return jumpHeight;
 		}
 		
-		void alertBunnyIsHit()
+		@Override
+		protected void alertBunnyIsHit()
 		{
 			jumpHeight = MIN_JUMP_COEFFICIENT;
 		}

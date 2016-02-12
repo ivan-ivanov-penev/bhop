@@ -1,7 +1,7 @@
 package com.bhop.game.objects.bunny;
 
 
-public class CameraMovement
+public class CameraMovement extends BunnyIsHitEventWatcher
 {
 	
 	private static final CameraMovement INSTANCE = new CameraMovement();
@@ -15,8 +15,6 @@ public class CameraMovement
 	private static final float SPEED_FACTOR_DECREMENT = 0.025f;
 
 	private float speedFactor;
-	
-	private boolean bunnyIsHit;
 	
 	public static CameraMovement getInstance()
 	{
@@ -47,13 +45,9 @@ public class CameraMovement
 			speedFactor = MIN_SPEED_FACTOR;
 		}
 	}
-	
-	void alertBunnyIsHit()
-	{
-		bunnyIsHit = true;
-	}
 
-	void bunnyRecoveredFromHit()
+	@Override
+	protected void bunnyHasRecovered()
 	{
 		if (bunnyIsHit)
 		{

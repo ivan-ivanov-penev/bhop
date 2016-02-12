@@ -10,6 +10,8 @@ public final class TODO
 	 * 
 	 * Change FPS to 100 or 120
 	 * 
+	 * Fix bug on collision double back jump
+	 * 
 	 * Add background movement and Drago features
 	 * 
 	 * More time before ground disapears

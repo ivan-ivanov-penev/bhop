@@ -6,13 +6,24 @@ import static com.bhop.game.objects.bunny.BunnyAnimation.IMAGE_WIDTH;
 import com.bhop.game.objects.PixelLocation;
 import com.bhop.game.objects.log.Log;
 import com.bhop.game.objects.log.LogGenerator;
+import com.bhop.game.util.singleton.SingletonManager;
+import com.bhop.game.util.singleton.SingletonManager.Singleton;
 
-public class CollisionChecker
+public class CollisionChecker extends Singleton
 {
+	
+	private final LogGenerator logGenerator;
+	
+	private CollisionChecker()
+	{
+		super(CollisionChecker.class);
+		
+		logGenerator = SingletonManager.getSingleton(LogGenerator.class);
+	}
 
 	public boolean collisionCheck(float bunnyX, float bunnyY, BunnyAnimation animation)
 	{
-		for (Log log : LogGenerator.getInstance().getAllLogs())
+		for (Log log : logGenerator.getAllLogs())
 		{
 			if (checkForCollision(log, bunnyX, bunnyY, animation))
 			{

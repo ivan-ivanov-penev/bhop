@@ -15,7 +15,7 @@ import com.bhop.game.util.ImageUtils;
 
 import static com.bhop.game.objects.bunny.CameraMovement.*;
 
-class BunnyAnimation
+class BunnyAnimation extends BunnyIsHitEventWatcher
 {
 	
 	public static final int IMAGE_WIDTH = 96;
@@ -33,8 +33,6 @@ class BunnyAnimation
 	private final Image[] runImages;
 	
 	private Image currentFrame;
-	
-	private boolean bunnyIsHit;
 	
 	private int frameCounter;
 	
@@ -246,16 +244,6 @@ class BunnyAnimation
 	Set<PixelLocation> getCurrentFramePixelLocations()
 	{
 		return imagePixelLocations.get(currentFrame);
-	}
-	
-	void alertBunnyIsHit()
-	{
-		bunnyIsHit = true;
-	}
-	
-	void bunnyHasRecovered()
-	{
-		bunnyIsHit = false;
 	}
 
 }
