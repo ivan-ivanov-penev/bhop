@@ -47,7 +47,7 @@ public class LogGenerator implements GameObject, Singleton
 
 	private void clearLogsOutsideScrren()
 	{
-		if (!logs.isEmpty() && logs.get(0).getX() < -100)
+		if (!logs.isEmpty() && logs.get(0).getX() < -GameUtils.WINDOW_WIDTH * 2)
 		{
 			logs.remove(0);
 		}

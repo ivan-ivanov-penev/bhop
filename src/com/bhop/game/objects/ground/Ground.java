@@ -10,8 +10,9 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.objects.BasicGameObject;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.util.GameUtils;
+import com.bhop.game.util.singleton.Singleton;
 
-public class Ground implements GameObject
+public class Ground implements GameObject, Singleton
 {
 	
 	private class GroundPiece extends BasicGameObject
@@ -43,13 +44,13 @@ public class Ground implements GameObject
 	
 	private final int imageWidth;
 	
-	public Ground() throws SlickException
+	private Ground() throws SlickException
 	{
 		imageWidth = new Image(GroundPiece.IMAGE_PATH).getWidth();
 		
 		groundPieces = new ArrayList<>();
 		
-		for (int i = 0; i < GameUtils.WINDOW_WIDTH / imageWidth + 2; i++)
+		for (int i = 0; i < GameUtils.WINDOW_WIDTH / imageWidth + 5; i++)
 		{
 			groundPieces.add(new GroundPiece());
 		}
@@ -71,7 +72,7 @@ public class Ground implements GameObject
 		
 		for (GroundPiece groundPiece : groundPieces)
 		{
-			groundPiece.update(null);
+			groundPiece.update(input);
 		}
 	}
 	

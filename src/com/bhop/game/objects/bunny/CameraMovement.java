@@ -62,7 +62,12 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 		float speed = CAMERA_SPEED * speedFactor;
 		float reverseSpeed = speedFactor == MIN_SPEED_FACTOR ? -1.2f : -0.8f;
 		
-		return bunnyIsHit ? speed * reverseSpeed : speed;
+		return bunnyIsHit ? speed * reverseSpeed: speed;
+	}
+	
+	public float getMovementSpeedOnly()
+	{
+		return bunnyIsHit ? -CAMERA_SPEED : CAMERA_SPEED;
 	}
 
 	public static enum RunSpeedBoost

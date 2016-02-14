@@ -1,6 +1,7 @@
 package com.bhop.game.util;
 
 import java.io.File;
+import java.util.Calendar;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -30,6 +31,35 @@ public final class GameUtils
 		}
 
 		return animation;
+	}
+	
+	public static Image getImageAccordingToTimePeriod(String path) throws SlickException
+	{
+		int hoursOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		
+		if (hoursOfDay > 5 && hoursOfDay < 12)
+		{
+			return new Image(path + "dawn.png");
+		}
+		
+		if (hoursOfDay < 20)
+		{
+			return new Image(path + "day.png");
+		}
+		
+		return new Image(path + "night.png");
+		
+//		if (hoursOfDay > 5 && hoursOfDay < 12)
+//		{
+//			return new Image(path + "dawn.png");
+//		}
+//		
+//		if (hoursOfDay < 20)
+//		{
+//			return new Image(path + "day.png");
+//		}
+//		
+//		return new Image(path + "night.png");
 	}
 
 }

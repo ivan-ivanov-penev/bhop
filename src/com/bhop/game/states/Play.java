@@ -10,7 +10,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.bhop.game.environment.Sky;
+import com.bhop.game.environment.BackgroundGenerator;
+import com.bhop.game.environment.CloudGenerator;
+import com.bhop.game.environment.LightObject;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.Bunny;
 import com.bhop.game.objects.ground.Ground;
@@ -28,8 +30,10 @@ public class Play extends BasicGameState
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		gameObjects = new ArrayList<GameObject>();
-		gameObjects.add(new Sky());
-		gameObjects.add(new Ground());
+		gameObjects.add(getSingleton(BackgroundGenerator.class));
+		gameObjects.add(getSingleton(LightObject.class));
+		gameObjects.add(getSingleton(CloudGenerator.class));
+		gameObjects.add(getSingleton(Ground.class));
 		gameObjects.add(getSingleton(LogGenerator.class));
 		gameObjects.add(getSingleton(Bunny.class));
 	}

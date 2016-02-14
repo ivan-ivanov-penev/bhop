@@ -126,15 +126,6 @@ class BunnyAnimation extends BunnyIsHitEventWatcher
 	
 	private void preciseHitFrame(float gravityForce, float y)
 	{
-//		try
-//        {
-//	        Thread.sleep(200);
-//        }
-//        catch (InterruptedException e)
-//        {
-//	        e.printStackTrace();
-//        }
-		
 	    if (gravityForce < -6)
 		{
 			currentFrame = hitImages[0];
