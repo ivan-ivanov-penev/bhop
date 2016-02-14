@@ -17,7 +17,7 @@ public final class GameUtils
 
 	public static final String GAME_NAME = "BHop";
 	
-	public static final int FPS = 60;
+	public static final int FPS = 120;
 
 	public static Image[] createImageArrayFromDirectory(String directoryName) throws SlickException
 	{
@@ -48,18 +48,6 @@ public final class GameUtils
 		}
 		
 		return new Image(path + "night.png");
-		
-//		if (hoursOfDay > 5 && hoursOfDay < 12)
-//		{
-//			return new Image(path + "dawn.png");
-//		}
-//		
-//		if (hoursOfDay < 20)
-//		{
-//			return new Image(path + "day.png");
-//		}
-//		
-//		return new Image(path + "night.png");
 	}
 
 }

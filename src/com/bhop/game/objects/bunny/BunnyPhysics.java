@@ -7,7 +7,7 @@ class BunnyPhysics
 
 	private static final float BASE_FORCE = 8;
 
-	private static final float FORCE_INCREMENTATION = 0.75f;
+	private static final float FORCE_INCREMENTATION = 0.325f;
 	
 	void increaseGravityPullingForce()
 	{
@@ -16,7 +16,7 @@ class BunnyPhysics
 
 	void setGravityToJumping(float jumpHeight)
 	{
-		gravityForce = -(BASE_FORCE * jumpHeight * 1.2f);
+		gravityForce = -(BASE_FORCE * jumpHeight);
 	}
 
 	void resetGravityFallingBaseForce()
@@ -32,11 +32,11 @@ class BunnyPhysics
 	static class BunnyJump extends BunnyIsHitEventWatcher
 	{
 		
-		static final float MAX_JUMP_COEFFICIENT = 2.2f;
+		static final float MAX_JUMP_COEFFICIENT = 1.8f;
 
-		static final float MIN_JUMP_COEFFICIENT = 1.2f;
+		static final float MIN_JUMP_COEFFICIENT = 1.0f;
 
-		private static final float JUMP_COEFFICIENT_INCREMENT = 0.2f;
+		private static final float JUMP_COEFFICIENT_INCREMENT = 0.15f;
 
 		private static final float JUMP_COEFFICIENT_DECREMENT = 0.025f;
 

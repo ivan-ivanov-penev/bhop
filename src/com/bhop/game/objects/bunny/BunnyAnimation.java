@@ -112,15 +112,15 @@ class BunnyAnimation extends BunnyIsHitEventWatcher
 	{
 		if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 1) + MIN_SPEED_FACTOR)
 		{
-			fps = 3;
+			fps = 6;
 		}
 		else if (speedFactor < ((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 3 * 2) + MIN_SPEED_FACTOR)
 		{
-			fps = 2;
+			fps = 5;
 		}
 		else
 		{
-			fps = 1;
+			fps = 4;
 		}
 	}
 	
