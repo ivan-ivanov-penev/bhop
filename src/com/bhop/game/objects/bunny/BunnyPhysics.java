@@ -32,13 +32,13 @@ class BunnyPhysics
 	static class BunnyJump extends BunnyIsHitEventWatcher
 	{
 		
-		static final float MAX_JUMP_COEFFICIENT = 1.8f;
+		static final float MAX_JUMP_COEFFICIENT = 1.0f;
 
 		static final float MIN_JUMP_COEFFICIENT = 1.0f;
 
-		private static final float JUMP_COEFFICIENT_INCREMENT = 0.15f;
+		private static final float JUMP_COEFFICIENT_INCREMENT = 0.1f;
 
-		private static final float JUMP_COEFFICIENT_DECREMENT = 0.025f;
+		private static final float JUMP_COEFFICIENT_DECREMENT = 0.002f;
 
 		private float jumpHeight;
 
@@ -49,17 +49,21 @@ class BunnyPhysics
 
 		void increaseNextJumpHeight()
 		{
-			if (jumpHeight < MAX_JUMP_COEFFICIENT)
+			jumpHeight += JUMP_COEFFICIENT_INCREMENT;
+			
+			if (jumpHeight > MAX_JUMP_COEFFICIENT)
 			{
-				jumpHeight += JUMP_COEFFICIENT_INCREMENT;
+				jumpHeight = MAX_JUMP_COEFFICIENT;
 			}
 		}
 
 		void decreaseNextJumpHeight()
 		{
-			if (jumpHeight > MIN_JUMP_COEFFICIENT)
+			jumpHeight -= JUMP_COEFFICIENT_DECREMENT;
+			
+			if (jumpHeight < MIN_JUMP_COEFFICIENT)
 			{
-				jumpHeight -= JUMP_COEFFICIENT_DECREMENT;
+				jumpHeight = MIN_JUMP_COEFFICIENT;
 			}
 		}
 

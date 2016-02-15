@@ -2,6 +2,7 @@ package com.bhop.game.objects.log;
 
 import java.util.Set;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -28,10 +29,10 @@ public class Log extends BasicGameObject
 		super("res/obsticales/log4.png");
 		
 		x = GameUtils.WINDOW_WIDTH;
-//		y = GameUtils.WINDOW_HEIGHT - 240;
-		y = GameUtils.WINDOW_HEIGHT - 40;
+		y = GameUtils.WINDOW_HEIGHT - 200; // 240
+//		y = GameUtils.WINDOW_HEIGHT - 40;
 		
-		imagePixelLocations = ImageUtils.getPixelsLocations(image);
+		imagePixelLocations = ImageUtils.getPixelsLocations(new Image("res/obsticales/log4collision.png"));
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class Log extends BasicGameObject
 			isFalling = true;
 		}
 
-//		if (y > GameUtils.WINDOW_HEIGHT - 240)
+//		if (y > GameUtils.WINDOW_HEIGHT - 200) // 240
 //		{
 //			isFalling = false;
 //		}

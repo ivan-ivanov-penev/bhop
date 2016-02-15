@@ -158,6 +158,8 @@ public class Bunny implements GameObject, Singleton
 	{
 		if (!isHit)
 	    {
+			sleep();
+			
 	    	isHit = true;
 	    	
 			BunnyIsHitEventWatcher.alertWatchersBunnyIsHit();

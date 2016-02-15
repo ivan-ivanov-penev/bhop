@@ -1,6 +1,6 @@
 package com.bhop.game.objects.bunny;
 
-import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
+import static com.bhop.game.util.GameUtils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.PixelLocation;
-import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.ImageUtils;
 
 import static com.bhop.game.objects.bunny.CameraMovement.*;
@@ -40,9 +39,9 @@ class BunnyAnimation extends BunnyIsHitEventWatcher
 
 	BunnyAnimation() throws SlickException
 	{
-		hitImages = GameUtils.createImageArrayFromDirectory("res/bunny/hit_new");
-		jumpImages = GameUtils.createImageArrayFromDirectory("res/bunny/jump");
-		runImages = GameUtils.createImageArrayFromDirectory("res/bunny/run");
+		hitImages = createImageArrayFromDirectory("res/bunny/hit_new");
+		jumpImages = createImageArrayFromDirectory("res/bunny/jump");
+		runImages = createImageArrayFromDirectory("res/bunny/run");
 		currentFrame = runImages[0];
 		fps = 3;
 
@@ -58,19 +57,19 @@ class BunnyAnimation extends BunnyIsHitEventWatcher
 		speedBoostsForFrame.put(runImages[5], RunSpeedBoost.MIN);
 	}
 
-	private void initializeImagePixelLocations()
+	private void initializeImagePixelLocations() throws SlickException
 	{
 		imagePixelLocations = new HashMap<Image, Set<PixelLocation>>();
-		putPixelLocationsForImageInMap(hitImages);
-		putPixelLocationsForImageInMap(jumpImages);
-		putPixelLocationsForImageInMap(runImages);
+		putPixelLocationsForImageInMap(hitImages, createImageArrayFromDirectory("res/bunny/collision/hit"));
+		putPixelLocationsForImageInMap(jumpImages, createImageArrayFromDirectory("res/bunny/collision/jump"));
+		putPixelLocationsForImageInMap(runImages, createImageArrayFromDirectory("res/bunny/collision/run"));
 	}
 	
-	private void putPixelLocationsForImageInMap(Image[] imageArray)
-	{
-		for (Image image : imageArray)
+	private void putPixelLocationsForImageInMap(Image[] realImageArray, Image[] collisionImageArray)
+	{ 
+		for (int i = 0; i < collisionImageArray.length; i++)
 		{
-			imagePixelLocations.put(image, ImageUtils.getPixelsLocations(image));
+			imagePixelLocations.put(realImageArray[i], ImageUtils.getPixelsLocations(collisionImageArray[i]));
 		}
 	}
 
@@ -170,11 +169,11 @@ class BunnyAnimation extends BunnyIsHitEventWatcher
 		{
 			currentFrame = jumpImages[1];
 		}
-		else if (gravityForce < 2)
+		else if (gravityForce < 0)
 		{
 			currentFrame = jumpImages[2];
 		}
-		else if (gravityForce < 6)
+		else if (gravityForce < 3)
 		{
 			currentFrame = jumpImages[3];
 		}
@@ -219,7 +218,7 @@ class BunnyAnimation extends BunnyIsHitEventWatcher
 	
 	boolean isNotInTheAir()
 	{
-		return currentFrame.equals(runImages[1]) && frameCounter == fps;
+		return /*(currentFrame.equals(runImages[1]) || currentFrame.equals(runImages[0])) &&*/ frameCounter == fps;
 	}
 
 	RunSpeedBoost getSpeedBoost()

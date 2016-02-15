@@ -27,11 +27,11 @@ public class CloudGenerator extends Generator implements Singleton
 	@Override
 	protected GeneratedObject createGeneratedObject(float x) throws SlickException
 	{
-		float random = (float)(Math.random() + 0.3);
+//		float random = (float)(Math.random() + 0.3);
+//		
+//		x = x > -WINDOW_WIDTH ? -WINDOW_WIDTH : x; 
 		
-		x = x > -WINDOW_WIDTH ? x - WINDOW_WIDTH : x; 
-		
-		return new Cloud(x * random);
+		return new Cloud(x /* random*/);
 	}
 	
 	@Override

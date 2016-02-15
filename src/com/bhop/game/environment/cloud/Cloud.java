@@ -22,7 +22,7 @@ class Cloud extends GeneratedObject
 	{
 		cameraSpeed *= cameraSpeed > 0 ? -1 : 1;
 		
-		super.update(cameraSpeed * 200);
+		super.update(cameraSpeed * 2);
 	}
 	
 	@Override

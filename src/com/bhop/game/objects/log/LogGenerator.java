@@ -38,7 +38,7 @@ public class LogGenerator implements GameObject, Singleton
 			{
 				logs.add(new Log());
 			}
-			else if (logs.get(logs.size() - 1).getX() < GameUtils.WINDOW_WIDTH - 200)
+			else if (logs.get(logs.size() - 1).getX() < GameUtils.WINDOW_WIDTH - 400)
 			{
 				logs.add(new Log());
 			}

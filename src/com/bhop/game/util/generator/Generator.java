@@ -44,7 +44,7 @@ public abstract class Generator implements GameObject
 		
 		for (GeneratedObject object : generatedObjects)
 		{
-			object.update(movement.getMovementSpeedOnly());
+			object.update(movement.getCameraSpeed());
 		}
 	}
 

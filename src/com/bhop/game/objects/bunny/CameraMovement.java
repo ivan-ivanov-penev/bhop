@@ -6,9 +6,9 @@ import com.bhop.game.util.singleton.Singleton;
 public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 {
 	
-	public static final float CAMERA_SPEED = 1.5f;
+	public static final float CAMERA_SPEED = 2f;
 
-	public static final float MAX_SPEED_FACTOR = 3.5f;
+	public static final float MAX_SPEED_FACTOR = 3.0f;
 
 	public static final float MIN_SPEED_FACTOR = 1;
 
@@ -60,12 +60,12 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 	public float getMovementSpeed()
 	{
 		float speed = CAMERA_SPEED * speedFactor;
-		float reverseSpeed = speedFactor == MIN_SPEED_FACTOR ? -1.2f : -0.8f;
+		float reverseSpeed = speedFactor < MIN_SPEED_FACTOR * 1.5 ? -1.5f : -1f;
 		
 		return bunnyIsHit ? speed * reverseSpeed: speed;
 	}
 	
-	public float getMovementSpeedOnly()
+	public float getCameraSpeed()
 	{
 		return bunnyIsHit ? -CAMERA_SPEED : CAMERA_SPEED;
 	}
@@ -73,9 +73,9 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 	public static enum RunSpeedBoost
 	{
 
-		MAX(0.83f),
-		AVERAGE(0.625f),
-		MIN(0.5f);
+		MAX(0.667f),
+		AVERAGE(0.5f),
+		MIN(0.4f);
 
 		private final float speedFactor;
 

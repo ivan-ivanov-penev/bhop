@@ -53,7 +53,7 @@ public class CollisionChecker
 			int x = (int) (bunnyX + location.getX() - log.getX());
 			int y = (int) (bunnyY + location.getY() - log.getY());
 			
-			if (log.getImagePixelLocations().contains(new PixelLocation(x + 1, y)))
+			if (log.getImagePixelLocations().contains(new PixelLocation(x, y)))
 			{
 				return true;
 			}
