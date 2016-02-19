@@ -23,7 +23,7 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 
 	void increaseSpeedFactor(RunSpeedBoost runSpeedBoost)
 	{
-		speedFactor += runSpeedBoost.speedFactor;
+		speedFactor += runSpeedBoost.getSpeedFactor();
 
 		if (speedFactor > MAX_SPEED_FACTOR)
 		{
@@ -82,6 +82,11 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 		{
 			this.speedFactor = speedFactor;
 		}
+		
+		private float getSpeedFactor()
+        {
+	        return speedFactor;
+        }
 
 	}
 

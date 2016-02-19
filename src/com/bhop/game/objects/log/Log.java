@@ -34,7 +34,7 @@ public class Log extends BasicGameObject implements Collidable
 		setXWithoutCarrotCollision(carrot);
 		
 		y = WINDOW_HEIGHT - 200;
-//		y = GameUtils.WINDOW_HEIGHT - 40;
+//		y = WINDOW_HEIGHT - 40;
 		
 		imagePixelLocations = ImageUtils.getPixelsLocations(new Image("res/obsticales/log4collision.png"));
 	}

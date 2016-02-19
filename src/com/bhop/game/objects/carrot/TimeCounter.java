@@ -56,7 +56,7 @@ public class TimeCounter implements GameObject
 	
 	void setTimeLeft(float x)
 	{
-		secondsLeft = (int) (x / (CAMERA_SPEED * FPS));
+		secondsLeft = (int) (x / (CAMERA_SPEED * FPS * 1.8f));
 	}
 
 }
