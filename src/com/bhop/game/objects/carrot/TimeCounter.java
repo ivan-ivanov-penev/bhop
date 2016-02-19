@@ -50,13 +50,13 @@ public class TimeCounter implements GameObject
 	{
 		if (secondsLeft < 0)
 		{
-			System.exit(0);
+//			System.exit(0);
 		}
 	}
 	
 	void setTimeLeft(float x)
 	{
-		secondsLeft += (int) (x / (CAMERA_SPEED * FPS));
+		secondsLeft = (int) (x / (CAMERA_SPEED * FPS));
 	}
 
 }

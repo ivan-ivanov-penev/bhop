@@ -1,6 +1,6 @@
 package com.bhop.game;
 
-public final class TODO
+final class TODO
 {
 	
 	/*

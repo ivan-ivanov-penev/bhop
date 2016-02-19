@@ -14,7 +14,7 @@ public class CarrotGenerator implements GameObject, Singleton
 	
 	private final TimeCounter timeCounter;
 	
-	private final DistanceIncrementFactorManager distanceIncrementFactorManager;
+	private final DistanceIncrementFactor distanceIncrementFactor;
 	
 	private final Image carrotImage;
 	
@@ -25,10 +25,15 @@ public class CarrotGenerator implements GameObject, Singleton
 	private CarrotGenerator() throws SlickException
 	{
 		timeCounter = new TimeCounter();
-		distanceIncrementFactorManager = new DistanceIncrementFactorManager();
+		distanceIncrementFactor = new DistanceIncrementFactor(WINDOW_WIDTH * 1.5f);
 		carrotImage = new Image("res/carrot/carrot_icon.png");
 		carrot = new Carrot(WINDOW_WIDTH - carrotImage.getWidth());
 	}
+	
+	public Carrot getCarrot()
+    {
+	    return carrot;
+    }
 	
 	public void alertBunnyTookCarrot() throws SlickException
 	{
@@ -40,7 +45,7 @@ public class CarrotGenerator implements GameObject, Singleton
 	private void spawnNewCarrot() throws SlickException
 	{
 //		float x = 10000;
-		float x = carrot.getSpawnX() * distanceIncrementFactorManager.getSpawDistanceIncrementFactor();
+		float x = distanceIncrementFactor.getNextCarrotSpawnDistance();
 		
 		carrot = new Carrot(x);
 		timeCounter.setTimeLeft(x);
@@ -81,45 +86,14 @@ public class CarrotGenerator implements GameObject, Singleton
 		FONT_TYPE.drawString(x + carrotImage.getWidth() - 32, y + 32, " x " + carrotCounter);
 	}
 	
-	public Carrot getCarrot()
-    {
-	    return carrot;
-    }
-	
-	private static class DistanceIncrementFactorManager
-	{
-
-		private float numerator;
-
-		private float denominator;
-		
-		public DistanceIncrementFactorManager()
-        {
-			numerator = 1f;
-			denominator = 0f;
-        }
-		
-		public float getSpawDistanceIncrementFactor()
-        {
-			numerator += 1;
-			denominator += 1;
-			
-	        return numerator / denominator;
-        }
-		
-	}
 	 // TODO: delete this method
 	public static void main(String[] args)
     {
-		DistanceIncrementFactorManager d = new DistanceIncrementFactorManager();
-		
-		float x = WINDOW_WIDTH;
+		DistanceIncrementFactor d = new DistanceIncrementFactor(WINDOW_WIDTH * 1.5f);
 		
 	    for (int i = 0; i < 999; i++)
         {
-	        x = d.getSpawDistanceIncrementFactor() * x;
-	        
-			System.out.println(x);
+			System.out.println(d.getNextCarrotSpawnDistance());
         }
     }
 
