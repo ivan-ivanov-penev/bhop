@@ -1,5 +1,7 @@
 package com.bhop.game.states;
 
+import static com.bhop.game.util.singleton.SingletonManager.getSingleton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +18,9 @@ import com.bhop.game.environment.background.BackgroundGenerator;
 import com.bhop.game.environment.cloud.CloudGenerator;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.Bunny;
+import com.bhop.game.objects.carrot.CarrotGenerator;
 import com.bhop.game.objects.ground.Ground;
 import com.bhop.game.objects.log.LogGenerator;
-
-import static com.bhop.game.util.singleton.SingletonManager.*;
 
 public class Play extends BasicGameState
 {
@@ -38,6 +39,7 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(Ground.class));
 		gameObjects.add(getSingleton(LogGenerator.class));
 		gameObjects.add(getSingleton(Bunny.class));
+		gameObjects.add(getSingleton(CarrotGenerator.class));
 	}
 
 	@Override

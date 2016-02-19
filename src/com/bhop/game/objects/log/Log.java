@@ -8,10 +8,11 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.BasicGameObject;
 import com.bhop.game.objects.PixelLocation;
+import com.bhop.game.objects.bunny.Collidable;
 import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.ImageUtils;
 
-public class Log extends BasicGameObject
+public class Log extends BasicGameObject implements Collidable
 {
 	
 	public static final int IMAGE_WIDTH = 64;
@@ -26,11 +27,11 @@ public class Log extends BasicGameObject
 
 	public Log() throws SlickException
 	{
-		super("res/obsticales/log4.png");
+		super("res/obsticales/log9.png");
 		
 		x = GameUtils.WINDOW_WIDTH;
-		y = GameUtils.WINDOW_HEIGHT - 200; // 240
-//		y = GameUtils.WINDOW_HEIGHT - 40;
+//		y = GameUtils.WINDOW_HEIGHT - 200; // 240
+		y = GameUtils.WINDOW_HEIGHT - 40;
 		
 		imagePixelLocations = ImageUtils.getPixelsLocations(new Image("res/obsticales/log4collision.png"));
 	}

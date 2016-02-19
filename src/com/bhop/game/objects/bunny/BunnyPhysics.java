@@ -38,7 +38,7 @@ class BunnyPhysics
 
 		private static final float JUMP_COEFFICIENT_INCREMENT = 0.1f;
 
-		private static final float JUMP_COEFFICIENT_DECREMENT = 0.002f;
+		private static final float JUMP_COEFFICIENT_DECREMENT = 0.004f;
 
 		private float jumpHeight;
 

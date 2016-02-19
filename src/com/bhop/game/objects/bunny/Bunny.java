@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
+import com.bhop.game.objects.bunny.animation.BunnyAnimation;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonManager;
 
@@ -93,7 +94,7 @@ public class Bunny implements GameObject, Singleton
 	{
 		RunSpeedBoost runSpeedBoost = animation.getSpeedBoost() == null ? RunSpeedBoost.MIN : animation.getSpeedBoost();
 
-		if (hasToJump || buttonIsPressed /* XXX && runSpeedBoost != null */)
+		if (hasToJump || buttonIsPressed /* && runSpeedBoost != null */)
 		{
 			hasToJump = true;
 
@@ -142,9 +143,9 @@ public class Bunny implements GameObject, Singleton
 		updateHeightPosition();
 	}
 
-	private void collisionCheck()
+	private void collisionCheck() throws SlickException
 	{
-		if (collisionChecker.collisionCheck(x, y, animation))
+		if (collisionChecker.checkForCollision(x, y, animation))
 		{
 			collide();
 		}
@@ -158,8 +159,6 @@ public class Bunny implements GameObject, Singleton
 	{
 		if (!isHit)
 	    {
-			sleep();
-			
 	    	isHit = true;
 	    	
 			BunnyIsHitEventWatcher.alertWatchersBunnyIsHit();

@@ -6,15 +6,17 @@ public final class TODO
 	/*
 	 * TODO:
 	 * 
-	 * Change FPS to 100 or 120
+	 * Carrot spawn algorithm
+	 * 
+	 * Carrot animation
+	 * 
+	 * Carrot catch animation
+	 * 
+	 * Game balance
 	 * 
 	 * Add background movement and Drago features
 	 * 
-	 * Optimize pixel Location Set in ImageUtils
-	 * 
 	 * ???Collision animation changes???
-	 * 
-	 * Game balance
 	 * 
 	 * ???Add more features???
 	 */

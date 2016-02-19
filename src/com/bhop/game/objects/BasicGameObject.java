@@ -50,5 +50,15 @@ public abstract class BasicGameObject implements GameObject
 	{
 		x -= movement.getMovementSpeed();
 	}
+	
+	public int getImageWidth()
+	{
+		return image.getWidth();
+	}
+	
+	public int getImageHeight()
+	{
+		return image.getHeight();
+	}
 
 }

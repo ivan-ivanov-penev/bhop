@@ -1,15 +1,19 @@
 package com.bhop.game.util;
 
+import java.awt.Font;
 import java.io.File;
 import java.util.Calendar;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 
 public final class GameUtils
 {
 
 	private GameUtils() {}
+	
+	public static final TrueTypeFont FONT_TYPE = new TrueTypeFont(new Font("Verdana", Font.ITALIC, 30), true);;
 
 	public static final int WINDOW_WIDTH = 640;
 	
@@ -22,7 +26,7 @@ public final class GameUtils
 	public static Image[] createImageArrayFromDirectory(String directoryName) throws SlickException
 	{
 		File[] allImages = new File(directoryName).listFiles();
-		
+
 		Image[] animation = new Image[allImages.length];
 
 		for (int i = 0; i < allImages.length; i++)

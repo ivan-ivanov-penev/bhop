@@ -6,7 +6,7 @@ import com.bhop.game.util.singleton.Singleton;
 public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 {
 	
-	public static final float CAMERA_SPEED = 2f;
+	public static final float CAMERA_SPEED = 2.0f;
 
 	public static final float MAX_SPEED_FACTOR = 3.0f;
 
@@ -73,8 +73,7 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 	public static enum RunSpeedBoost
 	{
 
-		MAX(0.667f),
-		AVERAGE(0.5f),
+		MAX(1.25f),
 		MIN(0.4f);
 
 		private final float speedFactor;
