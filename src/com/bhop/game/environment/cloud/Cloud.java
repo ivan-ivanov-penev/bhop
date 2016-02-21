@@ -12,7 +12,7 @@ class Cloud extends GeneratedObject
 
 	Cloud(float x) throws SlickException
 	{
-		super(x, "res/backgrounds_new/clouds/");
+		super(x, "res/backgrounds/clouds/");
 		
 		y = (float) (Math.random() * 120);
 	}

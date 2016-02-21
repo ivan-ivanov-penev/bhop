@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.PixelLocation;
 import com.bhop.game.objects.bunny.BunnyIsHitEventWatcher;
+import com.bhop.game.states.Menu;
 import com.bhop.game.util.ImageUtils;
 
 import static com.bhop.game.objects.bunny.CameraMovement.*;
@@ -21,6 +22,8 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	public static final int IMAGE_WIDTH = 96;
 	
 	public static final int IMAGE_HEIGHT = 96;
+	
+	private static int runAnimationIndex;
 
 	private Map<Image, RunSpeedBoost> speedBoostsForFrame;
 
@@ -32,6 +35,8 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	
 	private final Image[] runImages;
 	
+	private final Image death;
+	
 	private final FrameCounter frameCounter;
 	
 	private final SpriteManager spriteManager;
@@ -40,12 +45,13 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 
 	public BunnyAnimation() throws SlickException
 	{
-		hitImages = createImageArrayFromDirectory("res/bunny/hit_new");
-		jumpImages = createImageArrayFromDirectory("res/bunny/jump");
-		runImages = createImageArrayFromDirectory("res/bunny/run");
+		hitImages = createImageArrayFromDirectory("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/hit");
+		jumpImages = createImageArrayFromDirectory("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/jump");
+		runImages = createImageArrayFromDirectory("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/run");
+		death = new Image("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/death.png");
 		frameCounter = new FrameCounter();
 		spriteManager = new SpriteManager();
-		currentFrame = runImages[0];
+		currentFrame = runImages[runAnimationIndex];
 
 		initializeSpeedBoostsForFrame();
 		initializeImagePixelLocations();
@@ -85,6 +91,10 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 		if (bunnyIsHit)
 		{
 			spriteManager.preciseHitFrame(gravityForce, y);
+		}
+		else if (gameEnded && frameCounter.animationHasEnded())
+		{
+			currentFrame = death;
 		}
 		else
 		{
@@ -139,11 +149,11 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 			}
 			else if (y > WINDOW_HEIGHT - 230)
 			{
-				currentFrame = hitImages[10];
+				currentFrame = hitImages[7];
 			}
 			else if (y > WINDOW_HEIGHT - 250)
 			{
-				currentFrame = hitImages[9];
+				currentFrame = hitImages[6];
 			}
 		}
 
@@ -197,9 +207,13 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 			{
 				if (currentFrame.equals(runImages[i]))
 				{
+					runAnimationIndex = i + 1;
+					
 					return runImages[i + 1];
 				}
 			}
+			
+			runAnimationIndex = 0;
 			
 			return runImages[0];
 		}

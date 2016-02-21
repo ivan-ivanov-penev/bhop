@@ -7,7 +7,9 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.singleton.Singleton;
+import com.bhop.game.util.singleton.SingletonClass;
 
+@SingletonClass
 public class LightObject implements Singleton, GameObject
 {
 	
@@ -15,7 +17,7 @@ public class LightObject implements Singleton, GameObject
 	
 	public LightObject() throws SlickException
 	{
-		image = GameUtils.getImageAccordingToTimePeriod("res/backgrounds_new/light_objects/");
+		image = GameUtils.getImageAccordingToTimePeriod("res/backgrounds/light_objects/");
 	}
 
 	@Override

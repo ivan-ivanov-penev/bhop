@@ -4,17 +4,26 @@ import java.awt.Font;
 import java.io.File;
 import java.util.Calendar;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
+
+import com.bhop.game.objects.BasicGameObject;
 
 public final class GameUtils
 {
 
 	private GameUtils() {}
 	
-	public static final TrueTypeFont FONT_TYPE = new TrueTypeFont(new Font("Verdana", Font.ITALIC, 30), true);;
+	public static final Color BLACK = new Color(0, 0, 0);
+	
+	public static final Color RED = new Color(255, 0, 0);
+	
+	public static final String FONT_TYPE = "Verdana";
 
+    public static final int STYLE = Font.ITALIC;
+	
 	public static final int WINDOW_WIDTH = 640;
 	
 	public static final int WINDOW_HEIGHT = 480;
@@ -52,6 +61,35 @@ public final class GameUtils
 		}
 		
 		return new Image(path + "night.png");
+	}
+	
+	public static boolean mouseIsOverImage(Input input, Image image, float imageX, float imageY)
+	{
+		int mouseX = input.getMouseX();
+		int mouseY = input.getMouseY();
+		
+		boolean horizontalCheck = mouseX > imageX && mouseX < imageX + image.getWidth();
+		boolean verticalCheck = mouseY > imageY && mouseY < imageY + image.getHeight();
+		
+		return horizontalCheck && verticalCheck;
+	}
+	
+	public static boolean mouseIsOverImage(Input input, BasicGameObject gameObject)
+	{
+		return mouseIsOverImage(input, gameObject.getImage(), gameObject.getX(), gameObject.getY());
+	}
+	 
+	// TODO: delete this method
+	public static void sleep()
+	{
+		try
+		{
+			Thread.sleep(100);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 }

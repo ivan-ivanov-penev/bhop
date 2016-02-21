@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.PixelLocation;
 import com.bhop.game.objects.bunny.animation.BunnyAnimation;
-import com.bhop.game.objects.carrot.CarrotGenerator;
+import com.bhop.game.objects.carrot.CarrotManager;
 import com.bhop.game.objects.log.LogGenerator;
 import com.bhop.game.util.singleton.SingletonManager;
 
@@ -16,12 +16,12 @@ public class CollisionChecker
 	
 	private final LogGenerator logGenerator;
 	
-	private final CarrotGenerator carrotGenerator;
+	private final CarrotManager carrotGenerator;
 	
 	CollisionChecker()
 	{
 		logGenerator = SingletonManager.getSingleton(LogGenerator.class);
-		carrotGenerator = SingletonManager.getSingleton(CarrotGenerator.class);
+		carrotGenerator = SingletonManager.getSingleton(CarrotManager.class);
 	}
 
 	public boolean checkForCollision(float bunnyX, float bunnyY, BunnyAnimation animation) throws SlickException

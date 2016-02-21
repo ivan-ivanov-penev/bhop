@@ -17,17 +17,13 @@ public class Carrot extends BasicGameObject implements Collidable
 	
 	private final Set<PixelLocation> pixelLocations;
 	
-	private final float spawnX;
-
 	Carrot(float x) throws SlickException
     {
 	    super("res/carrot/carrot.png");
 
-	    this.spawnX = x;
 	    this.x = x;
 		this.y = GameUtils.WINDOW_HEIGHT - 200;
-		
-		pixelLocations = ImageUtils.getPixelsLocations(image);
+		this.pixelLocations = ImageUtils.getPixelsLocations(image);
     }
 
 	@Override
@@ -36,12 +32,7 @@ public class Carrot extends BasicGameObject implements Collidable
 	    return pixelLocations;
     }
 	
-	float getSpawnX()
-    {
-	    return spawnX;
-    }
-	
-	void resetX()
+	void setX(float spawnX)
 	{
 		if (spawnX < WINDOW_WIDTH)
 		{

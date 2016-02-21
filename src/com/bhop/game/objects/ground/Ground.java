@@ -11,14 +11,16 @@ import com.bhop.game.objects.BasicGameObject;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.singleton.Singleton;
+import com.bhop.game.util.singleton.SingletonClass;
 
+@SingletonClass
 public class Ground implements GameObject, Singleton
 {
 	
 	private class GroundPiece extends BasicGameObject
 	{
 		
-		private static final String IMAGE_PATH = "res/grass4.png";
+		private static final String IMAGE_PATH = "res/ground/day.png";
 		
 		public GroundPiece() throws SlickException
 		{
@@ -47,7 +49,6 @@ public class Ground implements GameObject, Singleton
 	private Ground() throws SlickException
 	{
 		imageWidth = new Image(GroundPiece.IMAGE_PATH).getWidth();
-		
 		groundPieces = new ArrayList<>();
 		
 		for (int i = 0; i < GameUtils.WINDOW_WIDTH / imageWidth + 5; i++)

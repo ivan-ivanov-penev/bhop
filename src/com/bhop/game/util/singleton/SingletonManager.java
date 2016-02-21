@@ -40,4 +40,9 @@ public final class SingletonManager
         }
 	}
 	
+	public static void clearSingletons()
+	{
+		SINGLETONS.clear();
+	}
+	
 }

@@ -16,7 +16,7 @@ public abstract class BasicGameObject implements GameObject
 	
 	protected float y;
 	
-	protected CameraMovement movement;
+	protected final CameraMovement movement;
 
 	public BasicGameObject(String path) throws SlickException
 	{

@@ -18,15 +18,25 @@ import com.bhop.game.environment.background.BackgroundGenerator;
 import com.bhop.game.environment.cloud.CloudGenerator;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.Bunny;
-import com.bhop.game.objects.carrot.CarrotGenerator;
+import com.bhop.game.objects.carrot.CarrotManager;
+import com.bhop.game.objects.gameinformation.AgainButton;
+import com.bhop.game.objects.gameinformation.GameInformation;
 import com.bhop.game.objects.ground.Ground;
 import com.bhop.game.objects.log.LogGenerator;
+import com.bhop.game.objects.timecounter.TimeCounter;
 
 public class Play extends BasicGameState
 {
 	public static final int ID = 1;
 	
 	private List<GameObject> gameObjects;
+	
+	private static boolean playerWantsToRestart;
+	
+	public Play()
+	{
+		playerWantsToRestart = false;
+	}
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
@@ -39,7 +49,10 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(Ground.class));
 		gameObjects.add(getSingleton(LogGenerator.class));
 		gameObjects.add(getSingleton(Bunny.class));
-		gameObjects.add(getSingleton(CarrotGenerator.class));
+		gameObjects.add(getSingleton(CarrotManager.class));
+		gameObjects.add(getSingleton(GameInformation.class));
+		gameObjects.add(getSingleton(TimeCounter.class));
+		gameObjects.add(getSingleton(AgainButton.class));
 	}
 
 	@Override
@@ -55,6 +68,7 @@ public class Play extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		checkForExitGame(container);
+		enterMenuStateIfPlayerWantsToRestart(game);
 
 		for (GameObject gameObject : gameObjects)
 		{
@@ -75,4 +89,22 @@ public class Play extends BasicGameState
 			container.exit();
 		}
 	}
+	
+	private void enterMenuStateIfPlayerWantsToRestart(StateBasedGame game) throws SlickException
+	{
+		if (playerWantsToRestart)
+		{
+			gameObjects.clear();
+			
+			game.addState(new Menu());
+			game.getState(Menu.ID).init(game.getContainer(), game);
+			game.enterState(Menu.ID);
+		}
+	}
+	
+	public static void alertPlayerWantsToRestart()
+	{
+		playerWantsToRestart = true;
+	}
+	
 }

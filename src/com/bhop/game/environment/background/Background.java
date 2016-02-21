@@ -9,7 +9,7 @@ public class Background extends GeneratedObject
 	
 	Background(float x) throws SlickException
 	{
-		super(x, "res/backgrounds_new/");
+		super(x, "res/backgrounds/landscapes/");
 	}
 	
 }

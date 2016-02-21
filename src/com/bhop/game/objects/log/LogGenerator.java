@@ -8,11 +8,13 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.carrot.CarrotGenerator;
+import com.bhop.game.objects.carrot.CarrotManager;
 import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.singleton.Singleton;
+import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
 
+@SingletonClass
 public class LogGenerator implements GameObject, Singleton
 {
 
@@ -20,13 +22,13 @@ public class LogGenerator implements GameObject, Singleton
 
 	private final Random random;
 	
-	private final CarrotGenerator carrotGenerator;
+	private final CarrotManager carrotGenerator;
 
 	private LogGenerator()
 	{
 		random = new Random();
 		logs = new ArrayList<Log>();
-		carrotGenerator = SingletonManager.getSingleton(CarrotGenerator.class);
+		carrotGenerator = SingletonManager.getSingleton(CarrotManager.class);
 	}
 
 	public void manage() throws SlickException
@@ -37,7 +39,7 @@ public class LogGenerator implements GameObject, Singleton
 
 	private void attemptToCreateLog() throws SlickException
 	{
-		if (random.nextInt(40) == 1)
+		if (carrotGenerator.gameHasBegan() && random.nextInt(40) == 1)
 		{
 			if (logs.isEmpty())
 			{

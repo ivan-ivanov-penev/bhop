@@ -10,10 +10,13 @@ import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.objects.bunny.CameraMovement.RunSpeedBoost;
 import com.bhop.game.objects.bunny.animation.BunnyAnimation;
+import com.bhop.game.objects.timecounter.GameEndWatcher;
 import com.bhop.game.util.singleton.Singleton;
+import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
 
-public class Bunny implements GameObject, Singleton
+@SingletonClass
+public class Bunny extends GameEndWatcher implements GameObject, Singleton
 {
 	
 	private float x;
@@ -36,6 +39,7 @@ public class Bunny implements GameObject, Singleton
 
 	private Bunny() throws SlickException
 	{
+		
 		movement = SingletonManager.getSingleton(CameraMovement.class);
 		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();
@@ -71,7 +75,7 @@ public class Bunny implements GameObject, Singleton
 	{
 		collisionCheck();
 		
-		updateMovement(input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE));
+		updateMovement(!gameEnded && (input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE)));
 		
 		animation.update(physics.getGravityForce(), y, movement.getSpeedFactor(), isOnTopOfAnObject());
 	}
@@ -145,7 +149,7 @@ public class Bunny implements GameObject, Singleton
 
 	private void collisionCheck() throws SlickException
 	{
-		if (collisionChecker.checkForCollision(x, y, animation))
+		if (!gameEnded && collisionChecker.checkForCollision(x, y, animation))
 		{
 			collide();
 		}
@@ -165,18 +169,6 @@ public class Bunny implements GameObject, Singleton
 	    	
 	    	jump();
 	    }
-	}
-
-	void sleep()
-	{
-		try
-		{
-			Thread.sleep(1000);
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 }

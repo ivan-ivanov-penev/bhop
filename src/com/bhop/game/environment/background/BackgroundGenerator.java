@@ -5,7 +5,9 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.util.generator.GeneratedObject;
 import com.bhop.game.util.generator.Generator;
 import com.bhop.game.util.singleton.Singleton;
+import com.bhop.game.util.singleton.SingletonClass;
 
+@SingletonClass
 public class BackgroundGenerator extends Generator implements Singleton
 {
 	

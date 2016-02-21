@@ -29,14 +29,14 @@ public class Log extends BasicGameObject implements Collidable
 
 	public Log(Carrot carrot) throws SlickException
 	{
-		super("res/obsticales/log9.png");
+		super("res/obsticales/log.png");
 		
 		setXWithoutCarrotCollision(carrot);
 		
 		y = WINDOW_HEIGHT - 200;
 //		y = WINDOW_HEIGHT - 40;
 		
-		imagePixelLocations = ImageUtils.getPixelsLocations(new Image("res/obsticales/log4collision.png"));
+		imagePixelLocations = ImageUtils.getPixelsLocations(new Image("res/obsticales/log_collision.png"));
 	}
 
 	private void setXWithoutCarrotCollision(Carrot carrot)
