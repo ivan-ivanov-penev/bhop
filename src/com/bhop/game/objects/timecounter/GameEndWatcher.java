@@ -1,31 +1,25 @@
 package com.bhop.game.objects.timecounter;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public abstract class GameEndWatcher
+public final class GameEndWatcher
 {
 	
-	protected boolean gameEnded;
+	private static boolean gameEnd = false;
 	
-	private static final Set<GameEndWatcher> WATCHERS = new HashSet<GameEndWatcher>();
+	private GameEndWatcher() {}
 	
-	protected GameEndWatcher()
+	static void alertGameHasEnded()
 	{
-		WATCHERS.add(this);
+		gameEnd = true;
 	}
 	
-	static void alertWatchersGameHasEnded()
+	public static boolean isGameEnd()
 	{
-		for (GameEndWatcher watcher : WATCHERS)
-		{
-			watcher.gameEnded = true;
-		}
+		return gameEnd;
 	}
 	
-	public static void clearWatchers()
+	public static void restartGame()
 	{
-		WATCHERS.clear();
+		gameEnd = false;
 	}
 
 }

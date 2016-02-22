@@ -15,6 +15,7 @@ import com.bhop.game.states.Menu;
 import com.bhop.game.util.ImageUtils;
 
 import static com.bhop.game.objects.bunny.CameraMovement.*;
+import static com.bhop.game.objects.timecounter.GameEndWatcher.isGameEnd;
 
 public class BunnyAnimation extends BunnyIsHitEventWatcher
 {
@@ -45,10 +46,10 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 
 	public BunnyAnimation() throws SlickException
 	{
-		hitImages = createImageArrayFromDirectory("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/hit");
-		jumpImages = createImageArrayFromDirectory("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/jump");
-		runImages = createImageArrayFromDirectory("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/run");
-		death = new Image("res/bunny/" + Menu.getPlayerSelectedBunnyColor().getColorName() + "/death.png");
+		hitImages = createImageArrayFromDirectory("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/hit");
+		jumpImages = createImageArrayFromDirectory("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/jump");
+		runImages = createImageArrayFromDirectory("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/run");
+		death = new Image("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/death.png");
 		frameCounter = new FrameCounter();
 		spriteManager = new SpriteManager();
 		currentFrame = runImages[runAnimationIndex];
@@ -92,7 +93,7 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 		{
 			spriteManager.preciseHitFrame(gravityForce, y);
 		}
-		else if (gameEnded && frameCounter.animationHasEnded())
+		else if (isGameEnd()/* && frameCounter.animationHasEnded()*/)
 		{
 			currentFrame = death;
 		}

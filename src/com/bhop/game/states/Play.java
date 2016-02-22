@@ -1,6 +1,7 @@
 package com.bhop.game.states;
 
 import static com.bhop.game.util.singleton.SingletonManager.getSingleton;
+import static com.bhop.game.util.GameUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import com.bhop.game.objects.gameinformation.AgainButton;
 import com.bhop.game.objects.gameinformation.GameInformation;
 import com.bhop.game.objects.ground.Ground;
 import com.bhop.game.objects.log.LogGenerator;
+import com.bhop.game.objects.timecounter.GameEndWatcher;
 import com.bhop.game.objects.timecounter.TimeCounter;
 
 public class Play extends BasicGameState
@@ -58,10 +60,7 @@ public class Play extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
-		for (GameObject gameObject : gameObjects)
-		{
-			gameObject.render();
-		}
+		renderGameObjects(gameObjects);
 	}
 
 	@Override
@@ -69,11 +68,14 @@ public class Play extends BasicGameState
 	{
 		checkForExitGame(container);
 		enterMenuStateIfPlayerWantsToRestart(game);
-
-		for (GameObject gameObject : gameObjects)
+		
+		if (GameEndWatcher.isGameEnd())
 		{
-			gameObject.update(container.getInput());
+			getSingleton(AgainButton.class).update(container.getInput());
+			return;
 		}
+
+		updateGameObjects(gameObjects, container.getInput());
 	}
 
 	@Override

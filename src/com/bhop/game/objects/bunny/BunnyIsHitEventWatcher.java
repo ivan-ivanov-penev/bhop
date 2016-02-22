@@ -3,9 +3,7 @@ package com.bhop.game.objects.bunny;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.bhop.game.objects.timecounter.GameEndWatcher;
-
-public abstract class BunnyIsHitEventWatcher extends GameEndWatcher
+public abstract class BunnyIsHitEventWatcher
 {
 	
 	private static final Set<BunnyIsHitEventWatcher> WATCHERS = new HashSet<BunnyIsHitEventWatcher>();

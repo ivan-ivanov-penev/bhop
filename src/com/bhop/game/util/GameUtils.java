@@ -3,6 +3,7 @@ package com.bhop.game.util;
 import java.awt.Font;
 import java.io.File;
 import java.util.Calendar;
+import java.util.Collection;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -10,6 +11,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.objects.BasicGameObject;
+import com.bhop.game.objects.GameObject;
 
 public final class GameUtils
 {
@@ -77,6 +79,22 @@ public final class GameUtils
 	public static boolean mouseIsOverImage(Input input, BasicGameObject gameObject)
 	{
 		return mouseIsOverImage(input, gameObject.getImage(), gameObject.getX(), gameObject.getY());
+	}
+	
+	public static void updateGameObjects(Collection<GameObject> gameObjects, Input input) throws SlickException
+	{
+		for (GameObject gameObject : gameObjects)
+		{
+			gameObject.update(input);
+		}
+	}
+	
+	public static void renderGameObjects(Collection<GameObject> gameObjects) throws SlickException
+	{
+		for (GameObject gameObject : gameObjects)
+		{
+			gameObject.render();
+		}
 	}
 	 
 	// TODO: delete this method

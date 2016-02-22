@@ -1,6 +1,7 @@
 package com.bhop.game.objects.gameinformation;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.objects.timecounter.GameEndWatcher.*;
 
 import java.awt.Font;
 
@@ -10,13 +11,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
 import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.timecounter.GameEndWatcher;
 import com.bhop.game.states.Play;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
 @SingletonClass
-public class AgainButton extends GameEndWatcher implements GameObject, Singleton
+public class AgainButton implements GameObject, Singleton
 {
 	
 	private final Image image;
@@ -39,7 +39,7 @@ public class AgainButton extends GameEndWatcher implements GameObject, Singleton
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		if (gameEnded && mouseIsOverImage(input, image, x, y) && input.isMousePressed(0))
+		if (isGameEnd() && mouseIsOverImage(input, image, x, y) && input.isMousePressed(0))
 		{
 			Play.alertPlayerWantsToRestart();
 		}
@@ -48,7 +48,7 @@ public class AgainButton extends GameEndWatcher implements GameObject, Singleton
 	@Override
 	public void render() throws SlickException
 	{
-		if (gameEnded)
+		if (isGameEnd())
 		{
 			image.draw(x, y);
 			fontType.drawString(x + image.getWidth() / 7, y + image.getHeight() / 5, "Again?", BLACK);

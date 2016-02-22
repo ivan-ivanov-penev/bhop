@@ -9,15 +9,15 @@ import org.newdawn.slick.TrueTypeFont;
 import com.bhop.game.highscore.HighScoreManager;
 import com.bhop.game.objects.GameObject;
 import com.bhop.game.objects.carrot.CarrotManager;
-import com.bhop.game.objects.timecounter.GameEndWatcher;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
 
+import static com.bhop.game.objects.timecounter.GameEndWatcher.isGameEnd;
 import static com.bhop.game.util.GameUtils.*;
 
 @SingletonClass
-public class GameInformation extends GameEndWatcher implements GameObject, Singleton
+public class GameInformation implements GameObject, Singleton
 {
 
 	private final CarrotManager carrotManager;
@@ -47,7 +47,7 @@ public class GameInformation extends GameEndWatcher implements GameObject, Singl
 	@Override
 	public void render() throws SlickException
 	{
-		if (!carrotManager.gameHasBegan() && !gameEnded)
+		if (!carrotManager.gameHasBegan() && !isGameEnd())
 		{
 			fontType.drawString(WINDOW_WIDTH / 10, WINDOW_HEIGHT / 5, gameInformationFirstLine, RED);
 			fontType.drawString(WINDOW_WIDTH / 10 + 20, WINDOW_HEIGHT / 3, gameInformationSecondLine, RED);
@@ -60,7 +60,7 @@ public class GameInformation extends GameEndWatcher implements GameObject, Singl
 			fontType.drawString(WINDOW_WIDTH / 7, WINDOW_HEIGHT / 5, "You've just unlocked bonus color for bunny!", RED);
 		}
 		
-		if (gameEnded)
+		if (isGameEnd())
 		{
 			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 5, "Your current score: " + carrotManager.getCarrotCounter(), RED);
 			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 3, "Your highest score: " + highScoreManager.getHighScore(), RED);

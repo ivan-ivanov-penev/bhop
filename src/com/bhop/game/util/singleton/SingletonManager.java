@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bhop.game.objects.bunny.BunnyIsHitEventWatcher.*;
+
 public final class SingletonManager
 {
 	
@@ -43,6 +45,8 @@ public final class SingletonManager
 	public static void clearSingletons()
 	{
 		SINGLETONS.clear();
+		
+		clearWatchers();
 	}
 	
 }

@@ -1,6 +1,8 @@
 package com.bhop.game.states;
 
 import static com.bhop.game.util.singleton.SingletonManager.*;
+import static com.bhop.game.objects.timecounter.GameEndWatcher.*;
+import static com.bhop.game.util.GameUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,10 @@ import com.bhop.game.environment.Sky;
 import com.bhop.game.environment.background.BackgroundGenerator;
 import com.bhop.game.environment.cloud.CloudGenerator;
 import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.bunny.BunnyIsHitEventWatcher;
 import com.bhop.game.objects.bunny.DummyBunny;
 import com.bhop.game.objects.coloroptions.ColorOptionManager;
 import com.bhop.game.objects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.objects.ground.Ground;
-import com.bhop.game.objects.timecounter.GameEndWatcher;
 
 public class Menu extends BasicGameState
 {
@@ -40,9 +40,7 @@ public class Menu extends BasicGameState
 		playerHasPickedColor = false;
 		
 		clearSingletons();
-
-		BunnyIsHitEventWatcher.clearWatchers();
-		GameEndWatcher.clearWatchers();
+		restartGame();
 	}
 
 	@Override
@@ -61,10 +59,7 @@ public class Menu extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
-		for (GameObject gameObject : gameObjects)
-		{
-			gameObject.render();
-		}
+		renderGameObjects(gameObjects);
 	}
 
 	@Override
@@ -73,10 +68,7 @@ public class Menu extends BasicGameState
 		checkForExitGame(container);
 		enterPlayStateIfPlayerHasPickedColor(game);
 
-		for (GameObject gameObject : gameObjects)
-		{
-			gameObject.update(container.getInput());
-		}
+		updateGameObjects(gameObjects, container.getInput());
 	}
 
 	@Override
@@ -110,7 +102,7 @@ public class Menu extends BasicGameState
 		playerHasPickedColor = true;
 	}
 	
-	public static BunnyColor getPlayerSelectedBunnyColor()
+	public static BunnyColor getSelectedBunnyColor()
 	{
 		return bunnyColor;
 	}

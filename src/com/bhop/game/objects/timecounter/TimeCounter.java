@@ -58,13 +58,13 @@ public class TimeCounter implements GameObject, Singleton
 	{
 		if (secondsLeft < 0)
 		{
-			GameEndWatcher.alertWatchersGameHasEnded();
+			GameEndWatcher.alertGameHasEnded();
 		}
 	}
 	
 	public void setTimeLeft(float x)
 	{
-		secondsLeft = (int) (x / (CAMERA_SPEED * FPS * (((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 2) + MIN_SPEED_FACTOR)));
+		secondsLeft += (int) (x / (CAMERA_SPEED * FPS * (((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 2) + MIN_SPEED_FACTOR)));
 		
 		if (secondsLeft < 5)
 		{

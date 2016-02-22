@@ -1,5 +1,7 @@
 package com.bhop.game.objects.bunny;
 
+import static com.bhop.game.objects.timecounter.GameEndWatcher.isGameEnd;
+
 import com.bhop.game.util.singleton.Singleton;
 
 
@@ -62,12 +64,12 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 		float speed = CAMERA_SPEED * speedFactor;
 		float reverseSpeed = speedFactor < MIN_SPEED_FACTOR * 1.5 ? -1.5f : -1f;
 		
-		return gameEnded ? 0 : bunnyIsHit ? speed * reverseSpeed: speed;
+		return isGameEnd() ? 0 : bunnyIsHit ? speed * reverseSpeed: speed;
 	}
 	
 	public float getCameraSpeed()
 	{
-		return gameEnded ? 0 : bunnyIsHit ? -CAMERA_SPEED : CAMERA_SPEED;
+		return isGameEnd() ? 0 : bunnyIsHit ? -CAMERA_SPEED : CAMERA_SPEED;
 	}
 
 	public static enum RunSpeedBoost
