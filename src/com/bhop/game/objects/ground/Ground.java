@@ -20,7 +20,7 @@ public class Ground implements GameObject, Singleton
 	private class GroundPiece extends BasicGameObject
 	{
 		
-		private static final String IMAGE_PATH = "res/ground/day.png";
+		private static final String IMAGE_PATH = "res/ground/night.png";
 		
 		public GroundPiece() throws SlickException
 		{

@@ -53,10 +53,10 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(LogGenerator.class));
 		gameObjects.add(getSingleton(Bunny.class));
 		gameObjects.add(getSingleton(CarrotManager.class));
+		gameObjects.add(getSingleton(Indexator.class));
 		gameObjects.add(getSingleton(GameInformation.class));
 		gameObjects.add(getSingleton(TimeCounter.class));
 		gameObjects.add(getSingleton(AgainButton.class));
-		gameObjects.add(getSingleton(Indexator.class));
 	}
 
 	@Override
