@@ -62,11 +62,34 @@ public class GameInformation implements GameObject, Singleton
 		
 		if (isGameEnd())
 		{
-			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 5, "Your current score: " + carrotManager.getCarrotCounter(), RED);
-			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 3, "Your highest score: " + highScoreManager.getHighScore(), RED);
-			
-			highScoreManager.rewriteHighScoreIfGreater(carrotManager.getCarrotCounter());
+			printHighScore();
 		}
+	}
+
+	private void printHighScore()
+    {
+	    int currentScore = carrotManager.getCarrotCounter();
+
+	    String[] messages = getMessages(currentScore, highScoreManager.getHighScore());
+		
+		fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 5, messages[0], RED);
+	    fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 3, messages[1], RED);
+	    
+	    highScoreManager.rewriteHighScoreIfGreater(currentScore);
+    }
+	
+	private String[] getMessages(int currentScore, int highScore)
+	{
+	    String currentScoreMessage = "Current score: ";
+    	String highScoreMessage = "High score: ";
+		
+		if (currentScore > highScore)
+	    {
+		    currentScoreMessage = "New high score: ";
+	    	highScoreMessage = "Old high score: ";
+	    }
+		
+		return new String[] { currentScoreMessage + currentScore, highScoreMessage + highScore};
 	}
 
 }

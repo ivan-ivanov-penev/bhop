@@ -23,6 +23,7 @@ import com.bhop.game.objects.carrot.CarrotManager;
 import com.bhop.game.objects.gameinformation.AgainButton;
 import com.bhop.game.objects.gameinformation.GameInformation;
 import com.bhop.game.objects.ground.Ground;
+import com.bhop.game.objects.indexator.Indexator;
 import com.bhop.game.objects.log.LogGenerator;
 import com.bhop.game.objects.timecounter.GameEndWatcher;
 import com.bhop.game.objects.timecounter.TimeCounter;
@@ -55,6 +56,7 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(GameInformation.class));
 		gameObjects.add(getSingleton(TimeCounter.class));
 		gameObjects.add(getSingleton(AgainButton.class));
+		gameObjects.add(getSingleton(Indexator.class));
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class BonusColorUnlocker implements Singleton
 	
 	private void readFromFile() throws Exception
 	{
-		FileInputStream inputStream = new FileInputStream("info/bonus.ser");
+		FileInputStream inputStream = new FileInputStream("res/info/bonus.ser");
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
 		bonusLock = (BonusLock) objectInputStream.readObject();
@@ -62,7 +62,7 @@ public class BonusColorUnlocker implements Singleton
 	
 	private void writeToFile() throws Exception
 	{
-		FileOutputStream fos = new FileOutputStream("info/bonus.ser");
+		FileOutputStream fos = new FileOutputStream("res/info/bonus.ser");
 		
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(bonusLock);

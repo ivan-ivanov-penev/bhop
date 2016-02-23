@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
 import com.bhop.game.objects.GameObject;
+import com.bhop.game.objects.bunny.animation.BunnyAnimation;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
@@ -47,6 +48,11 @@ public class TimeCounter implements GameObject, Singleton
 			secondsLeft -= 1;
 		}
     }
+	
+	public int getSecondsLeft()
+    {
+	    return secondsLeft;
+    }
 
 	@Override
 	public void render() throws SlickException
@@ -59,6 +65,7 @@ public class TimeCounter implements GameObject, Singleton
 		if (secondsLeft < 0)
 		{
 			GameEndWatcher.alertGameHasEnded();
+			BunnyAnimation.resetRunAnimationIndex();
 		}
 	}
 	

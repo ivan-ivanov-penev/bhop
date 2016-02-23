@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -17,6 +18,8 @@ public final class GameUtils
 {
 
 	private GameUtils() {}
+	
+	public static final Random RANDOM = new Random();
 	
 	public static final Color BLACK = new Color(0, 0, 0);
 	
@@ -95,6 +98,11 @@ public final class GameUtils
 		{
 			gameObject.render();
 		}
+	}
+	
+	public static <T>T getRandomElement(T[] elements)
+	{
+		return elements[RANDOM.nextInt(elements.length)];
 	}
 	 
 	// TODO: delete this method

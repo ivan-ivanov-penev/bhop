@@ -35,9 +35,9 @@ public class Game extends StateBasedGame
 	{
         AppGameContainer appGameContainer = new AppGameContainer(new Game());
 		appGameContainer.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
-//		appGameContainer.setFullscreen(true);
-//		appGameContainer.setIcon("res/grass.png");
+		appGameContainer.setIcon("res/icon.png");
 		appGameContainer.setTargetFrameRate(FPS);
+//		appGameContainer.setFullscreen(true);
 //		appGameContainer.setVSync(true);
 		appGameContainer.start();
 	}

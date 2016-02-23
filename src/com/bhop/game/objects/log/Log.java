@@ -25,18 +25,48 @@ public class Log extends BasicGameObject implements Collidable
 	
 	private boolean isFalling;
 	
-	private float speed = 0.0f;
+	private float verticalSpeed = 0.0f;
+	
+	private float horizontalSpeed = 0.0f;
 
 	public Log(Carrot carrot) throws SlickException
 	{
-		super("res/obsticales/log.png");
+		super("res/obsticales/rolling_log.png");
 		
+		setHorizontalSpeed(getRandomElement(LogType.values()));
 		setXWithoutCarrotCollision(carrot);
 		
 		y = WINDOW_HEIGHT - 200;
-//		y = WINDOW_HEIGHT - 40;
 		
-		imagePixelLocations = ImageUtils.getPixelsLocations(new Image("res/obsticales/log_collision.png"));
+		imagePixelLocations = ImageUtils.getPixelsLocations(new Image(image.getResourceReference().replace(".png", "_collision.png")));
+	}
+	
+	private void setHorizontalSpeed(LogType logType) throws SlickException
+	{
+		switch (logType)
+        {
+			case LEVITATING:
+				
+				verticalSpeed = 1.0f;
+				horizontalSpeed = 0.0f;
+				
+				break;
+				
+			case ROLLING:
+				
+				verticalSpeed = 0.0f;
+				horizontalSpeed = 1.0f;
+				
+				break;
+				
+			case STATIC:
+				
+				verticalSpeed = 0.0f;
+				horizontalSpeed = 0.0f;
+				image = new Image("res/obsticales/log.png");
+				
+				break;
+		}
 	}
 
 	private void setXWithoutCarrotCollision(Carrot carrot)
@@ -60,21 +90,16 @@ public class Log extends BasicGameObject implements Collidable
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		super.update(null);
+		x -= movement.getMovementSpeed() + horizontalSpeed;
 
-		y += isFalling ? speed : -speed;
+		y += isFalling ? verticalSpeed : -verticalSpeed;
 
 		if (y < WINDOW_HEIGHT - 360)
 		{
 			isFalling = true;
 		}
 
-//		if (y > GameUtils.WINDOW_HEIGHT - 200)
-//		{
-//			isFalling = false;
-//		}
-
-		if (y > WINDOW_HEIGHT - 40)
+		if (y > WINDOW_HEIGHT - 200)
 		{
 			isFalling = false;
 		}
@@ -83,6 +108,13 @@ public class Log extends BasicGameObject implements Collidable
 	public Set<PixelLocation> getImagePixelLocations()
 	{
 		return imagePixelLocations;
+	}
+	
+	static enum LogType
+	{
+		STATIC,
+		ROLLING,
+		LEVITATING;
 	}
 
 }

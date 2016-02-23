@@ -119,6 +119,11 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 		return imagePixelLocations.get(currentFrame);
 	}
 	
+	public static void resetRunAnimationIndex()
+	{
+		runAnimationIndex = 0;
+	}
+	
 	private class SpriteManager
 	{
 		
