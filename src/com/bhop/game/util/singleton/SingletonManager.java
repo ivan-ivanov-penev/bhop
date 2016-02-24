@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.bhop.game.objects.bunny.BunnyIsHitEventWatcher.*;
+import static com.bhop.game.gameobjects.bunny.BunnyIsHitEventWatcher.*;
 
 public final class SingletonManager
 {

@@ -11,8 +11,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.objects.BasicGameObject;
-import com.bhop.game.objects.GameObject;
+import com.bhop.game.gameobjects.BasicGameObject;
+import com.bhop.game.gameobjects.GameObject;
 
 public final class GameUtils
 {
@@ -112,16 +112,21 @@ public final class GameUtils
 	}
 	 
 	// TODO: delete this method
-	public static void sleep()
+	public static void sleep(long sleepTime)
 	{
 		try
 		{
-			Thread.sleep(100);
+			Thread.sleep(sleepTime);
 		}
 		catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static void sleep()
+	{
+		sleep(100);
 	}
 
 }

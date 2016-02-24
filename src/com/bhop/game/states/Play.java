@@ -13,20 +13,20 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.bhop.game.environment.LightObject;
-import com.bhop.game.environment.Sky;
-import com.bhop.game.environment.background.BackgroundGenerator;
-import com.bhop.game.environment.cloud.CloudGenerator;
-import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.bunny.Bunny;
-import com.bhop.game.objects.carrot.CarrotManager;
-import com.bhop.game.objects.gameinformation.AgainButton;
-import com.bhop.game.objects.gameinformation.GameInformation;
-import com.bhop.game.objects.ground.Ground;
-import com.bhop.game.objects.indexator.Indexator;
-import com.bhop.game.objects.log.LogGenerator;
-import com.bhop.game.objects.timecounter.GameEndWatcher;
-import com.bhop.game.objects.timecounter.TimeCounter;
+import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.gameobjects.bunny.Bunny;
+import com.bhop.game.gameobjects.carrot.CarrotManager;
+import com.bhop.game.gameobjects.environment.LightObject;
+import com.bhop.game.gameobjects.environment.Sky;
+import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
+import com.bhop.game.gameobjects.environment.cloud.CloudGenerator;
+import com.bhop.game.gameobjects.gameinformation.AgainButton;
+import com.bhop.game.gameobjects.gameinformation.GameInformation;
+import com.bhop.game.gameobjects.ground.Ground;
+import com.bhop.game.gameobjects.indexator.Indexator;
+import com.bhop.game.gameobjects.log.LogGenerator;
+import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
+import com.bhop.game.gameobjects.timecounter.TimeCounter;
 
 public class Play extends BasicGameState
 {
@@ -74,10 +74,11 @@ public class Play extends BasicGameState
 		if (GameEndWatcher.isGameEnd())
 		{
 			getSingleton(AgainButton.class).update(container.getInput());
-			return;
 		}
-
-		updateGameObjects(gameObjects, container.getInput());
+		else
+		{
+			updateGameObjects(gameObjects, container.getInput());
+		}
 	}
 
 	@Override

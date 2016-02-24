@@ -1,7 +1,7 @@
 package com.bhop.game.states;
 
 import static com.bhop.game.util.singleton.SingletonManager.*;
-import static com.bhop.game.objects.timecounter.GameEndWatcher.*;
+import static com.bhop.game.gameobjects.timecounter.GameEndWatcher.*;
 import static com.bhop.game.util.GameUtils.*;
 
 import java.util.ArrayList;
@@ -14,15 +14,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.bhop.game.environment.LightObject;
-import com.bhop.game.environment.Sky;
-import com.bhop.game.environment.background.BackgroundGenerator;
-import com.bhop.game.environment.cloud.CloudGenerator;
-import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.bunny.DummyBunny;
-import com.bhop.game.objects.coloroptions.ColorOptionManager;
-import com.bhop.game.objects.coloroptions.ColorOption.BunnyColor;
-import com.bhop.game.objects.ground.Ground;
+import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.gameobjects.bunny.dummy.DummyBunnyManager;
+import com.bhop.game.gameobjects.coloroptions.ColorOptionManager;
+import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
+import com.bhop.game.gameobjects.environment.LightObject;
+import com.bhop.game.gameobjects.environment.Sky;
+import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
+import com.bhop.game.gameobjects.environment.cloud.CloudGenerator;
+import com.bhop.game.gameobjects.ground.Ground;
 
 public class Menu extends BasicGameState
 {
@@ -52,8 +52,8 @@ public class Menu extends BasicGameState
 		gameObjects.add(getSingleton(CloudGenerator.class));
 		gameObjects.add(getSingleton(BackgroundGenerator.class));
 		gameObjects.add(getSingleton(Ground.class));
-		gameObjects.add(getSingleton(DummyBunny.class));
 		gameObjects.add(getSingleton(ColorOptionManager.class));
+		gameObjects.add(getSingleton(DummyBunnyManager.class));
 	}
 
 	@Override

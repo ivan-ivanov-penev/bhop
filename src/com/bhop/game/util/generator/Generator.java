@@ -8,8 +8,8 @@ import java.util.List;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.objects.GameObject;
-import com.bhop.game.objects.bunny.CameraMovement;
+import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.gameobjects.bunny.CameraMovement;
 import com.bhop.game.util.singleton.SingletonManager;
 
 public abstract class Generator implements GameObject

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.newdawn.slick.Image;
 
-import com.bhop.game.objects.PixelLocation;
+import com.bhop.game.gameobjects.PixelLocation;
 
 public final class ImageUtils
 {
