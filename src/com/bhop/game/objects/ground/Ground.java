@@ -3,7 +3,6 @@ package com.bhop.game.objects.ground;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -13,6 +12,8 @@ import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
+import static com.bhop.game.util.GameUtils.*;
+
 @SingletonClass
 public class Ground implements GameObject, Singleton
 {
@@ -20,11 +21,9 @@ public class Ground implements GameObject, Singleton
 	private class GroundPiece extends BasicGameObject
 	{
 		
-		private static final String IMAGE_PATH = "res/ground/night.png";
-		
 		public GroundPiece() throws SlickException
 		{
-			super(IMAGE_PATH);
+			super("res/ground/" + getTimePeriod() + ".png");
 			
 			x = getLastGroundPieceX() + image.getWidth();
 			y = GameUtils.WINDOW_HEIGHT - image.getHeight();
@@ -48,8 +47,8 @@ public class Ground implements GameObject, Singleton
 	
 	private Ground() throws SlickException
 	{
-		imageWidth = new Image(GroundPiece.IMAGE_PATH).getWidth();
 		groundPieces = new ArrayList<>();
+		imageWidth = new GroundPiece().getImageWidth();
 		
 		for (int i = 0; i < GameUtils.WINDOW_WIDTH / imageWidth + 5; i++)
 		{

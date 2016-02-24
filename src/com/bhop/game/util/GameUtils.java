@@ -51,21 +51,27 @@ public final class GameUtils
 		return animation;
 	}
 	
-	public static Image getImageAccordingToTimePeriod(String path) throws SlickException
+	public static String getTimePeriod()
 	{
 		int hoursOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		
 		if (hoursOfDay > 5 && hoursOfDay < 12)
 		{
-			return new Image(path + "dawn.png");
+			return "dawn";
 		}
 		
 		if (hoursOfDay < 20)
 		{
-			return new Image(path + "day.png");
+			return "day";
 		}
 		
-		return new Image(path + "night.png");
+		return "night";
+		
+	}
+	
+	public static Image getImageAccordingToTimePeriod(String path) throws SlickException
+	{
+		return new Image(path + getTimePeriod() + ".png");
 	}
 	
 	public static boolean mouseIsOverImage(Input input, Image image, float imageX, float imageY)
