@@ -31,7 +31,7 @@ public class Log extends BasicGameObject implements Collidable
 
 	public Log(Carrot carrot) throws SlickException
 	{
-		super("res/obsticales/rolling_log.png");
+		super(SPRITE_DIR + "obsticales/rolling_log.png");
 		
 		setHorizontalSpeed(getRandomElement(LogType.values()));
 		setXWithoutCarrotCollision(carrot);
@@ -63,7 +63,7 @@ public class Log extends BasicGameObject implements Collidable
 				
 				verticalSpeed = 0.0f;
 				horizontalSpeed = 0.0f;
-				image = new Image("res/obsticales/log.png");
+				image = new Image(SPRITE_DIR + "obsticales/log.png");
 				
 				break;
 		}

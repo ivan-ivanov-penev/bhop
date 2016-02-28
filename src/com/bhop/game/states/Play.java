@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.bhop.game.gameobjects.BlackScreen;
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.bunny.Bunny;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
@@ -51,12 +52,13 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(BackgroundGenerator.class));
 		gameObjects.add(getSingleton(Ground.class));
 		gameObjects.add(getSingleton(LogGenerator.class));
-		gameObjects.add(getSingleton(Bunny.class));
 		gameObjects.add(getSingleton(CarrotManager.class));
 		gameObjects.add(getSingleton(Indexator.class));
+		gameObjects.add(getSingleton(BlackScreen.class));
+		gameObjects.add(getSingleton(Bunny.class));
 		gameObjects.add(getSingleton(GameInformation.class));
-		gameObjects.add(getSingleton(TimeCounter.class));
 		gameObjects.add(getSingleton(AgainButton.class));
+		gameObjects.add(getSingleton(TimeCounter.class));
 	}
 
 	@Override

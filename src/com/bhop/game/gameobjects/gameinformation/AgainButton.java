@@ -2,9 +2,11 @@ package com.bhop.game.gameobjects.gameinformation;
 
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.gameobjects.timecounter.GameEndWatcher.*;
+import static com.bhop.game.util.FontUtils.*;
 
 import java.awt.Font;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -29,7 +31,7 @@ public class AgainButton implements GameObject, Singleton
 
 	private AgainButton() throws SlickException
 	{
-		image = new Image("res/again_button/blue.png");
+		image = new Image(SPRITE_DIR + "again_button/blue.png");
 		
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 20), true);
 		x = (WINDOW_WIDTH - image.getWidth()) / 2;
@@ -51,7 +53,7 @@ public class AgainButton implements GameObject, Singleton
 		if (isGameEnd())
 		{
 			image.draw(x, y);
-			fontType.drawString(x + image.getWidth() / 7, y + image.getHeight() / 5, "Again?", BLACK);
+			fontType.drawString(x + image.getWidth() / 7, y + image.getHeight() / 5, "Again?", Color.black);
 		}
 	}
 

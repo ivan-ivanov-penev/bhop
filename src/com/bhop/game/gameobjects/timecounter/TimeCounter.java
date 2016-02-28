@@ -2,6 +2,7 @@ package com.bhop.game.gameobjects.timecounter;
 
 import java.awt.Font;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
@@ -13,6 +14,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
+import static com.bhop.game.util.FontUtils.*;
 
 @SingletonClass
 public class TimeCounter implements GameObject, Singleton
@@ -57,7 +59,7 @@ public class TimeCounter implements GameObject, Singleton
 	@Override
 	public void render() throws SlickException
     {
-		fontType.drawString(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 10,  String.valueOf(secondsLeft < 0 ? 0 : secondsLeft), BLACK);
+		fontType.drawString(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 10,  String.valueOf(secondsLeft < 0 ? 0 : secondsLeft), Color.black);
     }
 	
 	private void checkForTimeExpiration()

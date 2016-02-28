@@ -15,6 +15,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.FontUtils.*;
 
 @SingletonClass
 public class CarrotManager implements GameObject, Singleton
@@ -39,7 +40,7 @@ public class CarrotManager implements GameObject, Singleton
 		timeCounter = SingletonManager.getSingleton(TimeCounter.class);
 		bonusUnlocker = SingletonManager.getSingleton(BonusColorUnlocker.class);
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
-		carrotImage = new Image("res/carrot/carrot_icon.png");
+		carrotImage = new Image(SPRITE_DIR + "carrot/carrot_icon.png");
 		carrot = new Carrot(WINDOW_WIDTH * 1.8f);
 		distanceIncrementFactor = new DistanceIncrementFactor(carrot.getX());
 	}

@@ -9,6 +9,8 @@ import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
+import static com.bhop.game.util.GameUtils.*;
+
 @SingletonClass
 public class Sky implements Singleton, GameObject
 {
@@ -17,7 +19,7 @@ public class Sky implements Singleton, GameObject
 	
 	private Sky() throws SlickException
 	{
-		image = GameUtils.getImageAccordingToTimePeriod("res/backgrounds/skies/");
+		image = GameUtils.getImageAccordingToTimePeriod(SPRITE_DIR + "backgrounds/skies/");
 	}
 
 	@Override

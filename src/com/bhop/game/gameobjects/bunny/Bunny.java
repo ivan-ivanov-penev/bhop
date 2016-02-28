@@ -38,7 +38,6 @@ public class Bunny implements GameObject, Singleton
 
 	private Bunny() throws SlickException
 	{
-		
 		movement = SingletonManager.getSingleton(CameraMovement.class);
 		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();

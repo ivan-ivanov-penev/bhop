@@ -5,6 +5,8 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.util.generator.GeneratedObject;
 
+import static com.bhop.game.util.GameUtils.*;
+
 class Cloud extends GeneratedObject
 {
 	
@@ -12,7 +14,7 @@ class Cloud extends GeneratedObject
 
 	Cloud(float x) throws SlickException
 	{
-		super(x, "res/backgrounds/clouds/");
+		super(x, SPRITE_DIR + "backgrounds/clouds/");
 		
 		y = (float) (Math.random() * 120);
 	}

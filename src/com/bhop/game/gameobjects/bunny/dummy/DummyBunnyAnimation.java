@@ -26,7 +26,7 @@ public class DummyBunnyAnimation
 
 	private void createConfiguredScratchAnimation(ColorOption colorOption) throws SlickException
     {
-	    scratch = new Animation(createImageArrayFromDirectory("res/bunny/" + colorOption.getBunnyColor().getColorName() + "/scratch"), FPS, true);
+	    scratch = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + colorOption.getBunnyColor().getColorName() + "/scratch"), FPS, true);
 //		scratch.setSpeed(0.75f);
 		scratch.setPingPong(true);
 		scratch.setLooping(false);
@@ -34,7 +34,7 @@ public class DummyBunnyAnimation
 
 	private void createConfiguredStandIdleAnimation(ColorOption colorOption) throws SlickException
     {
-	    standIdle = new Animation(createImageArrayFromDirectory("res/bunny/" + colorOption.getBunnyColor().getColorName() + "/idle"), FPS, true);
+	    standIdle = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + colorOption.getBunnyColor().getColorName() + "/idle"), FPS, true);
 //		standIdle.setSpeed(0.75f);
 		standIdle.setLooping(false);
 		standIdle.setCurrentFrame(RANDOM.nextInt(standIdle.getFrameCount()));

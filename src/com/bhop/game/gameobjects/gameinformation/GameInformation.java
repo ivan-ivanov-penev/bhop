@@ -2,12 +2,14 @@ package com.bhop.game.gameobjects.gameinformation;
 
 import java.awt.Font;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
+import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
 import com.bhop.game.highscore.HighScoreManager;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
@@ -15,6 +17,7 @@ import com.bhop.game.util.singleton.SingletonManager;
 
 import static com.bhop.game.gameobjects.timecounter.GameEndWatcher.isGameEnd;
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.FontUtils.*;
 
 @SingletonClass
 public class GameInformation implements GameObject, Singleton
@@ -58,10 +61,10 @@ public class GameInformation implements GameObject, Singleton
 
 	private void attemptToRenderGameInformation()
     {
-	    if (!carrotManager.gameHasBegan())
+	    if (!carrotManager.gameHasBegan() && !GameEndWatcher.isGameEnd())
 		{
-			fontType.drawString(WINDOW_WIDTH / 10, WINDOW_HEIGHT / 5, gameInformationFirstLine, RED);
-			fontType.drawString(WINDOW_WIDTH / 10 + 20, WINDOW_HEIGHT / 3, gameInformationSecondLine, RED);
+			fontType.drawString(WINDOW_WIDTH / 10, WINDOW_HEIGHT / 5, gameInformationFirstLine, Color.red);
+			fontType.drawString(WINDOW_WIDTH / 10 + 20, WINDOW_HEIGHT / 3, gameInformationSecondLine, Color.red);
 		}
     }
 
@@ -71,7 +74,7 @@ public class GameInformation implements GameObject, Singleton
 		{
 			frameCounter++;
 			
-			fontType.drawString(WINDOW_WIDTH / 7, WINDOW_HEIGHT / 5, "You've just unlocked bonus color for bunny!", RED);
+			fontType.drawString(WINDOW_WIDTH / 7, WINDOW_HEIGHT / 5, "You've just unlocked bonus color for bunny!", Color.red);
 		}
     }
 
@@ -83,8 +86,8 @@ public class GameInformation implements GameObject, Singleton
 			
 			String[] messages = getMessages(currentScore, highScoreManager.getHighScore());
 			
-			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 5, messages[0], RED);
-			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 3, messages[1], RED);
+			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 5, messages[0], Color.red);
+			fontType.drawString(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 3, messages[1], Color.red);
 			
 			highScoreManager.rewriteHighScoreIfGreater(currentScore);
 		}

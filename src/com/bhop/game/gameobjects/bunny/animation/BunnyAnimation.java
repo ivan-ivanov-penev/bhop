@@ -43,9 +43,9 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 
 	public BunnyAnimation() throws SlickException
 	{
-		hitImages = createImageArrayFromDirectory("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/hit");
-		jumpImages = createImageArrayFromDirectory("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/jump");
-		runImages = createImageArrayFromDirectory("res/bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/run");
+		hitImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/hit");
+		jumpImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/jump");
+		runImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/run");
 		frameCounter = new FrameCounter();
 		spriteManager = new SpriteManager();
 		currentFrame = runImages[runAnimationIndex];
@@ -63,9 +63,9 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	private void initializeImagePixelLocations() throws SlickException
 	{
 		imagePixelLocations = new HashMap<Image, Set<PixelLocation>>();
-		putPixelLocationsForImageInMap(hitImages, createImageArrayFromDirectory("res/bunny/collision/hit"));
-		putPixelLocationsForImageInMap(jumpImages, createImageArrayFromDirectory("res/bunny/collision/jump"));
-		putPixelLocationsForImageInMap(runImages, createImageArrayFromDirectory("res/bunny/collision/run"));
+		putPixelLocationsForImageInMap(hitImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/hit"));
+		putPixelLocationsForImageInMap(jumpImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/jump"));
+		putPixelLocationsForImageInMap(runImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/run"));
 	}
 	
 	private void putPixelLocationsForImageInMap(Image[] realImageArray, Image[] collisionImageArray)

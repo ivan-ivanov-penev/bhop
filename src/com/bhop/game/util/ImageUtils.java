@@ -31,7 +31,7 @@ public final class ImageUtils
 		{
 			for (int j = 0; j < image.getWidth() / image.getTextureWidth(); j++)
 			{
-				if (textureData[counter] == -1)
+				if (textureData[counter] != 0)
 				{
 					locationToPixelPresence.add(new PixelLocation(j, i));
 				}

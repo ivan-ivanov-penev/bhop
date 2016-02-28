@@ -38,8 +38,8 @@ public class Indexator implements GameObject, Singleton
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		cameraMovement = SingletonManager.getSingleton(CameraMovement.class);
 		
-		happy = new Image("res/indexator/indexator_happy.png");
-		angry = new Image("res/indexator/indexator_angry.png");
+		happy = new Image(SPRITE_DIR + "indexator/indexator_happy.png");
+		angry = new Image(SPRITE_DIR + "indexator/indexator_angry.png");
 		renderImage = happy;
     }
 
@@ -65,7 +65,7 @@ public class Indexator implements GameObject, Singleton
 	@Override
     public void render() throws SlickException
     {
-		renderImage.draw(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 20);
+		renderImage.draw(WINDOW_WIDTH / 1.75f, WINDOW_HEIGHT / 20);
     }
 
 	private void renderAccordinglyToPlayerProgress(boolean isOnTime)

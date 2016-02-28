@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bhop.game.states.Menu;
+import com.bhop.game.util.FontUtils;
 
 import static com.bhop.game.util.GameUtils.*;
 
@@ -35,11 +36,13 @@ public class Game extends StateBasedGame
 	{
         AppGameContainer appGameContainer = new AppGameContainer(new Game());
 		appGameContainer.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
-		appGameContainer.setIcon("res/icon.png");
+		appGameContainer.setIcon(SPRITE_DIR + "game_icon.png");
 		appGameContainer.setTargetFrameRate(FPS);
 //		appGameContainer.setFullscreen(true);
 //		appGameContainer.setVSync(true);
 		appGameContainer.start();
+		
+		FontUtils.registerGameFont();
 	}
 
 	@Override

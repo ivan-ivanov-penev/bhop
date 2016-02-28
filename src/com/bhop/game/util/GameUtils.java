@@ -1,12 +1,10 @@
 package com.bhop.game.util;
 
-import java.awt.Font;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Random;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -21,17 +19,11 @@ public final class GameUtils
 	
 	public static final Random RANDOM = new Random();
 	
-	public static final Color BLACK = new Color(0, 0, 0);
-	
-	public static final Color RED = new Color(255, 0, 0);
-	
-	public static final String FONT_TYPE = "Verdana";
-
-    public static final int STYLE = Font.ITALIC;
-	
 	public static final int WINDOW_WIDTH = 640;
 	
 	public static final int WINDOW_HEIGHT = 480;
+	
+	public static final String SPRITE_DIR = "res/sprites/";
 
 	public static final String GAME_NAME = "BHop";
 	

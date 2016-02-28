@@ -9,6 +9,8 @@ import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
+import static com.bhop.game.util.GameUtils.*;
+
 @SingletonClass
 public class LightObject implements Singleton, GameObject
 {
@@ -17,7 +19,7 @@ public class LightObject implements Singleton, GameObject
 	
 	public LightObject() throws SlickException
 	{
-		image = GameUtils.getImageAccordingToTimePeriod("res/backgrounds/light_objects/");
+		image = GameUtils.getImageAccordingToTimePeriod(SPRITE_DIR + "backgrounds/light_objects/");
 	}
 
 	@Override
