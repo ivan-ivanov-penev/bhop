@@ -15,20 +15,22 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.bhop.game.gameobjects.GameObject;
-import com.bhop.game.gameobjects.bunny.dummy.DummyBunnyManager;
+import com.bhop.game.gameobjects.bunny.Bunny;
+import com.bhop.game.gameobjects.bunny.dummy.DummyBunny;
 import com.bhop.game.gameobjects.coloroptions.ColorOptionManager;
 import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.gameobjects.environment.LightObject;
 import com.bhop.game.gameobjects.environment.Sky;
 import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
 import com.bhop.game.gameobjects.environment.cloud.CloudGenerator;
+import com.bhop.game.gameobjects.gameinformation.DetailedInfo;
+import com.bhop.game.gameobjects.gameinformation.InfoIcon;
 import com.bhop.game.gameobjects.ground.Ground;
+import com.bhop.game.sound.SoundIcon;
 
 public class Menu extends BasicGameState
 {
 	public static final int ID = 0;
-	
-	private static BunnyColor bunnyColor;
 	
 	private static boolean playerHasPickedColor;
 	
@@ -36,7 +38,6 @@ public class Menu extends BasicGameState
 	
 	public Menu()
 	{
-		bunnyColor = BunnyColor.BONUS;
 		playerHasPickedColor = false;
 		
 		clearSingletons();
@@ -46,6 +47,9 @@ public class Menu extends BasicGameState
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
+		game.addState(new Play());
+		game.getState(Play.ID).init(game.getContainer(), game);
+		
 		gameObjects = new ArrayList<GameObject>();
 		gameObjects.add(getSingleton(Sky.class));
 		gameObjects.add(getSingleton(LightObject.class));
@@ -53,7 +57,10 @@ public class Menu extends BasicGameState
 		gameObjects.add(getSingleton(BackgroundGenerator.class));
 		gameObjects.add(getSingleton(Ground.class));
 		gameObjects.add(getSingleton(ColorOptionManager.class));
-		gameObjects.add(getSingleton(DummyBunnyManager.class));
+		gameObjects.add(getSingleton(DummyBunny.class));
+		gameObjects.add(getSingleton(SoundIcon.class));
+		gameObjects.add(getSingleton(InfoIcon.class));
+		gameObjects.add(getSingleton(DetailedInfo.class));
 	}
 
 	@Override
@@ -65,10 +72,18 @@ public class Menu extends BasicGameState
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
-		checkForExitGame(container);
-		enterPlayStateIfPlayerHasPickedColor(game);
-
-		updateGameObjects(gameObjects, container.getInput());
+		if (InfoIcon.isPlayerIsReadingInfo())
+		{
+			getSingleton(InfoIcon.class).update(container.getInput());
+			getSingleton(SoundIcon.class).update(container.getInput());
+		}
+		else
+		{
+			checkForExitGame(container);
+			enterPlayStateIfPlayerHasPickedColor(game);
+	
+			updateGameObjects(gameObjects, container.getInput());
+		}
 	}
 
 	@Override
@@ -89,21 +104,14 @@ public class Menu extends BasicGameState
 	{
 		if (playerHasPickedColor)
 		{
-			game.addState(new Play());
-			game.getState(Play.ID).init(game.getContainer(), game);
 			game.enterState(Play.ID);
 		}
 	}
 	
-	public static void informPlayerHasPickedColor(BunnyColor bunnyColor)
+	public static void informPlayerHasPickedColor(BunnyColor bunnyColor) throws SlickException
 	{
-		Menu.bunnyColor = bunnyColor;
+		getSingleton(Bunny.class).createBunnyAnimation(bunnyColor);
 		
 		playerHasPickedColor = true;
-	}
-	
-	public static BunnyColor getSelectedBunnyColor()
-	{
-		return bunnyColor;
 	}
 }

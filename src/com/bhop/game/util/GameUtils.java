@@ -54,7 +54,7 @@ public final class GameUtils
 		
 		if (hoursOfDay < 20)
 		{
-			return "day";
+			return "night";
 		}
 		
 		return "night";

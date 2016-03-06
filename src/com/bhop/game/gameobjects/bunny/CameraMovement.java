@@ -1,5 +1,6 @@
 package com.bhop.game.gameobjects.bunny;
 
+import com.bhop.game.gameobjects.booster.Booster;
 import com.bhop.game.util.singleton.Singleton;
 
 
@@ -59,6 +60,8 @@ public class CameraMovement extends BunnyIsHitEventWatcher implements Singleton
 
 	public float getMovementSpeed()
 	{
+		speedFactor = Booster.isBoosterAcquired() ? MAX_SPEED_FACTOR : speedFactor;
+		
 		float speed = CAMERA_SPEED * speedFactor;
 		float reverseSpeed = speedFactor < MIN_SPEED_FACTOR * 1.5 ? -1.5f : -1f;
 		

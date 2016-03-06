@@ -4,8 +4,12 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 
+import org.newdawn.slick.Color;
+
 public final class FontUtils
 {
+	
+	public static final Color COLOR = new Color(75, 51, 28);
 	
 	public static final String FONT_TYPE = "Snap ITC";
 

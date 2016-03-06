@@ -22,13 +22,15 @@ public class LogGenerator implements GameObject, Singleton
 
 	private final Random random;
 	
-	private final CarrotManager carrotGenerator;
+	private final CarrotManager carrotManager;
 
 	private LogGenerator()
 	{
 		random = new Random();
 		logs = new ArrayList<Log>();
-		carrotGenerator = SingletonManager.getSingleton(CarrotManager.class);
+		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
+		
+		Log.setLogKind();
 	}
 
 	public void manage() throws SlickException
@@ -39,7 +41,7 @@ public class LogGenerator implements GameObject, Singleton
 
 	private void attemptToCreateLog() throws SlickException
 	{
-		if (carrotGenerator.gameHasBegan() && random.nextInt(40) == 1)
+		if (carrotManager.gameHasBegan() && random.nextInt(40) == 1)
 		{
 			attemptToAddNewLog();
 		}
@@ -49,11 +51,11 @@ public class LogGenerator implements GameObject, Singleton
     {
 	    if (logs.isEmpty())
 	    {
-	    	logs.add(new Log(carrotGenerator.getCarrot()));
+	    	logs.add(new Log(carrotManager.getCarrot()));
 	    }
 	    else if (logs.get(logs.size() - 1).getX() < GameUtils.WINDOW_WIDTH - 400)
 	    {
-	    	logs.add(new Log(carrotGenerator.getCarrot()));
+	    	logs.add(new Log(carrotManager.getCarrot()));
 	    }
     }
 

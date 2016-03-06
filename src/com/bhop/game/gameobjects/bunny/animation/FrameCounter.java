@@ -3,12 +3,19 @@ package com.bhop.game.gameobjects.bunny.animation;
 import static com.bhop.game.gameobjects.bunny.CameraMovement.MAX_SPEED_FACTOR;
 import static com.bhop.game.gameobjects.bunny.CameraMovement.MIN_SPEED_FACTOR;
 
-class FrameCounter
+import com.bhop.game.gameobjects.bunny.dummy.DummyBunnyAnimation;
+
+public class FrameCounter
 {
 	
 	private int frameCounter;
 	
 	private int fps;
+	
+	FrameCounter()
+	{
+		frameCounter = DummyBunnyAnimation.getFrameCounter();
+	}
 	
 	void adjustSpeed(float speedFactor)
 	{

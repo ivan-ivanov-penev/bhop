@@ -13,8 +13,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.bhop.game.gameobjects.BlackScreen;
 import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.gameobjects.blackscreen.BlackScreen;
+import com.bhop.game.gameobjects.booster.Booster;
 import com.bhop.game.gameobjects.bunny.Bunny;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
 import com.bhop.game.gameobjects.environment.LightObject;
@@ -22,12 +23,15 @@ import com.bhop.game.gameobjects.environment.Sky;
 import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
 import com.bhop.game.gameobjects.environment.cloud.CloudGenerator;
 import com.bhop.game.gameobjects.gameinformation.AgainButton;
+import com.bhop.game.gameobjects.gameinformation.DetailedInfo;
 import com.bhop.game.gameobjects.gameinformation.GameInformation;
+import com.bhop.game.gameobjects.gameinformation.InfoIcon;
 import com.bhop.game.gameobjects.ground.Ground;
 import com.bhop.game.gameobjects.indexator.Indexator;
 import com.bhop.game.gameobjects.log.LogGenerator;
 import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
 import com.bhop.game.gameobjects.timecounter.TimeCounter;
+import com.bhop.game.sound.SoundIcon;
 
 public class Play extends BasicGameState
 {
@@ -51,14 +55,18 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(CloudGenerator.class));
 		gameObjects.add(getSingleton(BackgroundGenerator.class));
 		gameObjects.add(getSingleton(Ground.class));
+		gameObjects.add(getSingleton(SoundIcon.class));
 		gameObjects.add(getSingleton(LogGenerator.class));
 		gameObjects.add(getSingleton(CarrotManager.class));
 		gameObjects.add(getSingleton(Indexator.class));
-		gameObjects.add(getSingleton(BlackScreen.class));
-		gameObjects.add(getSingleton(Bunny.class));
-		gameObjects.add(getSingleton(GameInformation.class));
-		gameObjects.add(getSingleton(AgainButton.class));
 		gameObjects.add(getSingleton(TimeCounter.class));
+		gameObjects.add(getSingleton(InfoIcon.class));
+		gameObjects.add(getSingleton(Booster.class));
+		gameObjects.add(getSingleton(BlackScreen.class));
+		gameObjects.add(getSingleton(AgainButton.class));
+		gameObjects.add(getSingleton(GameInformation.class));
+		gameObjects.add(getSingleton(Bunny.class));
+		gameObjects.add(getSingleton(DetailedInfo.class));
 	}
 
 	@Override
@@ -76,6 +84,11 @@ public class Play extends BasicGameState
 		if (GameEndWatcher.isGameEnd())
 		{
 			getSingleton(AgainButton.class).update(container.getInput());
+		}
+		else if(InfoIcon.isPlayerIsReadingInfo())
+		{
+			getSingleton(InfoIcon.class).update(container.getInput());
+			getSingleton(SoundIcon.class).update(container.getInput());
 		}
 		else
 		{

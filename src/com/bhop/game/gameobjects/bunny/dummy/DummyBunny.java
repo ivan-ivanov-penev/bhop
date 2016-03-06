@@ -1,37 +1,49 @@
 package com.bhop.game.gameobjects.bunny.dummy;
 
+import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
+import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
-import com.bhop.game.gameobjects.coloroptions.ColorOption;
+import com.bhop.game.util.singleton.Singleton;
+import com.bhop.game.util.singleton.SingletonClass;
 
-public class DummyBunny implements GameObject
+@SingletonClass
+public class DummyBunny implements GameObject, Singleton
 {
 	
 	private float x;
 
 	private float y;
-
-	private final DummyBunnyAnimation animation;
 	
-	DummyBunny(ColorOption colorOption) throws SlickException
+	private final DummyBunnyAnimation dummyBunnyAnimation;
+	
+//	private final Animation run;
+	
+	private DummyBunny() throws SlickException
 	{
-		animation = new DummyBunnyAnimation(colorOption);
-		x = (colorOption.getImageWidth() - animation.getImageWidth()) / 2 + colorOption.getX() + 5;
-		y = colorOption.getImageHeight() / 4 + colorOption.getY();
+//	    run = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "bunny/bonus/run"), FPS, true);
+//		run.setLooping(true);
+//		run.setSpeed(1.75f);
+		
+		dummyBunnyAnimation = new DummyBunnyAnimation();
+		
+		x = WINDOW_WIDTH / 6;
+		y = WINDOW_HEIGHT - 215;
 	}
 
 	@Override
 	public void render()
 	{
-		animation.draw(x, y);
+		dummyBunnyAnimation.render(x, y);
 	}
 
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		animation.attempChangeAnimation();
+		dummyBunnyAnimation.update(input);
 	}
 
 }

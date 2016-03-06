@@ -23,6 +23,8 @@ public class Log extends BasicGameObject implements Collidable
 	
 	private final Set<PixelLocation> imagePixelLocations;
 	
+	private static int logKind;
+	
 	private boolean isFalling;
 	
 	private float verticalSpeed = 0.0f;
@@ -31,39 +33,37 @@ public class Log extends BasicGameObject implements Collidable
 
 	public Log(Carrot carrot) throws SlickException
 	{
-		super(SPRITE_DIR + "obsticales/rolling_log.png");
-		
-		setHorizontalSpeed(getRandomElement(LogType.values()));
+		setLogType(getRandomElement(LogType.values()));
 		setXWithoutCarrotCollision(carrot);
 		
 		y = WINDOW_HEIGHT - 200;
 		
-		imagePixelLocations = ImageUtils.getPixelsLocations(new Image(image.getResourceReference().replace(".png", "_collision.png")));
+		imagePixelLocations = ImageUtils.getPixelsLocations(new Image(image.getResourceReference().replaceAll("kind\\d\\.png", "collision.png")));
 	}
 	
-	private void setHorizontalSpeed(LogType logType) throws SlickException
+	private void setLogType(LogType logType) throws SlickException
 	{
 		switch (logType)
         {
 			case LEVITATING:
-				
 				verticalSpeed = 1.0f;
 				horizontalSpeed = 0.0f;
+				image = new Image(SPRITE_DIR + "obsticales/rolling_log_kind" + logKind + ".png");
 				
 				break;
 				
 			case ROLLING:
-				
 				verticalSpeed = 0.0f;
 				horizontalSpeed = 1.0f;
+				image = new Image(SPRITE_DIR + "obsticales/rolling_log_kind" + logKind + ".png");
 				
 				break;
 				
 			case STATIC:
-				
 				verticalSpeed = 0.0f;
 				horizontalSpeed = 0.0f;
-				image = new Image(SPRITE_DIR + "obsticales/log.png");
+				image = new Image(SPRITE_DIR + "obsticales/1log_kind" + logKind + ".png");
+				y = WINDOW_HEIGHT - 180;
 				
 				break;
 		}
@@ -108,6 +108,11 @@ public class Log extends BasicGameObject implements Collidable
 	public Set<PixelLocation> getImagePixelLocations()
 	{
 		return imagePixelLocations;
+	}
+	
+	static void setLogKind()
+	{
+		Log.logKind = RANDOM.nextInt(2);
 	}
 	
 	static enum LogType

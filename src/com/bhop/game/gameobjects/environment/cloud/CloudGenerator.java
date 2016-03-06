@@ -13,10 +13,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 public class CloudGenerator extends Generator implements Singleton
 {
 	
-	private CloudGenerator() throws SlickException
-	{
-		super();
-	}
+	private CloudGenerator() throws SlickException {}
 	
 	protected void fillGeneratedObjects() throws SlickException
 	{

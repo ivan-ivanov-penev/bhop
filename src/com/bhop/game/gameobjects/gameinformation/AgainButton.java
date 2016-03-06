@@ -16,6 +16,7 @@ import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.states.Play;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
+import com.bhop.game.util.singleton.SingletonManager;
 
 @SingletonClass
 public class AgainButton implements GameObject, Singleton
@@ -31,17 +32,20 @@ public class AgainButton implements GameObject, Singleton
 
 	private AgainButton() throws SlickException
 	{
-		image = new Image(SPRITE_DIR + "again_button/blue.png");
+		image = new Image(SPRITE_DIR + "again_button/sign.png");
 		
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 20), true);
+		
+		GameInformation gameInformation = SingletonManager.getSingleton(GameInformation.class);
+		
 		x = (WINDOW_WIDTH - image.getWidth()) / 2;
-		y = WINDOW_HEIGHT / 2;
+		y = gameInformation.getY() + gameInformation.getImageWidth() * 0.63f;
 	}
 	
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		if (isGameEnd() && mouseIsOverImage(input, image, x, y) && input.isMousePressed(0))
+		if (isGameEnd() && mouseIsOverImage(input, image, x, y - 40) && input.isMousePressed(0))
 		{
 			Play.alertPlayerWantsToRestart();
 		}
@@ -52,8 +56,10 @@ public class AgainButton implements GameObject, Singleton
 	{
 		if (isGameEnd())
 		{
-			image.draw(x, y);
-			fontType.drawString(x + image.getWidth() / 7, y + image.getHeight() / 5, "Again?", Color.black);
+			String message = "Again?";
+			
+			image.draw(x, y - 40);
+			fontType.drawString(x + (image.getWidth() - fontType.getWidth(message)) / 2, y + (80 - fontType.getHeight()) / 2, message, Color.red);
 		}
 	}
 

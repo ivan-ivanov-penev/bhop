@@ -38,7 +38,7 @@ public class Carrot implements GameObject, Collidable
 		this.y = GameUtils.WINDOW_HEIGHT - 245;
 		this.movement = SingletonManager.getSingleton(CameraMovement.class);
 		this.pixelLocations = new HashMap<Integer, Set<PixelLocation>>();
-		this.animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "carrot/animation"), FPS, true);
+		this.animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "carrot/collision"), FPS, true);
 		this.animation.setPingPong(true);
 		
 		fillPixelLocations();

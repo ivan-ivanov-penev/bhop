@@ -1,62 +1,71 @@
 package com.bhop.game.gameobjects.bunny.dummy;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.SlickException;
-
-import com.bhop.game.gameobjects.coloroptions.ColorOption;
-
 import static com.bhop.game.util.GameUtils.*;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 
 public class DummyBunnyAnimation
 {
 	
-	private Animation standIdle;
+	private final Image[] runImages;
 	
-	private Animation scratch;
+	private Image currentFrame;
 	
-	private Animation renderAnimation;
+	private static int frameCounter;
 	
-	DummyBunnyAnimation(ColorOption colorOption) throws SlickException
-    {
-		createConfiguredStandIdleAnimation(colorOption);
-		createConfiguredScratchAnimation(colorOption);
-		
-		renderAnimation = standIdle;
-    }
-
-	private void createConfiguredScratchAnimation(ColorOption colorOption) throws SlickException
-    {
-	    scratch = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + colorOption.getBunnyColor().getColorName() + "/scratch"), FPS, true);
-//		scratch.setSpeed(0.75f);
-		scratch.setPingPong(true);
-		scratch.setLooping(false);
-    }
-
-	private void createConfiguredStandIdleAnimation(ColorOption colorOption) throws SlickException
-    {
-	    standIdle = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + colorOption.getBunnyColor().getColorName() + "/idle"), FPS, true);
-//		standIdle.setSpeed(0.75f);
-		standIdle.setLooping(false);
-		standIdle.setCurrentFrame(RANDOM.nextInt(standIdle.getFrameCount()));
-    }
-
-    void attempChangeAnimation()
+	private static int frameIndex;
+	
+	DummyBunnyAnimation() throws SlickException
 	{
-    	if (renderAnimation.isStopped())
+		runImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/bonus/run");
+		
+		currentFrame = runImages[0];
+	}
+
+	public void update(Input input) throws SlickException
+	{
+		frameCounter += 1;
+		
+		if (frameCounter  > 7)
 		{
-			renderAnimation = Math.random() > 0.2 ? standIdle : scratch;
-			renderAnimation.restart();
+			currentFrame = getNextRunFrame();
+			
+			frameCounter = 0;
 		}
 	}
 
-    void draw(float x, float y)
-    {
-		renderAnimation.draw(x, y);
-    }
+	private Image getNextRunFrame()
+	{
+		for (int i = 0; i < runImages.length - 1; i++)
+		{
+			if (currentFrame.equals(runImages[i]))
+			{
+				frameIndex += 1;
+				
+				return runImages[i + 1];
+			}
+		}
+		
+		frameIndex = 0;
+		
+		return runImages[0];
+	}
 
-	public int getImageWidth()
-    {
-	    return standIdle.getCurrentFrame().getWidth();
-    }
+	public void render(float x, float y)
+	{
+		currentFrame.draw(x, y);
+	}
+	
+	public static int getFrameCounter()
+	{
+		return frameCounter;
+	}
+	
+	public static int getFrameIndex()
+	{
+		return frameIndex;
+	}
 
 }

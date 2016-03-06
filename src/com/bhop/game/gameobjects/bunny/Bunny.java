@@ -1,7 +1,6 @@
 package com.bhop.game.gameobjects.bunny;
 
-import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
-import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
+import static com.bhop.game.util.GameUtils.*;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -10,6 +9,7 @@ import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.gameobjects.bunny.CameraMovement.RunSpeedBoost;
 import com.bhop.game.gameobjects.bunny.animation.BunnyAnimation;
+import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
@@ -22,9 +22,9 @@ public class Bunny implements GameObject, Singleton
 
 	private float y;
 
-	private boolean hasToJump;
-	
 	private boolean isHit;
+
+	private BunnyAnimation animation;
 
 	private final CameraMovement movement;
 
@@ -32,21 +32,23 @@ public class Bunny implements GameObject, Singleton
 
 	private final BunnyJump jump;
 
-	private final BunnyAnimation animation;
-
 	private final CollisionChecker collisionChecker;
-
+	
 	private Bunny() throws SlickException
 	{
 		movement = SingletonManager.getSingleton(CameraMovement.class);
 		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();
-		animation = new BunnyAnimation();
 		jump = new BunnyJump();
 		x = WINDOW_WIDTH / 6;
 		y = WINDOW_HEIGHT - 215;
 	}
-
+	
+	public void createBunnyAnimation(BunnyColor bunnyColor) throws SlickException
+	{
+		animation = new BunnyAnimation(bunnyColor);
+	}
+	
 	@Override
 	public void render()
 	{
@@ -96,11 +98,11 @@ public class Bunny implements GameObject, Singleton
 	{
 		RunSpeedBoost runSpeedBoost = animation.getSpeedBoost() == null ? RunSpeedBoost.MIN : animation.getSpeedBoost();
 
-		if (hasToJump || buttonIsPressed /* && runSpeedBoost != null */)
+		if (buttonIsPressed)
 		{
-			hasToJump = true;
-
-			attemptJump(runSpeedBoost);
+			movement.increaseSpeedFactor(runSpeedBoost);
+				
+			jump();
 		}
 		else
 		{
@@ -108,23 +110,9 @@ public class Bunny implements GameObject, Singleton
 		}
 	}
 
-	private void attemptJump(RunSpeedBoost runSpeedBoost) throws SlickException
-	{
-		if (animation.isNotInTheAir())
-		{
-			movement.increaseSpeedFactor(runSpeedBoost);
-			
-			jump();
-			
-			jump.increaseNextJumpHeight();
-		}
-	}
-
 	private void jump()
     {
-	    hasToJump = false;
-	    
-	    physics.setGravityToJumping(jump.getJumpHeight());
+		physics.setGravityToJumping(jump.getJumpHeightAccordingToSpeed(movement.getSpeedFactor()));
 	    
 	    updateHeightPosition();
     }
@@ -133,8 +121,6 @@ public class Bunny implements GameObject, Singleton
 	{
 		physics.resetGravityFallingBaseForce();
 		
-		jump.decreaseNextJumpHeight();
-
 		movement.decreaseSpeedFactor();
 	}
 

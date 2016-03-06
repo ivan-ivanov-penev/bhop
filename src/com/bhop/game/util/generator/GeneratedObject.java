@@ -31,7 +31,7 @@ public abstract class GeneratedObject
 	
 	protected void update(float cameraSpeed)
 	{
-		x -= cameraSpeed / 50;
+		x -= cameraSpeed / 25;
 	}
 
 }

@@ -12,6 +12,8 @@ import com.bhop.game.util.singleton.SingletonClass;
 public class HighScoreManager implements Singleton
 {
 	
+	private static final String HIGHSCORE_PATH = "res/info/highscore.ser";
+
 	private HighScore highScore;
 	
 	private final int oldHighScore;
@@ -42,7 +44,7 @@ public class HighScoreManager implements Singleton
 	
 	private void readFromFile() throws Exception
 	{
-		FileInputStream inputStream = new FileInputStream("res/info/highscore.ser");
+		FileInputStream inputStream = new FileInputStream(HIGHSCORE_PATH);
 		
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 		
@@ -75,23 +77,11 @@ public class HighScoreManager implements Singleton
 	
 	private void writeToFile() throws Exception
 	{
-		FileOutputStream outputStream = new FileOutputStream("res/info/highscore.ser");
+		FileOutputStream outputStream = new FileOutputStream(HIGHSCORE_PATH);
 		
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 		objectOutputStream.writeObject(highScore);
 		objectOutputStream.close();
 	}
-	
-	// TODO: Delete this method
-	public static void main(String[] args) throws Exception
-    {
-		FileOutputStream outputStream = new FileOutputStream("res/info/highscore.ser");
-		
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-		HighScore obj = new HighScore();
-		obj.setHighScore(2);
-		objectOutputStream.writeObject(obj);
-		objectOutputStream.close();
-    }
 
 }

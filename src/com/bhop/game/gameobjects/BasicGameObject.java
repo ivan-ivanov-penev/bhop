@@ -23,6 +23,11 @@ public abstract class BasicGameObject implements GameObject
 		movement = SingletonManager.getSingleton(CameraMovement.class);
 		image = new Image(path);
 	}
+	
+	protected BasicGameObject()
+	{
+		movement = SingletonManager.getSingleton(CameraMovement.class);
+	}
 
 	public Image getImage()
 	{

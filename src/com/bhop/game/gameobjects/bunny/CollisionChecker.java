@@ -6,6 +6,7 @@ import static com.bhop.game.gameobjects.bunny.animation.BunnyAnimation.IMAGE_WID
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.PixelLocation;
+import com.bhop.game.gameobjects.booster.Booster;
 import com.bhop.game.gameobjects.bunny.animation.BunnyAnimation;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
 import com.bhop.game.gameobjects.log.LogGenerator;
@@ -18,15 +19,19 @@ public class CollisionChecker
 	
 	private final CarrotManager carrotGenerator;
 	
+	private final Booster booster;
+	
 	CollisionChecker()
 	{
 		logGenerator = SingletonManager.getSingleton(LogGenerator.class);
 		carrotGenerator = SingletonManager.getSingleton(CarrotManager.class);
+		booster = SingletonManager.getSingleton(Booster.class);
 	}
 
 	public boolean checkForCollision(float bunnyX, float bunnyY, BunnyAnimation animation) throws SlickException
 	{
 		checkForCarrotCollision(bunnyX, bunnyY, animation);
+		checkForBoosterCollision(bunnyX, bunnyY, animation);
 		
 		return checkForLogCollision(bunnyX, bunnyY, animation);
 	}
@@ -38,6 +43,14 @@ public class CollisionChecker
 			carrotGenerator.alertBunnyTookCarrot();
 		}
     }
+	
+	private void checkForBoosterCollision(float bunnyX, float bunnyY, BunnyAnimation animation)
+	{
+		if (checkForCollision(booster, bunnyX, bunnyY, animation))
+		{
+			booster.alertBunnyTookBooster();
+		}
+	}
 
 	private boolean checkForLogCollision(float bunnyX, float bunnyY, BunnyAnimation animation)
     {

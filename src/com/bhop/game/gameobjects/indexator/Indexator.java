@@ -65,7 +65,7 @@ public class Indexator implements GameObject, Singleton
 	@Override
     public void render() throws SlickException
     {
-		renderImage.draw(WINDOW_WIDTH / 1.75f, WINDOW_HEIGHT / 20);
+		renderImage.draw(WINDOW_WIDTH / 1.4f, 0);
     }
 
 	private void renderAccordinglyToPlayerProgress(boolean isOnTime)

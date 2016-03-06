@@ -3,12 +3,12 @@ package com.bhop.game.gameobjects.timecounter;
 import java.awt.Font;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
 import com.bhop.game.gameobjects.GameObject;
-import com.bhop.game.gameobjects.bunny.animation.BunnyAnimation;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
@@ -22,12 +22,15 @@ public class TimeCounter implements GameObject, Singleton
 	
 	private final TrueTypeFont fontType;
 	
+	private final Image sign;
+	
 	private int secondsLeft;
 	
 	private int fpsCounter;
 	
-	private TimeCounter()
+	private TimeCounter() throws SlickException
     {
+		sign = new Image(SPRITE_DIR + "signs/counter.png");
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
 		secondsLeft = 10;
     }
@@ -59,7 +62,12 @@ public class TimeCounter implements GameObject, Singleton
 	@Override
 	public void render() throws SlickException
     {
-		fontType.drawString(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 10,  String.valueOf(secondsLeft < 0 ? 0 : secondsLeft), Color.black);
+		String timeLeft = String.valueOf(secondsLeft < 0 ? 0 : secondsLeft);
+		
+		float x = WINDOW_WIDTH * 0.5f - sign.getWidth() * 0.4f;
+		
+//		sign.draw(x, -3);
+		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT / 10,  timeLeft, Color.black);
     }
 	
 	private void checkForTimeExpiration()
@@ -67,13 +75,12 @@ public class TimeCounter implements GameObject, Singleton
 		if (secondsLeft < 0)
 		{
 			GameEndWatcher.alertGameHasEnded();
-			BunnyAnimation.resetRunAnimationIndex();
 		}
 	}
 	
 	public void setTimeLeft(float x)
 	{
-		secondsLeft += (int) (x / (CAMERA_SPEED * FPS * (((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) / 2) + MIN_SPEED_FACTOR)));
+		secondsLeft += (int) (x / (CAMERA_SPEED * FPS * (((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) * 0.35f) + MIN_SPEED_FACTOR)));
 		
 		if (secondsLeft < 5)
 		{

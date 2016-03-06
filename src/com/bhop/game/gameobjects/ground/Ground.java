@@ -20,6 +20,14 @@ public class Ground implements GameObject, Singleton
 	
 	private class GroundPiece extends BasicGameObject
 	{
+
+		public GroundPiece(float x) throws SlickException
+		{
+			super(SPRITE_DIR + "ground/" + getTimePeriod() + ".png");
+			
+			this.x = x;
+			this.y = GameUtils.WINDOW_HEIGHT - image.getHeight();
+		}
 		
 		public GroundPiece() throws SlickException
 		{
@@ -78,10 +86,21 @@ public class Ground implements GameObject, Singleton
 	
 	private void manageGroundPieces() throws SlickException
 	{
+		attemptToAddPieceIfPlayerIsHit();
+		
 		if (groundPieces.get(groundPieces.size() - 1).getX() <= GameUtils.WINDOW_WIDTH - imageWidth / 2)
 		{
 			groundPieces.remove(0);
 			groundPieces.add(new GroundPiece());
+		}
+	}
+	
+	private void attemptToAddPieceIfPlayerIsHit() throws SlickException
+	{
+		if (groundPieces.get(0).getX() >= 0)
+		{
+			groundPieces.remove(groundPieces.size() - 1);
+			groundPieces.add(0, new GroundPiece(-imageWidth + 2));
 		}
 	}
 

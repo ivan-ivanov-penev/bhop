@@ -22,9 +22,9 @@ class Cloud extends GeneratedObject
 	@Override
 	protected void update(float cameraSpeed)
 	{
-		cameraSpeed *= cameraSpeed > 0 ? -1 : 1;
+		cameraSpeed *= cameraSpeed > 0 ? -1 : 2;
 		
-		super.update(cameraSpeed * 2);
+		super.update(cameraSpeed);
 	}
 	
 	@Override

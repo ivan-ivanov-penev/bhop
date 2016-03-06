@@ -1,6 +1,8 @@
 package com.bhop.game.gameobjects.bunny;
 
-class BunnyPhysics
+import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
+
+public class BunnyPhysics
 {
 
 	private float gravityForce;
@@ -16,7 +18,7 @@ class BunnyPhysics
 
 	void setGravityToJumping(float jumpHeight)
 	{
-		gravityForce = -(BASE_FORCE * jumpHeight);
+		gravityForce = -((BASE_FORCE) * jumpHeight);
 	}
 
 	void resetGravityFallingBaseForce()
@@ -29,53 +31,24 @@ class BunnyPhysics
 	    return gravityForce;
     }
 
-	static class BunnyJump extends BunnyIsHitEventWatcher
+	static class BunnyJump
 	{
 		
-		static final float MAX_JUMP_COEFFICIENT = 1.0f;
-
-		static final float MIN_JUMP_COEFFICIENT = 1.0f;
-
-		private static final float JUMP_COEFFICIENT_INCREMENT = 0.1f;
-
-		private static final float JUMP_COEFFICIENT_DECREMENT = 0.004f;
-
 		private float jumpHeight;
 
 		public BunnyJump()
 		{
-			jumpHeight = MIN_JUMP_COEFFICIENT;
+			jumpHeight = 1.0f;
 		}
 
-		void increaseNextJumpHeight()
+		float getJumpHeightAccordingToSpeed(float speedFactor)
 		{
-			jumpHeight += JUMP_COEFFICIENT_INCREMENT;
-			
-			if (jumpHeight > MAX_JUMP_COEFFICIENT)
+			if (speedFactor < MIN_SPEED_FACTOR + 0.5f && speedFactor > 0)
 			{
-				jumpHeight = MAX_JUMP_COEFFICIENT;
+				return jumpHeight * 1.1f;
 			}
-		}
-
-		void decreaseNextJumpHeight()
-		{
-			jumpHeight -= JUMP_COEFFICIENT_DECREMENT;
 			
-			if (jumpHeight < MIN_JUMP_COEFFICIENT)
-			{
-				jumpHeight = MIN_JUMP_COEFFICIENT;
-			}
-		}
-
-		float getJumpHeight()
-		{
 			return jumpHeight;
-		}
-		
-		@Override
-		protected void alertBunnyIsHit()
-		{
-			jumpHeight = MIN_JUMP_COEFFICIENT;
 		}
 
 	}

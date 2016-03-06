@@ -11,7 +11,8 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.PixelLocation;
 import com.bhop.game.gameobjects.bunny.BunnyIsHitEventWatcher;
-import com.bhop.game.states.Menu;
+import com.bhop.game.gameobjects.bunny.dummy.DummyBunnyAnimation;
+import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.util.ImageUtils;
 
 import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
@@ -23,8 +24,6 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	
 	public static final int IMAGE_HEIGHT = 96;
 	
-	private static int runAnimationIndex;
-
 	private Map<Image, RunSpeedBoost> speedBoostsForFrame;
 
 	private Map<Image, Set<PixelLocation>> imagePixelLocations;
@@ -41,14 +40,14 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	
 	private Image currentFrame;
 
-	public BunnyAnimation() throws SlickException
+	public BunnyAnimation(BunnyColor bunnyColor) throws SlickException
 	{
-		hitImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/hit");
-		jumpImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/jump");
-		runImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + Menu.getSelectedBunnyColor().getColorName() + "/run");
+		hitImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + bunnyColor.getColorName() + "/hit");
+		jumpImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + bunnyColor.getColorName() + "/jump");
+		runImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + bunnyColor.getColorName() + "/run");
 		frameCounter = new FrameCounter();
 		spriteManager = new SpriteManager();
-		currentFrame = runImages[runAnimationIndex];
+		currentFrame = runImages[DummyBunnyAnimation.getFrameIndex() >= runImages.length ? 0 : DummyBunnyAnimation.getFrameIndex()];
 
 		initializeSpeedBoostsForFrame();
 		initializeImagePixelLocations();
@@ -63,6 +62,7 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	private void initializeImagePixelLocations() throws SlickException
 	{
 		imagePixelLocations = new HashMap<Image, Set<PixelLocation>>();
+		
 		putPixelLocationsForImageInMap(hitImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/hit"));
 		putPixelLocationsForImageInMap(jumpImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/jump"));
 		putPixelLocationsForImageInMap(runImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/run"));
@@ -94,12 +94,6 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 			spriteManager.preciseJumpFrame(gravityForce, y, isOnTopOfAnObject);
 		}
 	}
-	
-	public boolean isNotInTheAir()
-	{
-//		return (currentFrame.equals(runImages[1]) || currentFrame.equals(runImages[0])) && frameCounter == fps;
-		return true;
-	}
 
 	public RunSpeedBoost getSpeedBoost()
 	{
@@ -109,11 +103,6 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	public Set<PixelLocation> getCurrentFramePixelLocations()
 	{
 		return imagePixelLocations.get(currentFrame);
-	}
-	
-	public static void resetRunAnimationIndex()
-	{
-		runAnimationIndex = 0;
 	}
 	
 	private class SpriteManager
@@ -205,13 +194,9 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 			{
 				if (currentFrame.equals(runImages[i]))
 				{
-					runAnimationIndex = i + 1;
-					
 					return runImages[i + 1];
 				}
 			}
-			
-			runAnimationIndex = 0;
 			
 			return runImages[0];
 		}

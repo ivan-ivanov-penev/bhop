@@ -36,31 +36,31 @@ public class ColorOptionManager implements GameObject, Singleton
 	    return colorBloks;
     }
 
-	protected void fillColorBlocks() throws SlickException
+	private void fillColorBlocks() throws SlickException
 	{
 		int numberOfBlocks = colorUnlocker.playerHasUnlockedBonus() ? BunnyColor.values().length : BunnyColor.values().length - 1;
 		
-		float firstX = (WINDOW_WIDTH - (numberOfBlocks * (IMAGE_WIDTH + IMAGE_WIDTH / 2))) / 2;
+//		float firstX = WINDOW_WIDTH / (numberOfBlocks + 1);
+		
+		float firstX =(WINDOW_WIDTH - IMAGE_WIDTH * numberOfBlocks - IMAGE_WIDTH * 0.2f * (numberOfBlocks - 1)) / 2;
 		
 		for (BunnyColor bunnyColor : BunnyColor.values())
 		{
-			putColorBlockPrecisely(firstX + IMAGE_WIDTH / 4, bunnyColor);
+			putColorBlockPrecisely(firstX, bunnyColor);
+			
+			firstX += IMAGE_WIDTH * 1.2f;
 		}
 	}
 
-	protected void putColorBlockPrecisely(float firstX, BunnyColor bunnyColor) throws SlickException
+	protected void putColorBlockPrecisely(float x, BunnyColor bunnyColor) throws SlickException
 	{
 		if (bunnyColor.equals(BunnyColor.BONUS) && !colorUnlocker.playerHasUnlockedBonus())
 		{
 			return;
 		}
-		else if (colorBloks.isEmpty())
-		{
-			colorBloks.add(new ColorOption(firstX, bunnyColor));
-		}
 		else
 		{
-			colorBloks.add(new ColorOption(colorBloks.get(colorBloks.size() - 1).getX() + colorBloks.get(colorBloks.size() - 1).getImageWidth() + colorBloks.get(0).getImageWidth() / 2, bunnyColor));
+			colorBloks.add(new ColorOption(x, bunnyColor));
 		}
 	}
 
