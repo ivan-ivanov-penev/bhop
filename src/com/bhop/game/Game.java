@@ -1,5 +1,7 @@
 package com.bhop.game;
 
+import java.io.File;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -26,6 +28,8 @@ public class Game extends StateBasedGame
 	{
 		try
 		{
+			setNativesLibrary();
+			
 			runGame();
 		}
 		catch (Exception e)
@@ -33,9 +37,17 @@ public class Game extends StateBasedGame
 			e.printStackTrace();
 		}
 	}
+
+	
+	private static void setNativesLibrary()
+	{
+		System.setProperty("org.lwjgl.librarypath", new File("lib/natives/all").getAbsolutePath());
+	}
 	
 	public static void runGame() throws Exception
 	{
+		FontUtils.registerGameFont();
+		
         AppGameContainer appGameContainer = new AppGameContainer(new Game());
 		appGameContainer.setDisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, false);
 		appGameContainer.setIcon(SPRITE_DIR + "game_icon.png");
@@ -45,8 +57,6 @@ public class Game extends StateBasedGame
 		appGameContainer.setMaximumLogicUpdateInterval(10);
 		appGameContainer.setMinimumLogicUpdateInterval(0);
 		appGameContainer.start();
-		
-		FontUtils.registerGameFont();
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class Log extends BasicGameObject implements Collidable
 			case LEVITATING:
 				verticalSpeed = 1.0f;
 				horizontalSpeed = 0.0f;
-				image = new Image(SPRITE_DIR + "obsticales/rolling_log_kind" + logKind + ".png");
+				image = new Image(SPRITE_DIR + "obsticales/levitating_log_kind" + logKind + ".png");
 				
 				break;
 				
@@ -62,7 +62,7 @@ public class Log extends BasicGameObject implements Collidable
 			case STATIC:
 				verticalSpeed = 0.0f;
 				horizontalSpeed = 0.0f;
-				image = new Image(SPRITE_DIR + "obsticales/1log_kind" + logKind + ".png");
+				image = new Image(SPRITE_DIR + "obsticales/static_log_kind" + logKind + ".png");
 				y = WINDOW_HEIGHT - 180;
 				
 				break;

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -38,17 +39,18 @@ public class Carrot implements GameObject, Collidable
 		this.y = GameUtils.WINDOW_HEIGHT - 245;
 		this.movement = SingletonManager.getSingleton(CameraMovement.class);
 		this.pixelLocations = new HashMap<Integer, Set<PixelLocation>>();
-		this.animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "carrot/collision"), FPS, true);
+		this.animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "carrot/animation"), FPS, true);
 		this.animation.setPingPong(true);
+		this.animation.setSpeed(1.2f);
 		
 		fillPixelLocations();
     }
 	
-	private void fillPixelLocations()
+	private void fillPixelLocations() throws SlickException
 	{
 		for (int i = 0; i < animation.getFrameCount(); i++)
 		{
-			pixelLocations.put(i, ImageUtils.getPixelsLocations(animation.getImage(i)));
+			pixelLocations.put(i, ImageUtils.getPixelsLocations(new Image(SPRITE_DIR + "carrot/collision/" + i + "_carrot_border.png")));
 		}
 	}
 

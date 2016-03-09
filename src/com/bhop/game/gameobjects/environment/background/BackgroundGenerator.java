@@ -21,20 +21,6 @@ public class BackgroundGenerator extends Generator implements Singleton
 	}
 	
 	@Override
-	protected void fillGeneratedObjects() throws SlickException
-	{
-		for (int i = 0; i < 6; i++)
-		{
-			if (i == 1)
-			{
-				generatedObjects.add(new SpecialBackground(i * (WINDOW_WIDTH - 1)));
-				continue;
-			}
-			generatedObjects.add(createGeneratedObject(i * (WINDOW_WIDTH - 1)));
-		}
-	}
-	
-	@Override
 	protected void manageGeneratedObjects() throws SlickException
 	{
 		attemtToRemoveLast();
