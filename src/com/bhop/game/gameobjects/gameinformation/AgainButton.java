@@ -18,9 +18,11 @@ public class AgainButton implements GameObject, Singleton
 	
 	private final Image image;
 	
-	private final float x;
+	private float x;
 	
-	private final float y;
+	private float y;
+	
+	private boolean playerHasPressedButton;
 	
 	private AgainButton() throws SlickException
 	{
@@ -34,6 +36,27 @@ public class AgainButton implements GameObject, Singleton
 	public void update(Input input) throws SlickException
 	{
 		if (isGameEnd() && mouseIsOverImage(input, image, x, y) && input.isMousePressed(0))
+		{
+			playerHasPressedButton = true;
+		}
+		
+		attemtPlayButtonAnimation();
+	}
+
+	private void attemtPlayButtonAnimation()
+	{
+		if (playerHasPressedButton)
+		{
+			x += 1;
+			y += 1;
+			
+			alertPlayerWantsRestartIfAnimationFinished();
+		}
+	}
+
+	private void alertPlayerWantsRestartIfAnimationFinished()
+	{
+		if (y == WINDOW_HEIGHT * 0.5f + 2)
 		{
 			Play.alertPlayerWantsToRestart();
 		}

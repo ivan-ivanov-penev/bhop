@@ -74,7 +74,7 @@ public class GameInformation extends BasicGameObject implements Singleton
 
 	private void attempToRenderBonusColorUnlockMessage()
     {
-	    if (carrotManager.playerJustUnlockedBonus() && frameCounter < FPS * 5)
+	    if (carrotManager.playerJustUnlockedBonus() && frameCounter < FPS * 5 && !GameEndWatcher.isGameEnd())
 		{
 			frameCounter++;
 			

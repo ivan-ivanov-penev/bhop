@@ -64,10 +64,10 @@ public class TimeCounter implements GameObject, Singleton
     {
 		String timeLeft = String.valueOf(secondsLeft < 0 ? 0 : secondsLeft);
 		
-		float x = WINDOW_WIDTH * 0.5f - sign.getWidth() * 0.4f;
+		float x = (WINDOW_WIDTH - sign.getWidth()) * 0.5f;
 		
-//		sign.draw(x, -3);
-		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT / 10,  timeLeft, Color.black);
+//		sign.draw(x, -26);
+		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT * 0.05f,  timeLeft, Color.black);
     }
 	
 	private void checkForTimeExpiration()
