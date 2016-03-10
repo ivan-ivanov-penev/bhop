@@ -23,7 +23,7 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private static final int SPAWNING_INTERVAL_IN_SECONDS = 2;
 	
-	private static boolean boosterAcquired;
+	private static volatile boolean boosterAcquired;
 	
 	private final Set<PixelLocation> pixelLocations;
 	

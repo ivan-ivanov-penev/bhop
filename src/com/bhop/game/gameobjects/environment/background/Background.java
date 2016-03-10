@@ -14,4 +14,10 @@ public class Background extends GeneratedObject
 		super(x, SPRITE_DIR + "backgrounds/landscapes/");
 	}
 	
+	@Override
+	protected void update(float cameraSpeed)
+	{
+		x -= cameraSpeed / 20;
+	}
+	
 }

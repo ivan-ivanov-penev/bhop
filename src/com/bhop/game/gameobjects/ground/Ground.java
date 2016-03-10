@@ -92,6 +92,7 @@ public class Ground implements GameObject, Singleton
 		{
 			groundPieces.remove(0);
 			groundPieces.add(new GroundPiece());
+			
 		}
 	}
 	

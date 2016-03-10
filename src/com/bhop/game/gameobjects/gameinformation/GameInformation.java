@@ -36,7 +36,7 @@ public class GameInformation extends BasicGameObject implements Singleton
 	
 	private GameInformation() throws SlickException
 	{
-		super(SPRITE_DIR + "signs/highscore.png");
+		super(SPRITE_DIR + "signs/highscore2.png");
 		
 		x = (WINDOW_WIDTH - image.getWidth()) / 2;
 		y = image.getHeight() - image.getHeight() / 10;
@@ -93,8 +93,8 @@ public class GameInformation extends BasicGameObject implements Singleton
 			
 			String[] messages = getMessages(currentScore, highScoreManager.getHighScore());
 			
-			fontType.drawString(x + (image.getWidth() - fontType.getWidth(messages[0])) / 2, image.getHeight() / 2 + 8, messages[0], COLOR);
-			fontType.drawString(x + (image.getWidth() - fontType.getWidth(messages[1])) / 2, y + (180 - fontType.getHeight()) / 2, messages[1], COLOR);
+			fontType.drawString(x + (image.getWidth() - fontType.getWidth(messages[0])) / 2, 0 + image.getHeight() / 2, messages[0], COLOR);
+			fontType.drawString(x + (image.getWidth() - fontType.getWidth(messages[1])) / 2, y + image.getHeight() / 2, messages[1], COLOR);
 			
 			highScoreManager.rewriteHighScoreIfGreater(currentScore);
 		}

@@ -19,8 +19,8 @@ public class InfoIcon extends BasicGameObject implements Singleton
 	{
 		super(SPRITE_DIR + "info_icon/info_icon.png");
 		
-		x = image.getWidth() * 0.5f;
-		y = image.getHeight() * 0.5f;
+		x = 8;
+		y = 7;
 	}
 	
 	@Override

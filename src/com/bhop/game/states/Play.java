@@ -79,6 +79,7 @@ public class Play extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		checkForExitGame(container);
+		checkForPause(container);
 		enterMenuStateIfPlayerWantsToRestart(game);
 		
 		if (GameEndWatcher.isGameEnd())
@@ -93,6 +94,14 @@ public class Play extends BasicGameState
 		else
 		{
 			updateGameObjects(gameObjects, container.getInput());
+		}
+	}
+	
+	private void checkForPause(GameContainer container)
+	{
+		if (container.getInput().isKeyPressed(Input.KEY_P))
+		{
+			container.setPaused(!container.isPaused());
 		}
 	}
 

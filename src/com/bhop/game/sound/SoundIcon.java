@@ -25,12 +25,11 @@ public class SoundIcon implements Singleton, GameObject
 	
 	private SoundIcon() throws SlickException
 	{
-		soundIcon = new Image(SPRITE_DIR + "sound_icon/music_icon2.png");
-		soundIconUnchecked = new Image(SPRITE_DIR + "sound_icon/music_icon_unwanted2.png");
+		soundIcon = new Image(SPRITE_DIR + "sound_icon/music_icon.png");
+		soundIconUnchecked = new Image(SPRITE_DIR + "sound_icon/music_icon_unwanted.png");
 		renderImage = isSoundEnabled() ? soundIcon : soundIconUnchecked;
-		
-		x = renderImage.getWidth() * 0.5f;
-		y = WINDOW_HEIGHT - renderImage.getHeight() * 1.35f;
+		x = 8;
+		y = WINDOW_HEIGHT - renderImage.getHeight() - 7;
 	}
 
 	@Override
@@ -41,6 +40,9 @@ public class SoundIcon implements Singleton, GameObject
 			alertPlayerHasClickedIcon();
 			
 			renderImage = renderImage == soundIcon ? soundIconUnchecked : soundIcon;
+			
+			x += renderImage == soundIcon ? -2 : +2;
+			y += renderImage == soundIcon ? -2 : +2;
 		}
 	}
 
@@ -49,5 +51,5 @@ public class SoundIcon implements Singleton, GameObject
 	{
 		renderImage.draw(x, y);
 	}
-
+	
 }

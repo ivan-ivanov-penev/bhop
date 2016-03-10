@@ -12,7 +12,7 @@ import static com.bhop.game.util.GameUtils.*;
 public class ColorOption extends BasicGameObject
 {
 	
-	static final int IMAGE_WIDTH = 168;
+	static final int IMAGE_WIDTH = 105;
 	
 	private final BunnyColor bunnyColor;
 	
@@ -23,7 +23,7 @@ public class ColorOption extends BasicGameObject
 		super(SPRITE_DIR + "color_options/" + bunnyColor.getColorName() + ".png");
 		
 		this.x = x;
-		this.y = GameUtils.WINDOW_HEIGHT / 4;
+		this.y = GameUtils.WINDOW_HEIGHT * 0.25f;
 		this.bunnyColor = bunnyColor;
 		this.sign = new Sign();
 	}
@@ -40,8 +40,13 @@ public class ColorOption extends BasicGameObject
 	public void render() throws SlickException
 	{
 		sign.render(x, y);
-		
-		super.render();
+		image.draw(x + (sign.image.getWidth() - image.getWidth()) * 0.5f, y + (sign.image.getHeight() - image.getHeight()) * 0.71f);
+	}
+	
+	@Override
+	public Image getImage()
+	{
+	    return sign.image;
 	}
 	
 	private static class Sign

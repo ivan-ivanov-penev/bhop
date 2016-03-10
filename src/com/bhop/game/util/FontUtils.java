@@ -5,6 +5,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 public final class FontUtils
 {
@@ -27,6 +28,11 @@ public final class FontUtils
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static TrueTypeFont createFont(int size)
+	{
+		return new TrueTypeFont(new Font(FONT_TYPE, STYLE, size), true);
 	}
 
 }

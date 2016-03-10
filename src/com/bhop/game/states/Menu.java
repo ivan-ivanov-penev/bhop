@@ -72,6 +72,8 @@ public class Menu extends BasicGameState
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
+		checkForExitGame(container);
+		
 		if (InfoIcon.isPlayerIsReadingInfo())
 		{
 			getSingleton(InfoIcon.class).update(container.getInput());
@@ -79,9 +81,8 @@ public class Menu extends BasicGameState
 		}
 		else
 		{
-			checkForExitGame(container);
 			enterPlayStateIfPlayerHasPickedColor(game);
-	
+			
 			updateGameObjects(gameObjects, container.getInput());
 		}
 	}
