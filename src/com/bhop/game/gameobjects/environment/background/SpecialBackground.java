@@ -13,5 +13,11 @@ public class SpecialBackground extends GeneratedObject
 	{
 		super(x, SPRITE_DIR + "backgrounds/special/");
 	}
+	
+	@Override
+	protected void update(float cameraSpeed)
+	{
+		x -= cameraSpeed / 15;
+	}
 
 }

@@ -38,7 +38,6 @@ public class Game extends StateBasedGame
 		}
 	}
 
-	
 	private static void setNativesLibrary()
 	{
 		System.setProperty("org.lwjgl.librarypath", new File("lib/natives/all").getAbsolutePath());
@@ -62,6 +61,7 @@ public class Game extends StateBasedGame
 	@Override
 	public void initStatesList(GameContainer gameContainer) throws SlickException
 	{
+//		gameContainer.setMouseCursor(SPRITE_DIR + "mouse_cursor/mouse2.png", 0, 0);
 		getState(Menu.ID).init(gameContainer, this);
 		enterState(Menu.ID);
 	}

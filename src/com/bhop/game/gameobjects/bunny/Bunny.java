@@ -10,6 +10,10 @@ import com.bhop.game.gameobjects.bunny.BunnyPhysics.BunnyJump;
 import com.bhop.game.gameobjects.bunny.CameraMovement.RunSpeedBoost;
 import com.bhop.game.gameobjects.bunny.animation.BunnyAnimation;
 import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
+import com.bhop.game.gameobjects.gameinformation.InfoIcon;
+import com.bhop.game.gameobjects.pauseicon.PauseIcon;
+import com.bhop.game.sound.SoundIcon;
+import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
@@ -75,9 +79,14 @@ public class Bunny implements GameObject, Singleton
 	{
 		collisionCheck();
 		
-		updateMovement((input.isMousePressed(0) || input.isKeyPressed(Input.KEY_SPACE)));
+		updateMovement(playerHasNotClickedOnAnyIcon() && (InputUtils.isLeftMouseButtonPressed() || input.isKeyPressed(Input.KEY_SPACE)));
 		
 		animation.update(physics.getGravityForce(), y, movement.getSpeedFactor(), isOnTopOfAnObject());
+	}
+	
+	private boolean playerHasNotClickedOnAnyIcon()
+	{
+		return !SoundIcon.isClickedOnIcon() && !InfoIcon.isPlayerIsReadingInfo() && !PauseIcon.isGamePaused();
 	}
 
 	private void updateMovement(boolean buttonIsPressed) throws SlickException

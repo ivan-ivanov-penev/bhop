@@ -7,7 +7,6 @@ import static com.bhop.game.util.FontUtils.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -17,6 +16,7 @@ import com.bhop.game.bonuscolor.BonusColorUnlocker;
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.states.Menu;
+import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonManager;
 
@@ -74,7 +74,7 @@ public class ColorOptionManager implements GameObject, Singleton
 	{
 		for (ColorOption colorBlock : colorBloks)
 		{
-			if (mouseIsOverImage(input, colorBlock) && input.isMousePressed(0))
+			if (mouseIsOverImage(input, colorBlock) && InputUtils.isLeftMouseButtonPressed())
 			{
 				Menu.informPlayerHasPickedColor(colorBlock.getBunnyColor());
 			}
@@ -101,7 +101,7 @@ public class ColorOptionManager implements GameObject, Singleton
 		float x = this.x + (mainSign.getWidth() - font.getWidth(message)) * 0.5f;
 		float y = (mainSign.getHeight() - font.getHeight()) * 0.55f;
 		
-		font.drawString(x, y, message, Color.black);
+		font.drawString(x, y, message, COLOR_BLACKISH);
     }
 
 }

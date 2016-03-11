@@ -15,6 +15,7 @@ import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.PixelLocation;
 import com.bhop.game.gameobjects.bunny.CameraMovement;
 import com.bhop.game.gameobjects.bunny.Collidable;
+import com.bhop.game.gameobjects.pauseicon.PauseIcon;
 import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
 import com.bhop.game.util.GameUtils;
 import com.bhop.game.util.ImageUtils;
@@ -105,6 +106,8 @@ public class Carrot implements GameObject, Collidable
 	@Override
 	public void render() throws SlickException
 	{
+		checkForGamePause();
+		
 		if (GameEndWatcher.isGameEnd() && !animation.isStopped())
 		{
 			animation.stop();
@@ -112,5 +115,17 @@ public class Carrot implements GameObject, Collidable
 		
 		animation.draw(x, y);
 	}
+
+	private void checkForGamePause()
+    {
+		if (PauseIcon.isGamePaused())
+		{
+			animation.stop();
+		}
+		else if (animation.isStopped())
+		{
+			animation.start();
+		}
+    }
 	
 }

@@ -11,6 +11,8 @@ public final class FontUtils
 {
 	
 	public static final Color COLOR = new Color(75, 51, 28);
+
+	public static final Color COLOR_BLACKISH = new Color(40, 30, 20);
 	
 	public static final String FONT_TYPE = "Snap ITC";
 

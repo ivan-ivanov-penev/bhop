@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 
 public class SoundIcon implements Singleton, GameObject
@@ -23,6 +24,8 @@ public class SoundIcon implements Singleton, GameObject
 	
 	private float y;
 	
+	private static boolean clickedOnIcon;
+	
 	private SoundIcon() throws SlickException
 	{
 		soundIcon = new Image(SPRITE_DIR + "sound_icon/music_icon.png");
@@ -35,7 +38,7 @@ public class SoundIcon implements Singleton, GameObject
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		if (mouseIsOverImage(input, renderImage, x, y) && input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		if (mouseIsOverImage(input, renderImage, x, y) && InputUtils.isLeftMouseButtonPressed())
 		{
 			alertPlayerHasClickedIcon();
 			
@@ -43,6 +46,12 @@ public class SoundIcon implements Singleton, GameObject
 			
 			x += renderImage == soundIcon ? -2 : +2;
 			y += renderImage == soundIcon ? -2 : +2;
+			
+			clickedOnIcon = true;
+		}
+		else
+		{
+			clickedOnIcon = false;
 		}
 	}
 
@@ -50,6 +59,11 @@ public class SoundIcon implements Singleton, GameObject
 	public void render() throws SlickException
 	{
 		renderImage.draw(x, y);
+	}
+
+	public static boolean isClickedOnIcon()
+	{
+		return clickedOnIcon;
 	}
 	
 }

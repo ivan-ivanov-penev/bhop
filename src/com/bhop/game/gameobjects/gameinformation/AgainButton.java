@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.states.Play;
+import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
@@ -35,7 +36,7 @@ public class AgainButton implements GameObject, Singleton
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		if (isGameEnd() && mouseIsOverImage(input, image, x, y) && input.isMousePressed(0))
+		if (isGameEnd() && mouseIsOverImage(input, image, x, y) && InputUtils.isLeftMouseButtonPressed())
 		{
 			playerHasPressedButton = true;
 		}

@@ -17,7 +17,7 @@ public class Background extends GeneratedObject
 	@Override
 	protected void update(float cameraSpeed)
 	{
-		x -= cameraSpeed / 20;
+		x -= cameraSpeed / 15;
 	}
 	
 }

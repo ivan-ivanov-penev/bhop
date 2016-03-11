@@ -2,7 +2,6 @@ package com.bhop.game.gameobjects.timecounter;
 
 import java.awt.Font;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -32,7 +31,7 @@ public class TimeCounter implements GameObject, Singleton
     {
 		sign = new Image(SPRITE_DIR + "signs/counter.png");
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
-		secondsLeft = 10;
+		secondsLeft = 100;
     }
 
 	@Override
@@ -66,8 +65,8 @@ public class TimeCounter implements GameObject, Singleton
 		
 		float x = (WINDOW_WIDTH - sign.getWidth()) * 0.5f;
 		
-//		sign.draw(x, -26);
-		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT * 0.05f,  timeLeft, Color.black);
+		sign.draw(x, -26);
+		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT * 0.05f,  timeLeft, COLOR_BLACKISH);
     }
 	
 	private void checkForTimeExpiration()

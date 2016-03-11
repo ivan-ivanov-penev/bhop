@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.BasicGameObject;
+import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
@@ -26,7 +27,7 @@ public class InfoIcon extends BasicGameObject implements Singleton
 	@Override
 	public void update(Input input) throws SlickException
 	{
-		if (mouseIsOverImage(input, this) && input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		if (mouseIsOverImage(input, this) && InputUtils.isLeftMouseButtonPressed())
 		{
 			playerIsReadingInfo = !playerIsReadingInfo;
 		}

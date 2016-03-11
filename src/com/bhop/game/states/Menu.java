@@ -27,6 +27,7 @@ import com.bhop.game.gameobjects.gameinformation.DetailedInfo;
 import com.bhop.game.gameobjects.gameinformation.InfoIcon;
 import com.bhop.game.gameobjects.ground.Ground;
 import com.bhop.game.sound.SoundIcon;
+import com.bhop.game.util.InputUtils;
 
 public class Menu extends BasicGameState
 {
@@ -73,6 +74,7 @@ public class Menu extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		checkForExitGame(container);
+		InputUtils.updateInput(container.getInput());
 		
 		if (InfoIcon.isPlayerIsReadingInfo())
 		{
