@@ -19,6 +19,7 @@ import com.bhop.game.gameobjects.booster.Booster;
 import com.bhop.game.gameobjects.bunny.Bunny;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
 import com.bhop.game.gameobjects.clickcircles.ClickCirclesGenerator;
+import com.bhop.game.gameobjects.distanceindexator.DistanceIndexator;
 import com.bhop.game.gameobjects.environment.LightObject;
 import com.bhop.game.gameobjects.environment.Sky;
 import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
@@ -66,6 +67,7 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(InfoIcon.class));
 		gameObjects.add(getSingleton(Booster.class));
 		gameObjects.add(getSingleton(PauseIcon.class));
+		gameObjects.add(getSingleton(DistanceIndexator.class));
 		gameObjects.add(getSingleton(BlackScreen.class));
 		gameObjects.add(getSingleton(AgainButton.class));
 		gameObjects.add(getSingleton(GameInformation.class));
