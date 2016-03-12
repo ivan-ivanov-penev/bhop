@@ -25,6 +25,7 @@ import com.bhop.game.gameobjects.environment.Sky;
 import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
 import com.bhop.game.gameobjects.environment.cloud.CloudGenerator;
 import com.bhop.game.gameobjects.gameinformation.AgainButton;
+import com.bhop.game.gameobjects.gameinformation.BasicInfoProvider;
 import com.bhop.game.gameobjects.gameinformation.DetailedInfo;
 import com.bhop.game.gameobjects.gameinformation.GameInformation;
 import com.bhop.game.gameobjects.gameinformation.InfoIcon;
@@ -65,6 +66,7 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(Indexator.class));
 		gameObjects.add(getSingleton(TimeCounter.class));
 		gameObjects.add(getSingleton(InfoIcon.class));
+		gameObjects.add(getSingleton(BasicInfoProvider.class));
 		gameObjects.add(getSingleton(Booster.class));
 		gameObjects.add(getSingleton(PauseIcon.class));
 		gameObjects.add(getSingleton(DistanceIndexator.class));

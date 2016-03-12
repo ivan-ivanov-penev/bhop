@@ -20,7 +20,7 @@ public class LoadingScreen extends BasicGameState
 	
 	public static final int ID = 0;
 	
-	private static final int LOADING_TIME_SECONDS = RANDOM.nextInt(3) + 1;
+	private static final double LOADING_TIME_SECONDS = RANDOM.nextInt(3) + 1 + Math.random();
 	
 	private List<GameObject> gameObjects;
 	
@@ -44,7 +44,7 @@ public class LoadingScreen extends BasicGameState
     {
 		updateGameObjects(gameObjects, container.getInput());
 		
-		if (counter == FPS * LOADING_TIME_SECONDS)
+		if (counter >= FPS * LOADING_TIME_SECONDS)
 		{
 			game.getState(Menu.ID).init(game.getContainer(), game);
 			game.enterState(Menu.ID);

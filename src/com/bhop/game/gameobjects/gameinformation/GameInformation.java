@@ -28,10 +28,6 @@ public class GameInformation extends BasicGameObject implements Singleton
 	
 	private final TrueTypeFont fontType;
 	
-	private final String gameInformationFirstLine;
-
-	private final String gameInformationSecondLine;
-	
 	private int frameCounter;
 	
 	private GameInformation() throws SlickException
@@ -45,9 +41,6 @@ public class GameInformation extends BasicGameObject implements Singleton
 		highScoreManager = SingletonManager.getSingleton(HighScoreManager.class);
 		
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 20), true);
-		
-		gameInformationFirstLine = "Tap on the screen to make bunny jump and go faster!";
-		gameInformationSecondLine = "Get to the next carrot before the time runs out!";
 	}
 
 	@Override
@@ -56,21 +49,10 @@ public class GameInformation extends BasicGameObject implements Singleton
 	@Override
 	public void render() throws SlickException
 	{
-		attemptToRenderGameInformation();
-		
 		attempToRenderBonusColorUnlockMessage();
 		
 		attemptToRenderHighScore();
 	}
-
-	private void attemptToRenderGameInformation()
-    {
-	    if (!carrotManager.gameHasBegan() && !GameEndWatcher.isGameEnd())
-		{
-			fontType.drawString(WINDOW_WIDTH / 10, WINDOW_HEIGHT / 5, gameInformationFirstLine, COLOR);
-			fontType.drawString(WINDOW_WIDTH / 10 + 20, WINDOW_HEIGHT / 3, gameInformationSecondLine, COLOR);
-		}
-    }
 
 	private void attempToRenderBonusColorUnlockMessage()
     {
