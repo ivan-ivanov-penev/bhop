@@ -36,7 +36,7 @@ public class DistanceIndexator implements GameObject, Singleton
 	@Override
     public void update(Input input) throws SlickException
     {
-		renderX = LINE_X + line.getWidth() - (line.getWidth() / (distanceToNextCarrot / (carrotX - BunnyAnimation.IMAGE_WIDTH)));
+		renderX = LINE_X + line.getWidth() - (line.getWidth() / ((distanceToNextCarrot - BunnyAnimation.IMAGE_WIDTH) / (carrotX - BunnyAnimation.IMAGE_WIDTH)));
 		renderX = renderX > LINE_X + line.getWidth() ? LINE_X + line.getWidth() : renderX;
 		renderX = renderX < LINE_X ? LINE_X : renderX;
     }
@@ -47,7 +47,7 @@ public class DistanceIndexator implements GameObject, Singleton
 		int y = WINDOW_HEIGHT - line.getHeight() * 5;
 		
 		line.draw(LINE_X, y);
-		bunnyImage.draw(renderX - bunnyImage.getWidth() * 1.f, y);
+		bunnyImage.draw(renderX, y);
     }
 	
 	void setCarrotX(float carrotX)
