@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.gameobjects.bunny.animation.BunnyAnimation;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
@@ -35,7 +36,7 @@ public class DistanceIndexator implements GameObject, Singleton
 	@Override
     public void update(Input input) throws SlickException
     {
-		renderX = LINE_X + line.getWidth() - (line.getWidth() / (distanceToNextCarrot / carrotX));
+		renderX = LINE_X + line.getWidth() - (line.getWidth() / (distanceToNextCarrot / (carrotX - BunnyAnimation.IMAGE_WIDTH)));
 		renderX = renderX > LINE_X + line.getWidth() ? LINE_X + line.getWidth() : renderX;
 		renderX = renderX < LINE_X ? LINE_X : renderX;
     }

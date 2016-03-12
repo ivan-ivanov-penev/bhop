@@ -31,7 +31,7 @@ public class TimeCounter implements GameObject, Singleton
     {
 		sign = new Image(SPRITE_DIR + "signs/counter.png");
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
-		secondsLeft = 10;
+		secondsLeft = 100;
     }
 
 	@Override
