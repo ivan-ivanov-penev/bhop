@@ -18,8 +18,8 @@ import com.bhop.game.gameobjects.blackscreen.BlackScreen;
 import com.bhop.game.gameobjects.booster.Booster;
 import com.bhop.game.gameobjects.bunny.Bunny;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
+import com.bhop.game.gameobjects.carrot.DistanceIndexator;
 import com.bhop.game.gameobjects.clickcircles.ClickCirclesGenerator;
-import com.bhop.game.gameobjects.distanceindexator.DistanceIndexator;
 import com.bhop.game.gameobjects.environment.LightObject;
 import com.bhop.game.gameobjects.environment.Sky;
 import com.bhop.game.gameobjects.environment.background.BackgroundGenerator;
@@ -39,7 +39,7 @@ import com.bhop.game.util.InputUtils;
 
 public class Play extends BasicGameState
 {
-	public static final int ID = 1;
+	public static final int ID = 2;
 	
 	private List<GameObject> gameObjects;
 	

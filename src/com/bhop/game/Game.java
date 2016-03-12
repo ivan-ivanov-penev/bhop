@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.bhop.game.states.LoadingScreen;
 import com.bhop.game.states.Menu;
 import com.bhop.game.states.Play;
 import com.bhop.game.util.FontUtils;
@@ -20,6 +21,7 @@ public class Game extends StateBasedGame
 	{
 		super(GAME_NAME);
 		
+		addState(new LoadingScreen());
 		addState(new Menu());
 		addState(new Play());
 	}
@@ -62,8 +64,8 @@ public class Game extends StateBasedGame
 	public void initStatesList(GameContainer gameContainer) throws SlickException
 	{
 //		gameContainer.setMouseCursor(SPRITE_DIR + "mouse_cursor/mouse2.png", 0, 0);
-		getState(Menu.ID).init(gameContainer, this);
-		enterState(Menu.ID);
+		getState(LoadingScreen.ID).init(gameContainer, this);
+		enterState(LoadingScreen.ID);
 	}
 
 }

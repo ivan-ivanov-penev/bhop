@@ -31,7 +31,7 @@ import com.bhop.game.util.InputUtils;
 
 public class Menu extends BasicGameState
 {
-	public static final int ID = 0;
+	public static final int ID = 1;
 	
 	private static boolean playerHasPickedColor;
 	

@@ -29,6 +29,8 @@ public class CarrotManager implements GameObject, Singleton
 	
 	private final DistanceIncrementFactor distanceIncrementFactor;
 	
+	private final DistanceIndexator distanceIndexator;
+	
 	private final Image carrotImage;
 	
 	private Carrot carrot;
@@ -39,10 +41,12 @@ public class CarrotManager implements GameObject, Singleton
 	{
 		timeCounter = SingletonManager.getSingleton(TimeCounter.class);
 		bonusUnlocker = SingletonManager.getSingleton(BonusColorUnlocker.class);
+		distanceIndexator = SingletonManager.getSingleton(DistanceIndexator.class);
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
 		carrotImage = new Image(SPRITE_DIR + "carrot/carrot_icon2.png");
 		carrot = new Carrot(WINDOW_WIDTH * 1.8f);
 		distanceIncrementFactor = new DistanceIncrementFactor(carrot.getX());
+		distanceIndexator.setDistanceToNextCarrot(carrot.getX());
 	}
 	
 	public Carrot getCarrot()
@@ -61,6 +65,8 @@ public class CarrotManager implements GameObject, Singleton
 
 		spawnNewCarrot();
 		checkBonusColorUnclock();
+		
+		distanceIndexator.setDistanceToNextCarrot(carrot.getX());
 	}
 	
 	private void checkBonusColorUnclock()
@@ -85,6 +91,7 @@ public class CarrotManager implements GameObject, Singleton
 		checkIfCarrotIsMissed();
 		
 		carrot.update(input);
+		distanceIndexator.setCarrotX(carrot.getX());
 	}
 	
 	private void checkIfCarrotIsMissed() throws SlickException
@@ -92,6 +99,7 @@ public class CarrotManager implements GameObject, Singleton
 		if (carrot.getX() + carrot.getImageWidth() < -WINDOW_WIDTH / 5)
 		{
 			carrot.setX(gameHasBegan() ? timeCounter.getDistanceBasedOnTimeLeft() : carrot.getX());
+			distanceIndexator.setDistanceToNextCarrot(carrot.getX());
 		}
 	}
 
