@@ -23,6 +23,8 @@ public final class GameUtils
 	
 	public static final int WINDOW_HEIGHT = 480;
 	
+	public static final int BUNNY_STARTING_X = WINDOW_WIDTH / 8;
+	
 	public static final String SPRITE_DIR = "res/sprites/";
 
 	public static final String GAME_NAME = "BHop";

@@ -31,4 +31,7 @@ public class BasicInfoProvider extends BasicPopup implements Singleton
 		return "Get the carrot before the time runs out!";
 	}
 
+	@Override
+	protected void setOthersMustWait() {}
+
 }

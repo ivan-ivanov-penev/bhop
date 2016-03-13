@@ -1,7 +1,6 @@
 package com.bhop.game.gameobjects.bunny.dummy;
 
-import static com.bhop.game.util.GameUtils.WINDOW_HEIGHT;
-import static com.bhop.game.util.GameUtils.WINDOW_WIDTH;
+import static com.bhop.game.util.GameUtils.*;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -20,17 +19,11 @@ public class DummyBunny implements GameObject, Singleton
 	
 	private final DummyBunnyAnimation dummyBunnyAnimation;
 	
-//	private final Animation run;
-	
 	private DummyBunny() throws SlickException
 	{
-//	    run = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "bunny/bonus/run"), FPS, true);
-//		run.setLooping(true);
-//		run.setSpeed(1.75f);
-		
 		dummyBunnyAnimation = new DummyBunnyAnimation();
 		
-		x = WINDOW_WIDTH / 6;
+		x = BUNNY_STARTING_X;
 		y = WINDOW_HEIGHT - 215;
 	}
 

@@ -12,12 +12,12 @@ import com.bhop.game.util.singleton.SingletonClass;
 @SingletonClass
 public class BackgroundGenerator extends Generator implements Singleton
 {
-	
-	private BackgroundGenerator() throws SlickException{}
+		
+	private BackgroundGenerator() throws SlickException {}
 
 	protected GeneratedObject createGeneratedObject(float x) throws SlickException
 	{
-		if (RANDOM.nextInt(50) == 1)
+		if (RANDOM.nextInt(2) == 1)
 		{
 			return new SpecialBackground(x);
 		}

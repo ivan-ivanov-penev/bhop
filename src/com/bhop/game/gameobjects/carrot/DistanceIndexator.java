@@ -34,7 +34,7 @@ public class DistanceIndexator implements GameObject, Singleton
 	private DistanceIndexator() throws SlickException
     {
 		compassLine = new Image(SPRITE_DIR + "distance_indexator/compass_line.png");
-		line = new Image(SPRITE_DIR + "distance_indexator/line1.png");
+		line = new Image(SPRITE_DIR + "distance_indexator/line0.png");
 		carrot = new Image(SPRITE_DIR + "distance_indexator/carrot1.png");
 		bunnyIcon = new Image(SPRITE_DIR + "distance_indexator/bunny_icon1.png");
     }
@@ -42,7 +42,7 @@ public class DistanceIndexator implements GameObject, Singleton
 	@Override
     public void update(Input input) throws SlickException
     {
-		renderX = LINE_X + line.getWidth() - (line.getWidth() / ((distanceToNextCarrot - BunnyAnimation.IMAGE_WIDTH) / (carrotX - BunnyAnimation.IMAGE_WIDTH)));
+		renderX = LINE_X + line.getWidth() - compassLine.getWidth() - ((line.getWidth() - compassLine.getWidth()) / ((distanceToNextCarrot - BunnyAnimation.IMAGE_WIDTH - BUNNY_STARTING_X) / (carrotX - BunnyAnimation.IMAGE_WIDTH)));
 		renderX = renderX > LINE_X + line.getWidth() - compassLine.getWidth() ? LINE_X + line.getWidth() - compassLine.getWidth() : renderX;
 		renderX = renderX < LINE_X ? LINE_X : renderX;
     }
@@ -52,11 +52,11 @@ public class DistanceIndexator implements GameObject, Singleton
     {
 		int y = WINDOW_HEIGHT - line.getHeight() * 5;
 		
-//		frame.draw((LINE_X + frame.getWidth() - line.getWidth() - carrot.getWidth() * 1.5f) * 0.5f, y - frame.getHeight() * 0.65f);
+//		frame.draw(LINE_X - (frame.getWidth() - line.getWidth() - carrot.getWidth() * 1.5f) * 0.5f, y - frame.getHeight() * 0.45f);
 		line.draw(LINE_X, y);
 		carrot.draw(LINE_X + line.getWidth() + carrot.getWidth() * 0.5f, y + line.getHeight() * 0.5f - carrot.getHeight() * 0.5f);
 		compassLine.draw(renderX, y);
-		bunnyIcon.draw(renderX - bunnyIcon.getWidth() * 0.5f + compassLine.getWidth() * 0.65f, y - bunnyIcon.getHeight() * 1.0f);
+		bunnyIcon.draw(renderX - bunnyIcon.getWidth() * 0.5f + compassLine.getWidth() * 0.65f, y - bunnyIcon.getHeight() * 0.45f); // y - bunnyIcon.getHeight() * 0.45f
     }
 	
 	void setCarrotX(float carrotX)

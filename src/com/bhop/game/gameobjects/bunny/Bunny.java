@@ -44,7 +44,7 @@ public class Bunny implements GameObject, Singleton
 		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();
 		jump = new BunnyJump();
-		x = WINDOW_WIDTH / 6;
+		x = BUNNY_STARTING_X;
 		y = WINDOW_HEIGHT - 215;
 	}
 	

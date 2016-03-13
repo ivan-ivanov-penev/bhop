@@ -20,7 +20,7 @@ public class LoadingScreen extends BasicGameState
 	
 	public static final int ID = 0;
 	
-	private static final double LOADING_TIME_SECONDS = RANDOM.nextInt(3) + 1 + Math.random();
+	private static final double LOADING_TIME_SECONDS = RANDOM.nextInt(4) + 3 + Math.random();
 	
 	private List<GameObject> gameObjects;
 	

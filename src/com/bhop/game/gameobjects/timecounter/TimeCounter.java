@@ -29,8 +29,8 @@ public class TimeCounter implements GameObject, Singleton
 	
 	private TimeCounter() throws SlickException
     {
-		sign = new Image(SPRITE_DIR + "signs/counter.png");
-		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
+		sign = new Image(SPRITE_DIR + "signs/counter1.png");
+		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 25), true);
 		secondsLeft = 10;
     }
 
@@ -65,8 +65,9 @@ public class TimeCounter implements GameObject, Singleton
 		
 		float x = (WINDOW_WIDTH - sign.getWidth()) * 0.5f;
 		
-		sign.draw(x, -26);
-		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT * 0.05f,  timeLeft, COLOR_BLACKISH);
+//		sign.draw(x, -26);
+		sign.draw(x, -16);
+		fontType.drawString(x + (sign.getWidth() - fontType.getWidth(timeLeft)) / 2, WINDOW_HEIGHT * 0.04f,  timeLeft, COLOR_BLACKISH);
     }
 	
 	private void checkForTimeExpiration()
@@ -79,7 +80,7 @@ public class TimeCounter implements GameObject, Singleton
 	
 	public void setTimeLeft(float x)
 	{
-		secondsLeft += (int) (x / (CAMERA_SPEED * FPS * (((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) * 0.35f) + MIN_SPEED_FACTOR)));
+		secondsLeft += (int) (x / (CAMERA_SPEED * FPS * (((MAX_SPEED_FACTOR - MIN_SPEED_FACTOR) * 0.5f) + MIN_SPEED_FACTOR)));
 		
 		if (secondsLeft < 5)
 		{

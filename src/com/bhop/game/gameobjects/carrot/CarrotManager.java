@@ -7,7 +7,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
-import com.bhop.game.bonuscolor.BonusColorUnlocker;
+import com.bhop.game.bonusbackground.BonusBackgroundUnlocker;
+import com.bhop.game.bonuscolor.BonusSkinUnlocker;
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.timecounter.TimeCounter;
 import com.bhop.game.util.singleton.Singleton;
@@ -23,7 +24,9 @@ public class CarrotManager implements GameObject, Singleton
 	
 	private final TimeCounter timeCounter;
 	
-	private final BonusColorUnlocker bonusUnlocker;
+	private final BonusSkinUnlocker bonusUnlocker;
+	
+	private final BonusBackgroundUnlocker backgroundUnlocker;
 	
 	private final TrueTypeFont fontType;
 	
@@ -40,7 +43,8 @@ public class CarrotManager implements GameObject, Singleton
 	private CarrotManager() throws SlickException
 	{
 		timeCounter = SingletonManager.getSingleton(TimeCounter.class);
-		bonusUnlocker = SingletonManager.getSingleton(BonusColorUnlocker.class);
+		bonusUnlocker = SingletonManager.getSingleton(BonusSkinUnlocker.class);
+		backgroundUnlocker = SingletonManager.getSingleton(BonusBackgroundUnlocker.class);
 		distanceIndexator = SingletonManager.getSingleton(DistanceIndexator.class);
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
 		carrotImage = new Image(SPRITE_DIR + "carrot/carrot_icon2.png");
@@ -62,6 +66,7 @@ public class CarrotManager implements GameObject, Singleton
 	public void alertBunnyTookCarrot() throws SlickException
 	{
 		carrotCounter ++;
+		backgroundUnlocker.alertBunnyHasPickedUpCarrot();
 
 		spawnNewCarrot();
 		checkBonusColorUnclock();

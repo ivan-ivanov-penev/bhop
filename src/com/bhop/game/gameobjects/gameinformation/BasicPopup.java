@@ -28,11 +28,13 @@ public abstract class BasicPopup extends BasicGameObject
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		message = setMessage();
 		font = createFont(20);
-		y = WINDOW_HEIGHT / 4.5f;
+		y = WINDOW_HEIGHT / 5.2f;
 		x = -image.getWidth();
 	}
 	
 	protected abstract String setMessage();
+	
+	protected abstract void setOthersMustWait();
 	
 	protected void popup()
 	{
@@ -60,6 +62,10 @@ public abstract class BasicPopup extends BasicGameObject
 			if (x > -image.getWidth())
 			{
 				x -= 10;
+			}
+			else
+			{
+				setOthersMustWait();
 			}
 		}
 		else if (x < WINDOW_WIDTH - image.getWidth())

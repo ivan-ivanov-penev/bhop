@@ -12,7 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
-import com.bhop.game.bonuscolor.BonusColorUnlocker;
+import com.bhop.game.bonuscolor.BonusSkinUnlocker;
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.states.Menu;
@@ -23,7 +23,7 @@ import com.bhop.game.util.singleton.SingletonManager;
 public class ColorOptionManager implements GameObject, Singleton
 {
 	
-	private final BonusColorUnlocker colorUnlocker;
+	private final BonusSkinUnlocker colorUnlocker;
 	
 	private final TrueTypeFont font;
 	
@@ -41,7 +41,7 @@ public class ColorOptionManager implements GameObject, Singleton
 		mainSign = new Image(SPRITE_DIR + "color_options/main_sign.png");
 		x = (WINDOW_WIDTH - mainSign.getWidth()) *0.5f;
 		y = mainSign.getHeight() * -0.15f;
-		colorUnlocker = SingletonManager.getSingleton(BonusColorUnlocker.class);
+		colorUnlocker = SingletonManager.getSingleton(BonusSkinUnlocker.class);
 		colorBloks = new ArrayList<ColorOption>();
 		
 		fillColorBlocks();

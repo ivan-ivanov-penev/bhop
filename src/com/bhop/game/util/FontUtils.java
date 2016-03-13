@@ -15,6 +15,8 @@ public final class FontUtils
 	public static final Color COLOR_BLACKISH = new Color(40, 30, 20);
 	
 	public static final String FONT_TYPE = "Snap ITC";
+	
+//	public static final String FONT_TYPE = "Showcard Gothic";
 
     public static final int STYLE = Font.PLAIN;
 	
@@ -23,6 +25,7 @@ public final class FontUtils
 		try
 		{
 			File fontFile = new File("res/font/SNAP____.TTF");
+//			File fontFile = new File("res/font/SHOWG.TTF");
 			
 			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(Font.createFont(Font.TRUETYPE_FONT, fontFile));
 		}
