@@ -113,8 +113,8 @@ public class CarrotManager implements GameObject, Singleton
 	
 	private void renderCarrotCounter() throws SlickException
 	{
-		float x = WINDOW_WIDTH - WINDOW_WIDTH / 3.5f;
-		float y = WINDOW_HEIGHT - WINDOW_HEIGHT / 5;
+		float x = WINDOW_WIDTH - WINDOW_WIDTH / 3.5f + 10;
+		float y = WINDOW_HEIGHT - WINDOW_HEIGHT / 5 + 10;
 		
 		carrotImage.draw(x, y);
 		fontType.drawString(x + carrotImage.getWidth() - 32, y + 32, " x " + carrotCounter);
