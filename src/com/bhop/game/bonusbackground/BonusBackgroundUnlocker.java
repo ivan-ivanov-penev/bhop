@@ -12,7 +12,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 @SingletonClass
 public class BonusBackgroundUnlocker implements Singleton
 {
-	private static final int MAX_BACKGROUNDS_TO_UNLOCK = 5;
+	public static final int MAX_BACKGROUNDS_TO_UNLOCK = 5;
 	
 	private BonusBackgroundLock bonusLock;
 	
@@ -47,7 +47,7 @@ public class BonusBackgroundUnlocker implements Singleton
 	{
 		bonusLock.incrementTotalCarrots();
 		
-		if (bonusLock.getTotalCarrots() == 500 && bonusLock.getNumberOfSpecialBackgroundsUnlock() < MAX_BACKGROUNDS_TO_UNLOCK)
+		if (bonusLock.getTotalCarrots() == 5 && bonusLock.getNumberOfSpecialBackgroundsUnlock() < MAX_BACKGROUNDS_TO_UNLOCK)
 		{
 			bonusLock.unlockedNewSpecialBackgrounds();
 			
@@ -82,5 +82,14 @@ public class BonusBackgroundUnlocker implements Singleton
 	{
 		return bonusLock.getNumberOfSpecialBackgroundsUnlock();
 	}
+	
+	public static void main(String[] args) throws Exception
+    {
+		FileOutputStream fos = new FileOutputStream("res/info/bonus_background.ser");
+		
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(new BonusBackgroundLock());
+		oos.close();
+    }
 
 }

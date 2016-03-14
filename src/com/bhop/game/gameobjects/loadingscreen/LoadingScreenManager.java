@@ -55,14 +55,21 @@ public class LoadingScreenManager implements GameObject, Singleton
 		renderMessage = "";
 		
 		boxX = 235;
-		boxY = 180;
+		boxY = 165;
     }
 	
 	private void fillHints() throws SlickException
 	{
-		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimation("speed_bonus", 0.1f));
-		HINTS.put("THE INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL GET THE CARROT ON TIME", createAnimation("indexator", 0.1f));
-//		HINTS.put("", createAnimation(""));
+		HINTS.put("THIS HINT IS NOT VERY HELPFUL. PROBLEM? :)", createAnimation("troll", 1f));
+		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimation("speed_bonus", 0.2f));
+		HINTS.put("THE TIME INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL REACH THE CARROT ON TIME", createAnimation("indexator", 0.2f));
+		HINTS.put("IF YOU MISSED THE CARROT DON'T WORRY - A NEW ONE WILL APPEAR BASED ON YOUR TIME LEFT", createAnimation("carrot", 1.2f));
+		HINTS.put("THE BOOSTER WILL GRANT YOU CONSISTENT TOP SPEED FOR THE NEXT 10 SECONDS", createAnimation("booster", 1f));
+		HINTS.put("COLLECT 30 CARROTS IN A ROW AND YOU WILL UNLOCK BONUS SKIN FOR THE BUNNY!", createAnimation("bonus_bunny", 0.75f));
+//		HINTS.put("THE DISTANCE INDEXATOR AT THE BOTTOM OF THE SCREEN SHOWS HOW FAR ARE YOU FROM THE CARROT", createAnimation("distance_indexator", 1f)); // MUST ADD SOME ANIMATION
+//		HINTS.put("EACH TIME YOU COLLECT 300 CARROTS A NEW SPECIAL BACKGROUND WILL BE UNLOCKED", createAnimation("", 1f));
+//		HINTS.put("IF YOU ARE LUCKY A SPECIAL BACKGROUND", createAnimation("", 1f));
+//		HINTS.put("", createAnimation("", 1f));
 	}
 	
 	private Animation createAnimation(String directoryName, float animationSpeed) throws SlickException
@@ -70,12 +77,16 @@ public class LoadingScreenManager implements GameObject, Singleton
 		Animation animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "loading_screen/animations/" + directoryName), FPS, true);
 		animation.setSpeed(animationSpeed);
 		
+		if (directoryName.matches("carrot"))
+		{
+			animation.setPingPong(true);
+		}
+		
 		return animation;
 	}
 	
 	private String[] separateHintToLines()
 	{
-		
 		int width = info.getWidth(randomHint);
 		int numberOfLines = (int) (width / (WINDOW_WIDTH * 0.8f)) + 1;
 		
@@ -148,9 +159,12 @@ public class LoadingScreenManager implements GameObject, Singleton
 		
 		for (int i = 0; i < randomHintLines.length; i++)
 		{
-			info.drawString((WINDOW_WIDTH - info.getWidth(randomHintLines[i])) * 0.5f, y, randomHintLines[i], Color.black);
+			if (randomHintLines[i] != null)
+			{
+				info.drawString((WINDOW_WIDTH - info.getWidth(randomHintLines[i])) * 0.5f, y, randomHintLines[i], Color.black);
 			
-			y += info.getHeight() * 0.9f;
+				y += info.getHeight() * 0.9f;
+			}
 		}
     }
 

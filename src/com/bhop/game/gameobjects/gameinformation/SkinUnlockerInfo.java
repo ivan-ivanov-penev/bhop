@@ -2,7 +2,6 @@ package com.bhop.game.gameobjects.gameinformation;
 
 import static com.bhop.game.util.GameUtils.*;
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.bonuscolor.BonusSkinUnlocker;
@@ -13,8 +12,6 @@ import com.bhop.game.util.singleton.SingletonManager;
 @SingletonClass
 public class SkinUnlockerInfo extends BasicPopup implements Singleton
 {
-	
-	static boolean othersMustWait;
 	
 	private boolean playerHasUnlockedBonus;
 	
@@ -28,26 +25,22 @@ public class SkinUnlockerInfo extends BasicPopup implements Singleton
 	}
 
 	@Override
-    public void update(Input input) throws SlickException
+    protected boolean hasToPopup()
     {
 		if (!hasToPopUp)
 		{
 			hasToPopUp = !playerHasUnlockedBonus && carrotManager.playerJustUnlockedBonus();
 		}
 		
-		if (hasToPopUp)
-		{
-			attemtpPopup();
-		}
+	    return hasToPopUp;
     }
 
-	private void attemtpPopup()
+	@Override
+	protected void attemptPopup()
 	{
-		if (frameCounter < FPS * 5 && !BonusBackgroundInfoProvider.othersMustWait)
+		if (frameCounter < FPS * 5)
 		{
 			frameCounter += 1;
-			
-			othersMustWait = true;
 			
 			popup();
 		}
@@ -61,12 +54,6 @@ public class SkinUnlockerInfo extends BasicPopup implements Singleton
 	protected String setMessage()
 	{
 		return "You unlocked new bonus skin for bunny!";
-	}
-
-	@Override
-	protected void setOthersMustWait()
-	{
-		othersMustWait = false;
 	}
 
 }

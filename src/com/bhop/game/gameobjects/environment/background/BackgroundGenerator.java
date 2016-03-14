@@ -17,7 +17,7 @@ public class BackgroundGenerator extends Generator implements Singleton
 
 	protected GeneratedObject createGeneratedObject(float x) throws SlickException
 	{
-		if (RANDOM.nextInt(2) == 1)
+		if (RANDOM.nextInt(100) == 1)
 		{
 			return new SpecialBackground(x);
 		}

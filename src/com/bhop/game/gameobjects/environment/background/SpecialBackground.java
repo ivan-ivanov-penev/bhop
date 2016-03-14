@@ -1,6 +1,7 @@
 package com.bhop.game.gameobjects.environment.background;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.bonusbackground.BonusBackgroundUnlocker.MAX_BACKGROUNDS_TO_UNLOCK;
 
 import org.newdawn.slick.SlickException;
 
@@ -11,11 +12,9 @@ import com.bhop.game.util.singleton.SingletonManager;
 public class SpecialBackground extends GeneratedObject
 {
 	
-	static int randomMaxNumber = generateRandomNumber();
-	
 	public SpecialBackground(float x) throws SlickException
 	{
-		super(x, SPRITE_DIR + "backgrounds/special" + randomMaxNumber + "/");
+		super(x, SPRITE_DIR + "backgrounds/special" + generateRandomNumber() + "/");
 	}
 	
 	@Override
@@ -28,7 +27,7 @@ public class SpecialBackground extends GeneratedObject
 	{
 		int unlocked = SingletonManager.getSingleton(BonusBackgroundUnlocker.class).getNumberOfUnlockedBonusBackgrounds();
 		
-		return unlocked == 0 ? 1 : RANDOM.nextInt(unlocked) + 1;
+		return RANDOM.nextInt(unlocked > MAX_BACKGROUNDS_TO_UNLOCK ? MAX_BACKGROUNDS_TO_UNLOCK + 1: unlocked + 1);
 	}
 
 }

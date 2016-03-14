@@ -13,7 +13,20 @@ public class BasicInfoProvider extends BasicPopup implements Singleton
 	private BasicInfoProvider() throws SlickException {}
 
 	@Override
-    public void update(Input input) throws SlickException
+	protected String setMessage()
+	{
+		return "Get the carrot before the time runs out!";
+	}
+	
+	@Override
+	public void update(Input input) throws SlickException
+	{
+		super.update(input);
+	    super.update();
+	}
+
+	@Override
+    protected void attemptPopup()
     {
 		if (!carrotManager.gameHasBegan())
 		{
@@ -26,12 +39,9 @@ public class BasicInfoProvider extends BasicPopup implements Singleton
     }
 
 	@Override
-	protected String setMessage()
-	{
-		return "Get the carrot before the time runs out!";
-	}
-
-	@Override
-	protected void setOthersMustWait() {}
+    protected boolean hasToPopup()
+    {
+	    return !carrotManager.gameHasBegan();
+    }
 
 }

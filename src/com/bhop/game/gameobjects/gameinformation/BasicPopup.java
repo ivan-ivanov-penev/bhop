@@ -3,6 +3,7 @@ package com.bhop.game.gameobjects.gameinformation;
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.util.FontUtils.*;
 
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -13,6 +14,8 @@ import com.bhop.game.util.singleton.SingletonManager;
 public abstract class BasicPopup extends BasicGameObject
 {
 	
+	private static PopupManager popupManager;
+	
 	protected final CarrotManager carrotManager;
 	
 	protected final TrueTypeFont font;
@@ -21,9 +24,13 @@ public abstract class BasicPopup extends BasicGameObject
 	
 	protected boolean movesLeft;
 	
+	private boolean finished;
+	
 	protected BasicPopup() throws SlickException
 	{
 		super(SPRITE_DIR + "game_information/popupicon.png");
+		
+		popupManager = new PopupManager();
 		
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		message = setMessage();
@@ -34,20 +41,35 @@ public abstract class BasicPopup extends BasicGameObject
 	
 	protected abstract String setMessage();
 	
-	protected abstract void setOthersMustWait();
+	protected abstract boolean hasToPopup();
+	
+    protected abstract void attemptPopup();
+	
+	@Override
+	public void update(Input input) throws SlickException
+	{
+		if (hasToPopup())
+		{
+			popupManager.addToQueue(this);
+		}
+	}
+	
+	protected void update() throws SlickException
+	{
+		popupManager.update();
+	}
 	
 	protected void popup()
 	{
+		finished = false;
+		
 		if (movesLeft)
 		{
-			if (x > (WINDOW_WIDTH - image.getWidth()) * 0.5f)
-			{
-				x -= 3;
-			}
+			centerInScreen();
 		}
 		else if (x < WINDOW_WIDTH - image.getWidth())
 		{
-			x += 10;
+			x += 12.5;
 		}
 		else
 		{
@@ -55,27 +77,45 @@ public abstract class BasicPopup extends BasicGameObject
 		}
 	}
 
+	private void centerInScreen()
+    {
+	    if (x > (WINDOW_WIDTH - image.getWidth()) * 0.5f)
+	    {
+	    	x -= 4;
+	    }
+    }
+
 	protected void hide()
     {
 		if (!movesLeft)
 		{
-			if (x > -image.getWidth())
-			{
-				x -= 10;
-			}
-			else
-			{
-				setOthersMustWait();
-			}
+			hideFromView();
 		}
 		else if (x < WINDOW_WIDTH - image.getWidth())
 		{
-			x += 3;
+			x += 4;
 		}
 		else
 		{
 			movesLeft = false;
 		}
+    }
+
+	private void hideFromView()
+    {
+	    if (x > -image.getWidth())
+	    {
+	    	x -= 12.5;
+	    }
+	    else
+	    {
+	    	finished = true;
+	    }
+    }
+	
+	public boolean isFinished()
+    {
+	    return finished;
     }
 
 	@Override
