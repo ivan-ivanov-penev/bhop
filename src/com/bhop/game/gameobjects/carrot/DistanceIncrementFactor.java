@@ -22,13 +22,15 @@ public class DistanceIncrementFactor
 	
 	float getNextCarrotSpawnDistance()
 	{
-		counter++;
-		
-		if (counter == REPETITION)
+		if (counter == REPETITION && numerator < 8)
 		{
 			counter = 0;
 			
 			prevoiusCarrotX *= getNextSpawnDistanceIncrementFactor();
+		}
+		else
+		{
+			counter++;
 		}
 		
 		return prevoiusCarrotX;

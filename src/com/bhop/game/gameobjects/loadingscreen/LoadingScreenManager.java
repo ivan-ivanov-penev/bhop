@@ -60,9 +60,17 @@ public class LoadingScreenManager implements GameObject, Singleton
 	
 	private void fillHints() throws SlickException
 	{
-		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimation("speed_bonus"));
-		HINTS.put("THE INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL GET THE CARROT ON TIME", createAnimation("indexator"));
+		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimation("speed_bonus", 0.1f));
+		HINTS.put("THE INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL GET THE CARROT ON TIME", createAnimation("indexator", 0.1f));
 //		HINTS.put("", createAnimation(""));
+	}
+	
+	private Animation createAnimation(String directoryName, float animationSpeed) throws SlickException
+	{
+		Animation animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "loading_screen/animations/" + directoryName), FPS, true);
+		animation.setSpeed(animationSpeed);
+		
+		return animation;
 	}
 	
 	private String[] separateHintToLines()
@@ -72,9 +80,14 @@ public class LoadingScreenManager implements GameObject, Singleton
 		int numberOfLines = (int) (width / (WINDOW_WIDTH * 0.8f)) + 1;
 		
 		String[] randomHintLines = new String[numberOfLines];
-		String[] array = randomHint.split(" ");
+		populateArrayAccordingToScreenWidth(randomHintLines, randomHint.split(" "));
 		
-		String line = "";
+		return randomHintLines;
+	}
+
+	private void populateArrayAccordingToScreenWidth(String[] randomHintLines, String[] array)
+    {
+	    String line = "";
 		
 		int j = 0;
 		
@@ -93,17 +106,7 @@ public class LoadingScreenManager implements GameObject, Singleton
 				line += array[i] + " ";
 			}
 		}
-		
-		return randomHintLines;
-	}
-	
-	private Animation createAnimation(String directoryName) throws SlickException
-	{
-		Animation animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "loading_screen/animations/" + directoryName), FPS, true);
-		animation.setSpeed(0.1f);
-		
-		return animation;
-	}
+    }
 
 	@Override
     public void update(Input input) throws SlickException
