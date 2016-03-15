@@ -12,7 +12,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 @SingletonClass
 public class BackgroundGenerator extends Generator implements Singleton
 {
-		
+
 	private BackgroundGenerator() throws SlickException {}
 
 	protected GeneratedObject createGeneratedObject(float x) throws SlickException
