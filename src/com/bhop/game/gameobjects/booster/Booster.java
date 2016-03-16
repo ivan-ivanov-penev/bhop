@@ -4,6 +4,7 @@ import static com.bhop.game.util.GameUtils.*;
 
 import java.util.Set;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -37,11 +38,11 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private Booster() throws SlickException
 	{
-		super(SPRITE_DIR + "booster/booster.png");
+		super(SPRITE_DIR + "booster/booster_lettuce_and_border.png");
 		
 		y = WINDOW_HEIGHT * 0.35f;
 		
-		pixelLocations = ImageUtils.getPixelsLocations(image);
+		pixelLocations = ImageUtils.getPixelsLocations(new Image(SPRITE_DIR + "booster/booster_lettuce_border.png"));
 		
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		
@@ -79,7 +80,7 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private void attemptGenerateBooster()
 	{
-		if (frameCounter == FPS * SPAWNING_INTERVAL_IN_SECONDS && RANDOM.nextInt(20) == 0)
+		if (frameCounter == FPS * SPAWNING_INTERVAL_IN_SECONDS && RANDOM.nextInt(2) == 0) // 20
 		{
 			frameCounter = 0;
 			
