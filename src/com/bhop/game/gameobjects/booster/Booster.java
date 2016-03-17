@@ -12,6 +12,7 @@ import com.bhop.game.gameobjects.BasicGameObject;
 import com.bhop.game.gameobjects.PixelLocation;
 import com.bhop.game.gameobjects.bunny.Collidable;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
+import com.bhop.game.gameobjects.pauseicon.PauseIcon;
 import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
 import com.bhop.game.util.ImageUtils;
 import com.bhop.game.util.singleton.Singleton;
@@ -32,6 +33,8 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private final BoosterExpireWatcher boosterExpireWatcher;
 	
+	private final BoosterAnimation animation;
+	
 	private boolean generateBooster;
 	
 	private int frameCounter;
@@ -47,6 +50,8 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		
 		boosterExpireWatcher = new BoosterExpireWatcher();
+		
+		animation = new BoosterAnimation();
 	}
 	
 	public static boolean isBoosterAcquired()
@@ -80,7 +85,7 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private void attemptGenerateBooster()
 	{
-		if (frameCounter == FPS * SPAWNING_INTERVAL_IN_SECONDS && RANDOM.nextInt(2) == 0) // 20
+		if (frameCounter == FPS * SPAWNING_INTERVAL_IN_SECONDS && RANDOM.nextInt(20) == 0)
 		{
 			frameCounter = 0;
 			
@@ -113,7 +118,7 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	{
 		if (generateBooster && !boosterAcquired)
 		{
-			super.render();
+			animation.render();
 		}
 	}
 
@@ -156,6 +161,48 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 				generateBooster = false;
 			}
 		}
+		
+	}
+	
+	private class BoosterAnimation
+	{
+		
+		private float scale;
+		
+		private boolean incrementImageSize;
+		
+		private BoosterAnimation()
+        {
+			scale = 1.0f;
+			incrementImageSize = true;;
+        }
+		
+		private void render()
+		{
+			if (!PauseIcon.isGamePaused())
+			{
+				changeScale();
+				
+				image.rotate(1);
+			}
+
+			image.setCenterOfRotation(image.getWidth() * scale / 2, image.getHeight() * scale / 2);
+			image.draw(x, y, scale);
+		}
+
+		private void changeScale()
+        {
+			scale += incrementImageSize ? 0.004f : -0.004f;
+			
+			if (scale > 1.2f)
+			{
+				incrementImageSize = false;
+			}
+			else if (scale < 1.0f)
+			{
+				incrementImageSize = true;
+			}
+        }
 		
 	}
 
