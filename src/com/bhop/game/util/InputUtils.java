@@ -2,6 +2,11 @@ package com.bhop.game.util;
 
 import org.newdawn.slick.Input;
 
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public final class InputUtils
 {
 	

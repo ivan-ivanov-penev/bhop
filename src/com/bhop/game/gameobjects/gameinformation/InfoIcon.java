@@ -18,7 +18,7 @@ public class InfoIcon extends BasicGameObject implements Singleton
 	
 	private InfoIcon() throws SlickException
 	{
-		super(SPRITE_DIR + "info_icon/info_icon.png");
+		super("info_icon/info_icon.png");
 		
 		x = 8;
 		y = 7;

@@ -2,9 +2,12 @@ package com.bhop.game.highscore;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
+import com.bhop.game.util.UserInfoProvider;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
@@ -12,7 +15,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 public class HighScoreManager implements Singleton
 {
 	
-	private static final String HIGHSCORE_PATH = "res/info/highscore.ser";
+	private static final String HIGHSCORE_PATH = UserInfoProvider.INFO_TEMP_DIR +  "/highscore.ser";
 
 	private HighScore highScore;
 	
@@ -44,7 +47,7 @@ public class HighScoreManager implements Singleton
 	
 	private void readFromFile() throws Exception
 	{
-		FileInputStream inputStream = new FileInputStream(HIGHSCORE_PATH);
+		InputStream inputStream = new FileInputStream(HIGHSCORE_PATH);
 		
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 		
@@ -77,7 +80,7 @@ public class HighScoreManager implements Singleton
 	
 	private void writeToFile() throws Exception
 	{
-		FileOutputStream outputStream = new FileOutputStream(HIGHSCORE_PATH);
+		OutputStream outputStream = new FileOutputStream(HIGHSCORE_PATH);
 		
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 		objectOutputStream.writeObject(highScore);

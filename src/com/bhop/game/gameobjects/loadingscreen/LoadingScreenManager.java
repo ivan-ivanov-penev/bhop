@@ -2,6 +2,7 @@ package com.bhop.game.gameobjects.loadingscreen;
 
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.util.FontUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class LoadingScreenManager implements GameObject, Singleton
     {
 		fillHints();
 		
-		loadingScreen = new Image(SPRITE_DIR + "loading_screen/loading_screen.png");
+		loadingScreen = createImage("loading_screen/loading_screen.png");
 		font = new TrueTypeFont(new Font(FONT_TYPE, Font.BOLD, 30), true);
 		info = createFont(20);
 		randomHint = getRandomElement(new ArrayList<String>(HINTS.keySet()).toArray(new String[HINTS.size()]));
@@ -62,21 +63,21 @@ public class LoadingScreenManager implements GameObject, Singleton
 	
 	private void fillHints() throws SlickException
 	{
-		HINTS.put("THIS HINT IS NOT VERY HELPFUL. PROBLEM? :)", createAnimation("troll", 1f, false));
-		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimation("speed_bonus", 0.2f, false));
-		HINTS.put("THE TIME INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL REACH THE CARROT ON TIME", createAnimation("indexator", 0.2f, false));
-		HINTS.put("IF YOU MISSED THE CARROT DON'T WORRY - A NEW ONE WILL APPEAR BASED ON THE TIME YOU GOT LEFT", createAnimation("carrot", 1.2f, true));
-		HINTS.put("THE BOOSTER WILL GRANT YOU CONSTANT TOP SPEED FOR THE NEXT 10 SECONDS", createAnimation("booster", 1f, false));
-		HINTS.put("COLLECT 30 CARROTS IN A ROW AND YOU WILL UNLOCK BONUS SKIN FOR THE BUNNY!", createAnimation("bonus_bunny", 0.75f, false));
-		HINTS.put("THE DISTANCE INDEXATOR AT THE BOTTOM OF THE SCREEN SHOWS HOW FAR ARE YOU FROM THE CARROT", createAnimation("distance_indexator", 1f, false));
-		HINTS.put("EACH TIME YOU COLLECT 300 CARROTS A NEW SPECIAL BACKGROUND WILL BE UNLOCKED", createAnimation("special_background_" + getTimePeriod(), 1f, false));
-		HINTS.put("IF YOU ARE LUCKY A SPECIAL BACKGROUND WILL MAKE AN APPEARANCE", createAnimation("special_background_" + getTimePeriod(), 1f, false));
+		HINTS.put("THIS HINT IS NOT VERY HELPFUL. PROBLEM? :)", createAnimationWithArguments("troll", 1f, false));
+		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimationWithArguments("speed_bonus", 0.2f, false));
+		HINTS.put("THE TIME INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL REACH THE CARROT ON TIME", createAnimationWithArguments("indexator", 0.2f, false));
+		HINTS.put("IF YOU MISSED THE CARROT DON'T WORRY - A NEW ONE WILL APPEAR BASED ON THE TIME YOU GOT LEFT", createAnimationWithArguments("carrot", 1.2f, true));
+		HINTS.put("THE BOOSTER WILL GRANT YOU CONSTANT TOP SPEED FOR THE NEXT 10 SECONDS", createAnimationWithArguments("booster", 1f, false));
+		HINTS.put("COLLECT 30 CARROTS IN A ROW AND YOU WILL UNLOCK BONUS SKIN FOR THE BUNNY!", createAnimationWithArguments("bonus_bunny", 0.75f, false));
+		HINTS.put("THE DISTANCE INDEXATOR AT THE BOTTOM OF THE SCREEN SHOWS HOW FAR ARE YOU FROM THE CARROT", createAnimationWithArguments("distance_indexator", 1f, false));
+		HINTS.put("EACH TIME YOU COLLECT 300 CARROTS A NEW SPECIAL BACKGROUND WILL BE UNLOCKED", createAnimationWithArguments("special_background_" + getTimePeriod(), 1f, false));
+		HINTS.put("IF YOU ARE LUCKY A SPECIAL BACKGROUND WILL MAKE AN APPEARANCE", createAnimationWithArguments("special_background_" + getTimePeriod(), 1f, false));
 //		HINTS.put("", createAnimation("", 1f, false));
 	}
 	
-	private Animation createAnimation(String directoryName, float animationSpeed, boolean pingPong) throws SlickException
+	private Animation createAnimationWithArguments(String directoryName, float animationSpeed, boolean pingPong) throws SlickException
 	{
-		Animation animation = new Animation(createImageArrayFromDirectory(SPRITE_DIR + "loading_screen/animations/" + directoryName), FPS, true);
+		Animation animation = createAnimation("loading_screen/animations/" + directoryName);
 		animation.setSpeed(animationSpeed);
 		animation.setPingPong(pingPong);
 		
@@ -185,7 +186,7 @@ public class LoadingScreenManager implements GameObject, Singleton
 		public SpecaialAnimation() throws SlickException
         {
 			animationIsDistanceIndexator = randomHint.equals("THE DISTANCE INDEXATOR AT THE BOTTOM OF THE SCREEN SHOWS HOW FAR ARE YOU FROM THE CARROT");
-			bunnyIcon = new Image(SPRITE_DIR + "distance_indexator/bunny_icon1.png");
+			bunnyIcon = createImage("distance_indexator/bunny_icon1.png");
 			x = boxX + 20;
         }
 		

@@ -2,14 +2,18 @@ package com.bhop.game.sound;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+
+import com.bhop.game.util.UserInfoProvider;
 
 public class SoundInfoManager
 {
 	
-	private static final String SOUND_INFO_PATH = "res/info/sound_info.ser";
+	private static final String SOUND_INFO_PATH = UserInfoProvider.INFO_TEMP_DIR +  "/sound_info.ser";
 	
 	private SoundInfo soundInfo;
 	
@@ -32,7 +36,7 @@ public class SoundInfoManager
 	
 	private void readFromFile() throws Exception
 	{
-		FileInputStream inputStream = new FileInputStream(SOUND_INFO_PATH);
+		InputStream inputStream = new FileInputStream(SOUND_INFO_PATH);
 		
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 		
@@ -57,7 +61,7 @@ public class SoundInfoManager
 	
 	private void writeToFile() throws Exception
 	{
-		FileOutputStream outputStream = new FileOutputStream(SOUND_INFO_PATH);
+		OutputStream outputStream = new FileOutputStream(SOUND_INFO_PATH);
 		
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 		objectOutputStream.writeObject(soundInfo);
@@ -69,7 +73,7 @@ public class SoundInfoManager
 		return soundInfo.isSoundEnabled();
 	}
 	
-	private static class SoundInfo implements Serializable
+	public static class SoundInfo implements Serializable
 	{
 
 		private static final long serialVersionUID = 3L;

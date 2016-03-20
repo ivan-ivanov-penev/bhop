@@ -1,5 +1,9 @@
 package com.bhop.game.gameobjects.carrot;
 
+import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.FontUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
+
 import java.awt.Font;
 
 import org.newdawn.slick.Image;
@@ -11,12 +15,10 @@ import com.bhop.game.bonusbackground.BonusBackgroundUnlocker;
 import com.bhop.game.bonuscolor.BonusSkinUnlocker;
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.timecounter.TimeCounter;
+import com.bhop.game.sound.SoundPlayer;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
-
-import static com.bhop.game.util.GameUtils.*;
-import static com.bhop.game.util.FontUtils.*;
 
 @SingletonClass
 public class CarrotManager implements GameObject, Singleton
@@ -36,6 +38,8 @@ public class CarrotManager implements GameObject, Singleton
 	
 	private final Image carrotImage;
 	
+	private final SoundPlayer soundPlayer;
+	
 	private Carrot carrot;
 	
 	private int carrotCounter;
@@ -47,10 +51,11 @@ public class CarrotManager implements GameObject, Singleton
 		backgroundUnlocker = SingletonManager.getSingleton(BonusBackgroundUnlocker.class);
 		distanceIndexator = SingletonManager.getSingleton(DistanceIndexator.class);
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 30), true);
-		carrotImage = new Image(SPRITE_DIR + "carrot/carrot_icon2.png");
+		carrotImage = createImage("carrot/carrot_icon2.png");
 		carrot = new Carrot(WINDOW_WIDTH * 1.8f);
 		distanceIncrementFactor = new DistanceIncrementFactor(carrot.getX());
 		distanceIndexator.setDistanceToNextCarrot(carrot.getX());
+		soundPlayer = new SoundPlayer("res/sound/carrot_collect.wav");
 	}
 	
 	public Carrot getCarrot()
@@ -72,6 +77,7 @@ public class CarrotManager implements GameObject, Singleton
 		checkBonusColorUnclock();
 		
 		distanceIndexator.setDistanceToNextCarrot(carrot.getX());
+//		soundPlayer.playSoundOnce();
 	}
 	
 	private void checkBonusColorUnclock()
@@ -88,6 +94,8 @@ public class CarrotManager implements GameObject, Singleton
 		
 		carrot = new Carrot(x);
 		timeCounter.setTimeLeft(x);
+		
+		soundPlayer.alertSoundHasToBePlayed();
 	}
 	
 	@Override
@@ -105,6 +113,8 @@ public class CarrotManager implements GameObject, Singleton
 		{
 			carrot.setX(gameHasBegan() ? timeCounter.getDistanceBasedOnTimeLeft() : carrot.getX());
 			distanceIndexator.setDistanceToNextCarrot(carrot.getX());
+			
+			soundPlayer.alertSoundHasToBePlayed();
 		}
 	}
 
@@ -132,7 +142,7 @@ public class CarrotManager implements GameObject, Singleton
 	
 	public boolean playerJustUnlockedBonus()
 	{
-		return carrotCounter == 3;
+		return carrotCounter == 30;
 	}
 	
 }

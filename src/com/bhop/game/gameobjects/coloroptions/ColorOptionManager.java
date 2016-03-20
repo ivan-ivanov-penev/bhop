@@ -3,6 +3,7 @@ package com.bhop.game.gameobjects.coloroptions;
 import static com.bhop.game.gameobjects.coloroptions.ColorOption.IMAGE_WIDTH;
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.util.FontUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ColorOptionManager implements GameObject, Singleton
 	private ColorOptionManager() throws SlickException
 	{
 		font = createFont(25);
-		mainSign = new Image(SPRITE_DIR + "color_options/main_sign.png");
+		mainSign = createImage("color_options/main_sign.png");
 		x = (WINDOW_WIDTH - mainSign.getWidth()) *0.5f;
 		y = mainSign.getHeight() * -0.15f;
 		colorUnlocker = SingletonManager.getSingleton(BonusSkinUnlocker.class);

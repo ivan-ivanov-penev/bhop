@@ -13,6 +13,7 @@ import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 @SingletonClass
 public class Indexator implements GameObject, Singleton
@@ -38,8 +39,8 @@ public class Indexator implements GameObject, Singleton
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		cameraMovement = SingletonManager.getSingleton(CameraMovement.class);
 		
-		happy = new Image(SPRITE_DIR + "indexator/indexator_happy.png");
-		angry = new Image(SPRITE_DIR + "indexator/indexator_angry.png");
+		happy = createImage("indexator/indexator_happy.png");
+		angry = createImage("indexator/indexator_angry.png");
 		renderImage = happy;
     }
 

@@ -14,7 +14,7 @@ public class SpecialBackground extends GeneratedObject
 	
 	public SpecialBackground(float x) throws SlickException
 	{
-		super(x, SPRITE_DIR + "backgrounds/special" + generateRandomNumber() + "/");
+		super(x, "backgrounds/special" + generateRandomNumber() + "/");
 	}
 	
 	@Override

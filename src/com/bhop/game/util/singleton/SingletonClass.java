@@ -2,9 +2,9 @@ package com.bhop.game.util.singleton;
 
 /**
  * 
- * This is simply annotation to remind that a class is Singleton
+ * This is an annotation for indicating a class is a Singleton
  * 
- * @author ivan.penev
+ * @author Ivan Penev
  *
  */
 public @interface SingletonClass {}

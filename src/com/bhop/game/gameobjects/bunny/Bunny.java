@@ -13,6 +13,7 @@ import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.gameobjects.gameinformation.InfoIcon;
 import com.bhop.game.gameobjects.pauseicon.PauseIcon;
 import com.bhop.game.sound.SoundIcon;
+import com.bhop.game.sound.SoundPlayer;
 import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
@@ -38,12 +39,19 @@ public class Bunny implements GameObject, Singleton
 
 	private final CollisionChecker collisionChecker;
 	
+	private final SoundPlayer jumpSound;
+	
+	private final SoundPlayer hitSound;
+	
 	private Bunny() throws SlickException
 	{
 		movement = SingletonManager.getSingleton(CameraMovement.class);
 		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();
 		jump = new BunnyJump();
+		jumpSound = new SoundPlayer("res/sound/click.wav");
+		hitSound = new SoundPlayer("res/sound/hitting_sound.wav");
+		
 		x = BUNNY_STARTING_X;
 		y = WINDOW_HEIGHT - 215;
 	}
@@ -96,6 +104,8 @@ public class Bunny implements GameObject, Singleton
 			BunnyIsHitEventWatcher.alertWatchersBunnyHasRecovered();
 			
 			attemptRun(buttonIsPressed);
+			
+			jumpSound.alertSoundHasToBePlayed();
 		}
 		else
 		{
@@ -121,6 +131,8 @@ public class Bunny implements GameObject, Singleton
 
 	private void jump()
     {
+		jumpSound.playSoundOnce();
+		
 		physics.setGravityToJumping(jump.getJumpHeightAccordingToSpeed(movement.getSpeedFactor()));
 	    
 	    updateHeightPosition();
@@ -149,6 +161,8 @@ public class Bunny implements GameObject, Singleton
 		else
 		{
 			isHit = false;
+			
+			hitSound.alertSoundHasToBePlayed();
 		}
 	}
 
@@ -156,6 +170,8 @@ public class Bunny implements GameObject, Singleton
 	{
 		if (!isHit)
 	    {
+			hitSound.playSoundOnce();
+			
 	    	isHit = true;
 	    	
 			BunnyIsHitEventWatcher.alertWatchersBunnyIsHit();

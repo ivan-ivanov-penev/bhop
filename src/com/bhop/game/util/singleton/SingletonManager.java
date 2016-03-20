@@ -1,11 +1,16 @@
 package com.bhop.game.util.singleton;
 
+import static com.bhop.game.gameobjects.bunny.BunnyIsHitEventWatcher.*;
+
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.bhop.game.gameobjects.bunny.BunnyIsHitEventWatcher.*;
-
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public final class SingletonManager
 {
 	

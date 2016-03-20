@@ -110,6 +110,7 @@ public class Play extends BasicGameState
 		{
 			getSingleton(PauseIcon.class).update(container.getInput());
 			getSingleton(SoundIcon.class).update(container.getInput());
+			getSingleton(InfoIcon.class).update(container.getInput());
 			getSingleton(ClickCirclesGenerator.class).update(container.getInput());
 		}
 		else

@@ -29,7 +29,7 @@ public class HighScoreInfoProvider extends BasicGameObject implements Singleton
 	
 	private HighScoreInfoProvider() throws SlickException
 	{
-		super(SPRITE_DIR + "signs/highscore2.png");
+		super("signs/highscore2.png");
 		
 		x = (WINDOW_WIDTH - image.getWidth()) / 2;
 		y = image.getHeight() - image.getHeight() / 10;

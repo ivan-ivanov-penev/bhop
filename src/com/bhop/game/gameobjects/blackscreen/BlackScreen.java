@@ -1,6 +1,6 @@
 package com.bhop.game.gameobjects.blackscreen;
 
-import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -22,7 +22,7 @@ public class BlackScreen implements Singleton, GameObject
 	
 	private BlackScreen() throws SlickException
 	{
-		blackScreen = new Image(SPRITE_DIR + "black_screen/screen.png");
+		blackScreen = createImage("black_screen/screen.png");
 	}
 	
 	@Override

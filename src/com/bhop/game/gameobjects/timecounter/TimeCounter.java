@@ -1,5 +1,10 @@
 package com.bhop.game.gameobjects.timecounter;
 
+import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
+import static com.bhop.game.util.FontUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
+
 import java.awt.Font;
 
 import org.newdawn.slick.Image;
@@ -10,10 +15,6 @@ import org.newdawn.slick.TrueTypeFont;
 import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
-
-import static com.bhop.game.util.GameUtils.*;
-import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
-import static com.bhop.game.util.FontUtils.*;
 
 @SingletonClass
 public class TimeCounter implements GameObject, Singleton
@@ -29,7 +30,7 @@ public class TimeCounter implements GameObject, Singleton
 	
 	private TimeCounter() throws SlickException
     {
-		sign = new Image(SPRITE_DIR + "signs/counter1.png");
+		sign = createImage("signs/counter1.png");
 		fontType = new TrueTypeFont(new Font(FONT_TYPE, STYLE, 25), true);
 		secondsLeft = 10;
     }

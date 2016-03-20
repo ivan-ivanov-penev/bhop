@@ -1,6 +1,7 @@
 package com.bhop.game.util;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.newdawn.slick.SlickException;
@@ -8,10 +9,15 @@ import org.newdawn.slick.Sound;
 
 import com.bhop.game.sound.SoundWatcher;
 
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public final class SoundUtils
 {
 	
-	private static Map<String, Sound> soundsByName;
+	private static volatile Map<String, Sound> soundsByName;
 	
 	private SoundUtils() {}
 	
@@ -19,7 +25,13 @@ public final class SoundUtils
 	{
 		InputStream is = SoundUtils.class.getResourceAsStream("/res/sound/" + fileName + ".wav");
 		
-		return new Sound(is, fileName);
+		if (is != null)
+		{
+			return new Sound(is, fileName);
+			
+		}
+		
+		return new Sound(fileName);
 	}
 	
 	public static void playSound(Sound sound)
@@ -35,14 +47,23 @@ public final class SoundUtils
 		playSound(soundsByName.get(soundName));
 	}
 	
-	// TODO: load sounds
 	public static void loadSounds()
 	{
+		soundsByName = new HashMap<String, Sound>();
+		
+		putSoundInMap("res/sound/booster_collect.wav");
+		putSoundInMap("res/sound/carrot_collect.wav");
+		putSoundInMap("res/sound/click.wav");
+		putSoundInMap("res/sound/hitting_sound.wav");
+		putSoundInMap("res/sound/jump.wav");
+		putSoundInMap("res/sound/padane.wav");
+		putSoundInMap("res/sound/pop_up.wav");
+		putSoundInMap("res/sound/skachane_revert_padane.wav");
+		putSoundInMap("res/sound/pop_up_hide.wav");
 //		putSoundInMap("");
 	}
 	
-	// TODO: make this method private
-	void putSoundInMap(String soundName)
+	private static void putSoundInMap(String soundName)
 	{
 		try
         {

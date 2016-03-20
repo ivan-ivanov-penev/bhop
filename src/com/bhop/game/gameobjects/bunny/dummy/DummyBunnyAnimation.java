@@ -1,6 +1,6 @@
 package com.bhop.game.gameobjects.bunny.dummy;
 
-import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -19,7 +19,7 @@ public class DummyBunnyAnimation
 	
 	DummyBunnyAnimation() throws SlickException
 	{
-		runImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/bonus/run");
+		runImages = createImageArrayFromDirectorySafely("bunny/bonus/run");
 		
 		currentFrame = runImages[0];
 	}

@@ -3,10 +3,16 @@ package com.bhop.game.util;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
+import java.io.InputStream;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public final class FontUtils
 {
 	
@@ -24,10 +30,19 @@ public final class FontUtils
 	{
 		try
 		{
-			File fontFile = new File("res/font/SNAP____.TTF");
-//			File fontFile = new File("res/font/SHOWG.TTF");
+			InputStream is =FontUtils.class.getResourceAsStream("/res/font/SNAP____.TTF");
 			
-			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(Font.createFont(Font.TRUETYPE_FONT, fontFile));
+			if (is != null)
+			{
+				GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(Font.createFont(Font.TRUETYPE_FONT, is));
+			}
+			else
+			{
+				File fontFile = new File("res/font/SNAP____.TTF");
+//				File fontFile = new File("res/font/SHOWG.TTF");
+				
+				GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(Font.createFont(Font.TRUETYPE_FONT, fontFile));
+			}
 		}
 		catch (Exception e)
 		{

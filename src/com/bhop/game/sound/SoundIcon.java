@@ -2,6 +2,7 @@ package com.bhop.game.sound;
 
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.sound.SoundWatcher.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -28,8 +29,8 @@ public class SoundIcon implements Singleton, GameObject
 	
 	private SoundIcon() throws SlickException
 	{
-		soundIcon = new Image(SPRITE_DIR + "sound_icon/music_icon.png");
-		soundIconUnchecked = new Image(SPRITE_DIR + "sound_icon/music_icon_unwanted.png");
+		soundIcon = createImage("sound_icon/music_icon.png");
+		soundIconUnchecked = createImage("sound_icon/music_icon_unwanted.png");
 		renderImage = isSoundEnabled() ? soundIcon : soundIconUnchecked;
 		x = 8;
 		y = WINDOW_HEIGHT - renderImage.getHeight() - 7;

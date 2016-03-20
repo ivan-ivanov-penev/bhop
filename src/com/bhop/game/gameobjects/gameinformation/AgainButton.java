@@ -2,6 +2,7 @@ package com.bhop.game.gameobjects.gameinformation;
 
 import static com.bhop.game.util.GameUtils.*;
 import static com.bhop.game.gameobjects.timecounter.GameEndWatcher.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -27,7 +28,7 @@ public class AgainButton implements GameObject, Singleton
 	
 	private AgainButton() throws SlickException
 	{
-		image = new Image(SPRITE_DIR + "again_button/again_button.png");
+		image = createImage("again_button/again_button.png");
 		
 		x = (WINDOW_WIDTH - image.getWidth()) * 0.5f;
 		y = WINDOW_HEIGHT * 0.5f;

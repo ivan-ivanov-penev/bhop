@@ -1,6 +1,8 @@
 package com.bhop.game.gameobjects.bunny.animation;
 
+import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +16,6 @@ import com.bhop.game.gameobjects.bunny.BunnyIsHitEventWatcher;
 import com.bhop.game.gameobjects.bunny.dummy.DummyBunnyAnimation;
 import com.bhop.game.gameobjects.coloroptions.ColorOption.BunnyColor;
 import com.bhop.game.util.ImageUtils;
-
-import static com.bhop.game.gameobjects.bunny.CameraMovement.*;
 
 public class BunnyAnimation extends BunnyIsHitEventWatcher
 {
@@ -42,9 +42,9 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 
 	public BunnyAnimation(BunnyColor bunnyColor) throws SlickException
 	{
-		hitImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + bunnyColor.getColorName() + "/hit");
-		jumpImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + bunnyColor.getColorName() + "/jump");
-		runImages = createImageArrayFromDirectory(SPRITE_DIR + "bunny/" + bunnyColor.getColorName() + "/run");
+		hitImages = createImageArrayFromDirectorySafely("bunny/" + bunnyColor.getColorName() + "/hit");
+		jumpImages = createImageArrayFromDirectorySafely("bunny/" + bunnyColor.getColorName() + "/jump");
+		runImages = createImageArrayFromDirectorySafely("bunny/" + bunnyColor.getColorName() + "/run");
 		frameCounter = new FrameCounter();
 		spriteManager = new SpriteManager();
 		currentFrame = runImages[DummyBunnyAnimation.getFrameIndex() >= runImages.length ? 0 : DummyBunnyAnimation.getFrameIndex()];
@@ -63,9 +63,9 @@ public class BunnyAnimation extends BunnyIsHitEventWatcher
 	{
 		imagePixelLocations = new HashMap<Image, Set<PixelLocation>>();
 		
-		putPixelLocationsForImageInMap(hitImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/hit"));
-		putPixelLocationsForImageInMap(jumpImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/jump"));
-		putPixelLocationsForImageInMap(runImages, createImageArrayFromDirectory(SPRITE_DIR + "bunny/collision/run"));
+		putPixelLocationsForImageInMap(hitImages, createImageArrayFromDirectorySafely("bunny/collision/hit"));
+		putPixelLocationsForImageInMap(jumpImages, createImageArrayFromDirectorySafely("bunny/collision/jump"));
+		putPixelLocationsForImageInMap(runImages, createImageArrayFromDirectorySafely("bunny/collision/run"));
 	}
 	
 	private void putPixelLocationsForImageInMap(Image[] realImageArray, Image[] collisionImageArray)

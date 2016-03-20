@@ -1,8 +1,10 @@
 package com.bhop.game.gameobjects.log;
 
+import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
+
 import java.util.Set;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -11,8 +13,6 @@ import com.bhop.game.gameobjects.PixelLocation;
 import com.bhop.game.gameobjects.bunny.Collidable;
 import com.bhop.game.gameobjects.carrot.Carrot;
 import com.bhop.game.util.ImageUtils;
-
-import static com.bhop.game.util.GameUtils.*;
 
 public class Log extends BasicGameObject implements Collidable
 {
@@ -35,39 +35,39 @@ public class Log extends BasicGameObject implements Collidable
 	{
 		y = WINDOW_HEIGHT - 190;
 		
-		setLogType(getRandomElement(LogType.values()));
+		String logType = getLogType(getRandomElement(LogType.values()));
 		setXWithoutCarrotCollision(carrot);
 		
 		image.setCenterOfRotation(29.5f, 43.5f);
-		
-		imagePixelLocations = ImageUtils.getPixelsLocations(new Image(image.getResourceReference().replaceAll("kind\\d\\.png", "collision.png")));
+
+		imagePixelLocations = ImageUtils.getPixelsLocations(createImage(logType));
 	}
 	
-	private void setLogType(LogType logType) throws SlickException
+	private String getLogType(LogType logType) throws SlickException
 	{
 		switch (logType)
         {
 			case LEVITATING:
 				verticalSpeed = 1.0f;
 				horizontalSpeed = 0.0f;
-				image = new Image(SPRITE_DIR + "obsticales/levitating_log_kind" + logKind + ".png");
+				image = createImage("obsticales/levitating_log_kind" + logKind + ".png");
 				
-				break;
+				return "obsticales/levitating_log_collision.png";
 				
 			case ROLLING:
 				verticalSpeed = 0.0f;
 				horizontalSpeed = 1.0f;
-				image = new Image(SPRITE_DIR + "obsticales/rolling_log_kind" + logKind + ".png");
+				image = createImage("obsticales/rolling_log_kind" + logKind + ".png");
 				
-				break;
+				return "obsticales/rolling_log_collision.png";
 				
-			case STATIC:
+			default:
 				verticalSpeed = 0.0f;
 				horizontalSpeed = 0.0f;
-				image = new Image(SPRITE_DIR + "obsticales/static_log_kind" + logKind + ".png");
+				image = createImage("obsticales/static_log_kind" + logKind + ".png");
 				y = WINDOW_HEIGHT - 200;
 				
-				break;
+				return "obsticales/static_log_collision.png";
 		}
 	}
 

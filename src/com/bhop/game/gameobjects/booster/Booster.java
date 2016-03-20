@@ -1,10 +1,10 @@
 package com.bhop.game.gameobjects.booster;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.createImage;
 
 import java.util.Set;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -15,6 +15,7 @@ import com.bhop.game.gameobjects.carrot.CarrotManager;
 import com.bhop.game.gameobjects.pauseicon.PauseIcon;
 import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
 import com.bhop.game.util.ImageUtils;
+import com.bhop.game.util.SoundUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 import com.bhop.game.util.singleton.SingletonManager;
@@ -41,11 +42,11 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private Booster() throws SlickException
 	{
-		super(SPRITE_DIR + "booster/booster_lettuce_and_border.png");
+		super("booster/booster_lettuce_and_border.png");
 		
 		y = WINDOW_HEIGHT * 0.35f;
 		
-		pixelLocations = ImageUtils.getPixelsLocations(new Image(SPRITE_DIR + "booster/booster_lettuce_border.png"));
+		pixelLocations = ImageUtils.getPixelsLocations(createImage("booster/booster_lettuce_border.png"));
 		
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
 		
@@ -85,7 +86,7 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	private void attemptGenerateBooster()
 	{
-		if (frameCounter == FPS * SPAWNING_INTERVAL_IN_SECONDS && RANDOM.nextInt(20) == 0)
+		if (frameCounter == FPS * SPAWNING_INTERVAL_IN_SECONDS && RANDOM.nextInt(30) == 0)
 		{
 			frameCounter = 0;
 			
@@ -130,6 +131,8 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 	
 	public void alertBunnyTookBooster()
 	{
+		SoundUtils.playSound("res/sound/booster_collect.wav");
+		
 		boosterAcquired = true;
 	}
 	
@@ -179,7 +182,7 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 		
 		private void render()
 		{
-			if (!PauseIcon.isGamePaused())
+			if (!PauseIcon.isGamePaused() && !GameEndWatcher.isGameEnd())
 			{
 				changeScale();
 				

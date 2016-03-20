@@ -9,6 +9,7 @@ import org.newdawn.slick.TrueTypeFont;
 
 import com.bhop.game.gameobjects.BasicGameObject;
 import com.bhop.game.gameobjects.carrot.CarrotManager;
+import com.bhop.game.sound.SoundPlayer;
 import com.bhop.game.util.singleton.SingletonManager;
 
 public abstract class BasicPopup extends BasicGameObject
@@ -17,6 +18,10 @@ public abstract class BasicPopup extends BasicGameObject
 	private static PopupManager popupManager;
 	
 	protected final CarrotManager carrotManager;
+	
+	private final SoundPlayer soundPlayerPopUp;
+	
+	private final SoundPlayer soundPlayerHidePopUp;
 	
 	protected final TrueTypeFont font;
 	
@@ -28,13 +33,20 @@ public abstract class BasicPopup extends BasicGameObject
 	
 	protected BasicPopup() throws SlickException
 	{
-		super(SPRITE_DIR + "game_information/popupicon.png");
+		super("game_information/popupicon.png");
 		
 		popupManager = new PopupManager();
 		
+		soundPlayerPopUp = new SoundPlayer("res/sound/pop_up.wav");
+		
+		soundPlayerHidePopUp = new SoundPlayer("res/sound/pop_up_hide.wav");
+		
 		carrotManager = SingletonManager.getSingleton(CarrotManager.class);
+		
 		message = setMessage();
+		
 		font = createFont(20);
+		
 		y = WINDOW_HEIGHT / 5.2f;
 		x = -image.getWidth();
 	}
@@ -61,6 +73,8 @@ public abstract class BasicPopup extends BasicGameObject
 	
 	protected void popup()
 	{
+		soundPlayerPopUp.playSoundOnce();
+		
 		finished = false;
 		
 		if (movesLeft)
@@ -98,6 +112,8 @@ public abstract class BasicPopup extends BasicGameObject
 		else
 		{
 			movesLeft = false;
+			
+			soundPlayerHidePopUp.playSoundOnce();
 		}
     }
 

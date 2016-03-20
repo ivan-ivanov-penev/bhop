@@ -1,6 +1,7 @@
 package com.bhop.game.gameobjects.carrot;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -33,10 +34,10 @@ public class DistanceIndexator implements GameObject, Singleton
 	
 	private DistanceIndexator() throws SlickException
     {
-		compassLine = new Image(SPRITE_DIR + "distance_indexator/compass_line.png");
-		line = new Image(SPRITE_DIR + "distance_indexator/line0.png");
-		carrot = new Image(SPRITE_DIR + "distance_indexator/carrot1.png");
-		bunnyIcon = new Image(SPRITE_DIR + "distance_indexator/bunny_icon1.png");
+		compassLine = createImage("distance_indexator/compass_line.png");
+		line = createImage("distance_indexator/line0.png");
+		carrot = createImage("distance_indexator/carrot1.png");
+		bunnyIcon =createImage("distance_indexator/bunny_icon1.png");
     }
 
 	@Override

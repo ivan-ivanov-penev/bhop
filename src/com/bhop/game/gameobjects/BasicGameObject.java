@@ -1,5 +1,7 @@
 package com.bhop.game.gameobjects;
 
+import static com.bhop.game.util.ImageUtils.*;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -21,7 +23,7 @@ public abstract class BasicGameObject implements GameObject
 	public BasicGameObject(String path) throws SlickException
 	{
 		movement = SingletonManager.getSingleton(CameraMovement.class);
-		image = new Image(path);
+		image = createImage(path);
 	}
 	
 	protected BasicGameObject()

@@ -1,13 +1,13 @@
 package com.bhop.game.gameobjects.coloroptions;
 
+import static com.bhop.game.util.ImageUtils.*;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.BasicGameObject;
 import com.bhop.game.util.GameUtils;
-
-import static com.bhop.game.util.GameUtils.*;
 
 public class ColorOption extends BasicGameObject
 {
@@ -20,7 +20,7 @@ public class ColorOption extends BasicGameObject
 	
 	ColorOption(float x, BunnyColor bunnyColor) throws SlickException
 	{
-		super(SPRITE_DIR + "color_options/" + bunnyColor.getColorName() + ".png");
+		super("color_options/" + bunnyColor.getColorName() + ".png");
 		
 		this.x = x;
 		this.y = GameUtils.WINDOW_HEIGHT * 0.25f;
@@ -56,7 +56,7 @@ public class ColorOption extends BasicGameObject
 		
 		public Sign() throws SlickException
 		{
-			image = new Image(SPRITE_DIR + "color_options/sign.png");
+			image = createImage("color_options/sign.png");
 		}
 		
 		public void render(float x , float y)

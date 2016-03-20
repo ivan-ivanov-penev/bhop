@@ -2,15 +2,20 @@ package com.bhop.game.bonuscolor;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
+import com.bhop.game.util.UserInfoProvider;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
 @SingletonClass
 public class BonusSkinUnlocker implements Singleton
 {
+	
+	private static final String SKIN_INFO_PATH = UserInfoProvider.INFO_TEMP_DIR + "/bonus.ser";
 	
 	private BonusLock bonusLock;
 	
@@ -38,7 +43,7 @@ public class BonusSkinUnlocker implements Singleton
 	
 	private void readFromFile() throws Exception
 	{
-		FileInputStream inputStream = new FileInputStream("res/info/bonus.ser");
+		InputStream inputStream = new FileInputStream(SKIN_INFO_PATH);
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
 		bonusLock = (BonusLock) objectInputStream.readObject();
@@ -62,19 +67,10 @@ public class BonusSkinUnlocker implements Singleton
 	
 	private void writeToFile() throws Exception
 	{
-		FileOutputStream fos = new FileOutputStream("res/info/bonus.ser");
+		OutputStream fos = new FileOutputStream(SKIN_INFO_PATH);
 		
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(bonusLock);
-		oos.close();
-	}
-	
-	public static void main(String[] args) throws Exception
-	{
-		FileOutputStream fos = new FileOutputStream("res/info/bonus.ser");
-		
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(new BonusLock());
 		oos.close();
 	}
 

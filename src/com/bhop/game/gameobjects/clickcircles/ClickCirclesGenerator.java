@@ -1,6 +1,6 @@
 package com.bhop.game.gameobjects.clickcircles;
 
-import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -30,7 +30,8 @@ public class ClickCirclesGenerator implements GameObject, Singleton
 	
 	private ClickCirclesGenerator() throws SlickException
     {
-		circle = new Image(SPRITE_DIR + "click_circle/0.png");
+		circle = createImage("click_circle/0.png");
+		
 		scale = 0.5f;
 		transperenceyFactor = 1f;
     }
@@ -76,6 +77,7 @@ public class ClickCirclesGenerator implements GameObject, Singleton
 		{
 			scale = 0.5f;
 			transperenceyFactor = 1f;
+			
 			drawCircle = false;
 		}
     }

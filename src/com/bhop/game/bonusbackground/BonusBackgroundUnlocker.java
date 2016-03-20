@@ -2,16 +2,21 @@ package com.bhop.game.bonusbackground;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 import com.bhop.game.gameobjects.gameinformation.BonusBackgroundInfoProvider;
+import com.bhop.game.util.UserInfoProvider;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
 
 @SingletonClass
 public class BonusBackgroundUnlocker implements Singleton
 {
+	private static final String BACKGROUND_INFO_PATH = UserInfoProvider.INFO_TEMP_DIR + "/bonus_background.ser";
+
 	public static final int MAX_BACKGROUNDS_TO_UNLOCK = 5;
 	
 	private BonusBackgroundLock bonusLock;
@@ -35,7 +40,7 @@ public class BonusBackgroundUnlocker implements Singleton
 	
 	private void readFromFile() throws Exception
 	{
-		FileInputStream inputStream = new FileInputStream("res/info/bonus_background.ser");
+		InputStream inputStream = new FileInputStream(BACKGROUND_INFO_PATH);
 		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
 		bonusLock = (BonusBackgroundLock) objectInputStream.readObject();
@@ -47,7 +52,7 @@ public class BonusBackgroundUnlocker implements Singleton
 	{
 		bonusLock.incrementTotalCarrots();
 		
-		if (bonusLock.getTotalCarrots() == 5 && bonusLock.getNumberOfSpecialBackgroundsUnlock() < MAX_BACKGROUNDS_TO_UNLOCK)
+		if (bonusLock.getTotalCarrots() == 300 && bonusLock.getNumberOfSpecialBackgroundsUnlock() < MAX_BACKGROUNDS_TO_UNLOCK)
 		{
 			bonusLock.unlockedNewSpecialBackgrounds();
 			
@@ -71,7 +76,7 @@ public class BonusBackgroundUnlocker implements Singleton
 	
 	private void writeToFile() throws Exception
 	{
-		FileOutputStream fos = new FileOutputStream("res/info/bonus_background.ser");
+		OutputStream fos = new FileOutputStream(BACKGROUND_INFO_PATH);
 		
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(bonusLock);
@@ -82,14 +87,5 @@ public class BonusBackgroundUnlocker implements Singleton
 	{
 		return bonusLock.getNumberOfSpecialBackgroundsUnlock();
 	}
-	
-	public static void main(String[] args) throws Exception
-    {
-		FileOutputStream fos = new FileOutputStream("res/info/bonus_background.ser");
-		
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(new BonusBackgroundLock());
-		oos.close();
-    }
 
 }

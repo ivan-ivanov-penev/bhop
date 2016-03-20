@@ -5,11 +5,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
-import com.bhop.game.util.GameUtils;
+import com.bhop.game.util.ImageUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
-
-import static com.bhop.game.util.GameUtils.*;
 
 @SingletonClass
 public class Sky implements Singleton, GameObject
@@ -19,7 +17,7 @@ public class Sky implements Singleton, GameObject
 	
 	private Sky() throws SlickException
 	{
-		image = GameUtils.getImageAccordingToTimePeriod(SPRITE_DIR + "backgrounds/skies/");
+		image = ImageUtils.getImageAccordingToTimePeriod("backgrounds/skies/");
 	}
 
 	@Override

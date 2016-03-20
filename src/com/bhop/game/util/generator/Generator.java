@@ -12,6 +12,11 @@ import com.bhop.game.gameobjects.GameObject;
 import com.bhop.game.gameobjects.bunny.CameraMovement;
 import com.bhop.game.util.singleton.SingletonManager;
 
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public abstract class Generator implements GameObject
 {
 	

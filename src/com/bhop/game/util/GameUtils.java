@@ -1,6 +1,5 @@
 package com.bhop.game.util;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Random;
@@ -12,6 +11,11 @@ import org.newdawn.slick.SlickException;
 import com.bhop.game.gameobjects.BasicGameObject;
 import com.bhop.game.gameobjects.GameObject;
 
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public final class GameUtils
 {
 
@@ -25,27 +29,23 @@ public final class GameUtils
 	
 	public static final int BUNNY_STARTING_X = WINDOW_WIDTH / 8;
 	
-	public static final String SPRITE_DIR = "res/sprites/";
-
 	public static final String GAME_NAME = "BHop";
 	
 	public static final int FPS = 120;
-
-	public static Image[] createImageArrayFromDirectory(String directoryName) throws SlickException
-	{
-		File[] allImages = new File(directoryName).listFiles();
-
-		Image[] animation = new Image[allImages.length];
-
-		for (int i = 0; i < allImages.length; i++)
-		{
-			animation[i] = new Image(allImages[i].getAbsolutePath());
-		}
-
-		return animation;
-	}
+	
+	private static String timePeriod = calculateTimePeriodAccordingToTimeOfDay();
 	
 	public static String getTimePeriod()
+	{
+		return timePeriod;
+	}
+	
+	public static void reloadTimePeriod()
+	{
+		timePeriod = calculateTimePeriodAccordingToTimeOfDay();
+	}
+	
+	private static String calculateTimePeriodAccordingToTimeOfDay()
 	{
 		int hoursOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		
@@ -60,12 +60,6 @@ public final class GameUtils
 		}
 		
 		return "night";
-		
-	}
-	
-	public static Image getImageAccordingToTimePeriod(String path) throws SlickException
-	{
-		return new Image(path + getTimePeriod() + ".png");
 	}
 	
 	public static boolean mouseIsOverImage(Input input, Image image, float imageX, float imageY)

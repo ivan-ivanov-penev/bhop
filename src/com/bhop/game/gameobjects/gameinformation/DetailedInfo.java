@@ -15,7 +15,7 @@ public class DetailedInfo extends BasicGameObject implements Singleton
 	
 	private DetailedInfo() throws SlickException
 	{
-		super(SPRITE_DIR + "game_information/detailed_info1.png");
+		super("game_information/detailed_info1.png");
 		
 		x = (WINDOW_WIDTH - image.getWidth()) / 2;
 		y = (WINDOW_HEIGHT - image.getHeight()) / 2;

@@ -1,6 +1,7 @@
 package com.bhop.game.gameobjects.pauseicon;
 
 import static com.bhop.game.util.GameUtils.*;
+import static com.bhop.game.util.ImageUtils.*;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -29,8 +30,8 @@ public class PauseIcon implements GameObject, Singleton
 	
 	private PauseIcon() throws SlickException
     {
-		pauseIcon = new Image(SPRITE_DIR + "pause_icon/pause.png");
-		playIcon = new Image(SPRITE_DIR + "pause_icon/play2.png");
+		pauseIcon = createImage("pause_icon/pause.png");
+		playIcon = createImage("pause_icon/play2.png");
 		renderIcon = pauseIcon;
 
 		x = 8 + renderIcon.getWidth() * 1.5f;

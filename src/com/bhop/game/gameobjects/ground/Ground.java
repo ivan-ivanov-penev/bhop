@@ -23,7 +23,7 @@ public class Ground implements GameObject, Singleton
 
 		public GroundPiece(float x) throws SlickException
 		{
-			super(SPRITE_DIR + "ground/" + getTimePeriod() + ".png");
+			super("ground/" + getTimePeriod() + ".png");
 			
 			this.x = x;
 			this.y = GameUtils.WINDOW_HEIGHT - image.getHeight();
@@ -31,7 +31,7 @@ public class Ground implements GameObject, Singleton
 		
 		public GroundPiece() throws SlickException
 		{
-			super(SPRITE_DIR + "ground/" + getTimePeriod() + ".png");
+			super("ground/" + getTimePeriod() + ".png");
 			
 			x = getLastGroundPieceX() + image.getWidth();
 			y = GameUtils.WINDOW_HEIGHT - image.getHeight();

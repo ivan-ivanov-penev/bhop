@@ -3,8 +3,13 @@ package com.bhop.game.util.generator;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.bhop.game.util.GameUtils;
+import com.bhop.game.util.ImageUtils;
 
+/**
+ * 
+ * @author Ivan Penev
+ *
+ */
 public abstract class GeneratedObject
 {
 	
@@ -14,7 +19,7 @@ public abstract class GeneratedObject
 	
 	protected GeneratedObject(float x, String path) throws SlickException
 	{
-		image = GameUtils.getImageAccordingToTimePeriod(path);
+		image = ImageUtils.getImageAccordingToTimePeriod(path);
 		
 		this.x = x;
 	}

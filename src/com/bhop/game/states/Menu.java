@@ -40,7 +40,8 @@ public class Menu extends BasicGameState
 	public Menu()
 	{
 		playerHasPickedColor = false;
-		
+
+		reloadTimePeriod();
 		clearSingletons();
 		restartGame();
 	}
