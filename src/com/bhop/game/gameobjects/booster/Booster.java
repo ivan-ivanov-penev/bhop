@@ -134,6 +134,8 @@ public class Booster extends BasicGameObject implements Singleton, Collidable
 		SoundUtils.playSound("res/sound/booster_collect.wav");
 		
 		boosterAcquired = true;
+		
+		x = -image.getWidth() *1000;
 	}
 	
 	private class BoosterExpireWatcher

@@ -77,7 +77,7 @@ public class Game extends StateBasedGame
 		}
 		catch (Exception e)
 		{
-			System.setProperty("org.lwjgl.librarypath", "E:/Game_Projects/Java/BHop/lib/natives/all");
+			System.setProperty("org.lwjgl.librarypath", "C:/Users/ivan.penev/workspace/BHop/lib/natives/all");
 		}
 	}
 	

@@ -8,7 +8,7 @@ import org.newdawn.slick.Sound;
 public class SoundPlayer
 {
 	
-	private volatile Sound sound;
+	private Sound sound;
 	
 	private boolean soundPlayed;
 

@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
@@ -36,7 +37,7 @@ public final class SoundUtils
 	
 	public static void playSound(Sound sound)
 	{
-		if (SoundWatcher.isSoundEnabled() && !sound.playing())
+		if (SoundWatcher.isSoundEnabled() /*&& !sound.playing()*/)
 		{
 			sound.play();
 		}
@@ -73,6 +74,19 @@ public final class SoundUtils
         {
 	        e.printStackTrace();
         }
+	}
+	
+	public static Music createMusic(String fileName) throws SlickException
+	{
+		return new Music(fileName);
+	}
+	
+	public static void playMusic(Music music)
+	{
+		if (SoundWatcher.isSoundEnabled() && !music.playing())
+		{
+			music.play();
+		}
 	}
 
 }

@@ -120,7 +120,9 @@ public class Bunny implements GameObject, Singleton
 		if (buttonIsPressed)
 		{
 			movement.increaseSpeedFactor(runSpeedBoost);
-				
+
+			jumpSound.playSoundOnce();
+			
 			jump();
 		}
 		else
@@ -131,8 +133,6 @@ public class Bunny implements GameObject, Singleton
 
 	private void jump()
     {
-		jumpSound.playSoundOnce();
-		
 		physics.setGravityToJumping(jump.getJumpHeightAccordingToSpeed(movement.getSpeedFactor()));
 	    
 	    updateHeightPosition();
