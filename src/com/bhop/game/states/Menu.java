@@ -26,7 +26,9 @@ import com.bhop.game.gameobjects.environment.cloud.CloudGenerator;
 import com.bhop.game.gameobjects.gameinformation.DetailedInfo;
 import com.bhop.game.gameobjects.gameinformation.InfoIcon;
 import com.bhop.game.gameobjects.ground.Ground;
+import com.bhop.game.sound.MusicPlayer;
 import com.bhop.game.sound.SoundIcon;
+import com.bhop.game.sound.SoundWatcher;
 import com.bhop.game.util.InputUtils;
 
 public class Menu extends BasicGameState
@@ -51,6 +53,7 @@ public class Menu extends BasicGameState
 	{
 		game.addState(new Play());
 		game.getState(Play.ID).init(game.getContainer(), game);
+		SoundWatcher.setMusicSettings(container);
 		
 		gameObjects = new ArrayList<GameObject>();
 		gameObjects.add(getSingleton(Sky.class));
@@ -63,6 +66,7 @@ public class Menu extends BasicGameState
 		gameObjects.add(getSingleton(SoundIcon.class));
 		gameObjects.add(getSingleton(InfoIcon.class));
 		gameObjects.add(getSingleton(DetailedInfo.class));
+		gameObjects.add(getSingleton(MusicPlayer.class));
 	}
 
 	@Override

@@ -37,6 +37,7 @@ import com.bhop.game.gameobjects.log.LogGenerator;
 import com.bhop.game.gameobjects.pauseicon.PauseIcon;
 import com.bhop.game.gameobjects.timecounter.GameEndWatcher;
 import com.bhop.game.gameobjects.timecounter.TimeCounter;
+import com.bhop.game.sound.MusicPlayer;
 import com.bhop.game.sound.SoundIcon;
 import com.bhop.game.util.InputUtils;
 
@@ -80,6 +81,7 @@ public class Play extends BasicGameState
 		gameObjects.add(getSingleton(Bunny.class));
 		gameObjects.add(getSingleton(DetailedInfo.class));
 		gameObjects.add(getSingleton(ClickCirclesGenerator.class));
+		gameObjects.add(getSingleton(MusicPlayer.class));
 	}
 
 	@Override
