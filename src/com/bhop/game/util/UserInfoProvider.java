@@ -6,7 +6,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.bhop.game.bonusbackground.BonusBackgroundLock;
 import com.bhop.game.bonuscolor.BonusLock;
@@ -29,17 +31,50 @@ public final class UserInfoProvider
 	{
 		File[] infoCandidates = new File(INFO_TEMP_DIR).listFiles();
 		
-		if (!checkIfInfoExist(infoCandidates))
+		if (!checkIfInfoFilesExist(infoCandidates))
 		{
 			createInfoSerFiles();
 		}
 	}
 
-	private static boolean checkIfInfoExist(File[] infoCandidates)
+	private static boolean checkIfInfoFilesExist(File[] infoCandidates)
 	{
+		Set<String> expectedFileNames = createExpectedInfoFilenames();
+		
+		int numberOfSerFiles = 0;
+		
 		for (File candidate : infoCandidates)
 		{
-			if (candidate.getName().contains(".ser"))
+			if (candidate.getName().endsWith(".ser"))
+			{
+				numberOfSerFiles += 1;
+				
+				if (!isCandidateExisting(candidate, expectedFileNames))
+				{
+					return false;
+				}
+			}
+		}
+		
+		return expectedFileNames.size() == numberOfSerFiles;
+	}
+
+	private static Set<String> createExpectedInfoFilenames()
+	{
+		Set<String> expectedFileNames = new HashSet<String>();
+		expectedFileNames.add("highscore.ser");
+		expectedFileNames.add("bonus_background.ser");
+		expectedFileNames.add("bonus.ser");
+		expectedFileNames.add("sound_info.ser");
+		
+		return expectedFileNames;
+	}
+	
+	private static boolean isCandidateExisting(File candidate, Set<String> expectedFileNames)
+	{
+		for (String expectedFileName : expectedFileNames)
+		{
+			if (candidate.getName().contains(expectedFileName))
 			{
 				return true;
 			}

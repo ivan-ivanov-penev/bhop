@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.sound.SoundPlayer;
 import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
@@ -22,6 +23,8 @@ public class PauseIcon implements GameObject, Singleton
 	
 	private final Image playIcon;
 	
+	private final SoundPlayer soundPlayer;
+	
 	private Image renderIcon;
 	
 	private float x;
@@ -32,6 +35,7 @@ public class PauseIcon implements GameObject, Singleton
     {
 		pauseIcon = createImage("pause_icon/pause.png");
 		playIcon = createImage("pause_icon/play2.png");
+		soundPlayer = new SoundPlayer("res/sound/button.wav");
 		renderIcon = pauseIcon;
 
 		x = 8 + renderIcon.getWidth() * 1.5f;
@@ -48,7 +52,13 @@ public class PauseIcon implements GameObject, Singleton
     {
 		if (mouseIsOverImage(input, renderIcon, x, y) && InputUtils.isLeftMouseButtonPressed())
 		{
+			soundPlayer.playSoundOnce();
+			
 			changePauseState();
+		}
+		else
+		{
+			soundPlayer.alertSoundHasToBePlayed();
 		}
     }
 

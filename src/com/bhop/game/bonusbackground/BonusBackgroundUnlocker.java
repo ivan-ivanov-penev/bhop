@@ -17,7 +17,7 @@ public class BonusBackgroundUnlocker implements Singleton
 {
 	private static final String BACKGROUND_INFO_PATH = UserInfoProvider.INFO_TEMP_DIR + "/bonus_background.ser";
 
-	public static final int MAX_BACKGROUNDS_TO_UNLOCK = 5;
+	public static final int MAX_BACKGROUNDS_TO_UNLOCK = 2;
 	
 	private BonusBackgroundLock bonusLock;
 	

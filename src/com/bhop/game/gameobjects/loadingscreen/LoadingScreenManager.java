@@ -63,16 +63,18 @@ public class LoadingScreenManager implements GameObject, Singleton
 	
 	private void fillHints() throws SlickException
 	{
-		HINTS.put("THIS HINT IS NOT VERY HELPFUL. PROBLEM? :)", createAnimationWithArguments("troll", 1f, false));
-		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimationWithArguments("speed_bonus", 0.2f, false));
+//		HINTS.put("THIS HINT IS NOT VERY HELPFUL. PROBLEM? :)", createAnimationWithArguments("troll", 1f, false));
+		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimationWithArguments("speed_bonus", 0.1f, false));
 		HINTS.put("THE TIME INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL REACH THE CARROT ON TIME", createAnimationWithArguments("indexator", 0.2f, false));
 		HINTS.put("IF YOU MISSED THE CARROT DON'T WORRY - A NEW ONE WILL APPEAR BASED ON THE TIME YOU GOT LEFT", createAnimationWithArguments("carrot", 1.2f, true));
 		HINTS.put("THE BOOSTER WILL GRANT YOU CONSTANT TOP SPEED FOR THE NEXT 10 SECONDS", createAnimationWithArguments("booster", 1f, false));
 		HINTS.put("COLLECT 30 CARROTS IN A ROW AND YOU WILL UNLOCK BONUS SKIN FOR THE BUNNY!", createAnimationWithArguments("bonus_bunny", 0.75f, false));
 		HINTS.put("THE DISTANCE INDEXATOR AT THE BOTTOM OF THE SCREEN SHOWS HOW FAR ARE YOU FROM THE CARROT", createAnimationWithArguments("distance_indexator", 1f, false));
 		HINTS.put("EACH TIME YOU COLLECT 300 CARROTS A NEW SPECIAL BACKGROUND WILL BE UNLOCKED", createAnimationWithArguments("special_background_" + getTimePeriod(), 1f, false));
-		HINTS.put("IF YOU ARE LUCKY A SPECIAL BACKGROUND WILL MAKE AN APPEARANCE", createAnimationWithArguments("special_background_" + getTimePeriod(), 1f, false));
-//		HINTS.put("", createAnimation("", 1f, false));
+		HINTS.put("IF YOU GET LUCKY A SPECIAL BACKGROUND WILL APPEAR", createAnimationWithArguments("special_background_" + getTimePeriod(), 1f, false));
+		HINTS.put("RUN SLOWLY TO JUMP HIGHER", createAnimationWithArguments("bunny_jump_run", 1.5f, false));
+		HINTS.put("THE MORE YOU JUMP THE FASTER YOU RUN", createAnimationWithArguments("jump_bunny", 1.0f, false));
+//		HINTS.put("", createAnimationWithArguments("", 1f, false));
 	}
 	
 	private Animation createAnimationWithArguments(String directoryName, float animationSpeed, boolean pingPong) throws SlickException
@@ -151,6 +153,11 @@ public class LoadingScreenManager implements GameObject, Singleton
 		Animation animation = HINTS.get(randomHint);
 		animation.draw(boxX + (182 - animation.getWidth()) * 0.5f, boxY + (152 - animation.getHeight()) * 0.5f);
 		
+		if (randomHint.equals("THE MORE YOU JUMP THE FASTER YOU RUN") && animation.getFrame() == animation.getFrameCount() - 1 && animation.getSpeed() < 2)
+		{
+			animation.setSpeed(animation.getSpeed() + 0.06f);
+		}
+		
 		String hints = "HINTS";
 
 		info.drawString((WINDOW_WIDTH - info.getWidth(hints)) * 0.5f, WINDOW_HEIGHT * 0.2f, hints, Color.black);
@@ -179,6 +186,8 @@ public class LoadingScreenManager implements GameObject, Singleton
 	{
 		private final boolean animationIsDistanceIndexator;
 		
+		private final boolean animationIsBooster;
+		
 		private final Image bunnyIcon;
 		
 		private float x;
@@ -186,6 +195,7 @@ public class LoadingScreenManager implements GameObject, Singleton
 		public SpecaialAnimation() throws SlickException
         {
 			animationIsDistanceIndexator = randomHint.equals("THE DISTANCE INDEXATOR AT THE BOTTOM OF THE SCREEN SHOWS HOW FAR ARE YOU FROM THE CARROT");
+			animationIsBooster = randomHint.equals("THE BOOSTER WILL GRANT YOU CONSTANT TOP SPEED FOR THE NEXT 10 SECONDS");
 			bunnyIcon = createImage("distance_indexator/bunny_icon1.png");
 			x = boxX + 20;
         }
@@ -197,6 +207,14 @@ public class LoadingScreenManager implements GameObject, Singleton
 				bunnyIcon.draw(x, boxY + 61, 0.9f);
 				
 				incrementX();
+			}
+			
+			if (animationIsBooster)
+			{
+				for (int i = 0; i < HINTS.get(randomHint).getFrameCount(); i++)
+				{
+					HINTS.get(randomHint).getImage(i).rotate(1);
+				}
 			}
 		}
 

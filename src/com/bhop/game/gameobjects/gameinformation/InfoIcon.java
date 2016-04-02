@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.BasicGameObject;
+import com.bhop.game.sound.SoundPlayer;
 import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
 import com.bhop.game.util.singleton.SingletonClass;
@@ -16,9 +17,13 @@ public class InfoIcon extends BasicGameObject implements Singleton
 	
 	private static boolean playerIsReadingInfo;
 	
+	private final SoundPlayer soundPlayer;
+	
 	private InfoIcon() throws SlickException
 	{
 		super("info_icon/info_icon.png");
+		
+		soundPlayer = new SoundPlayer("res/sound/button.wav");
 		
 		x = 8;
 		y = 7;
@@ -30,6 +35,12 @@ public class InfoIcon extends BasicGameObject implements Singleton
 		if (mouseIsOverImage(input, this) && InputUtils.isLeftMouseButtonPressed())
 		{
 			playerIsReadingInfo = !playerIsReadingInfo;
+			
+			soundPlayer.playSoundOnce();
+		}
+		else
+		{
+			soundPlayer.alertSoundHasToBePlayed();
 		}
 	}
 	

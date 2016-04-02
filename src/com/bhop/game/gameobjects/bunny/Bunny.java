@@ -49,7 +49,7 @@ public class Bunny implements GameObject, Singleton
 		collisionChecker = new CollisionChecker();
 		physics = new BunnyPhysics();
 		jump = new BunnyJump();
-		jumpSound = new SoundPlayer("res/sound/click.wav");
+		jumpSound = new SoundPlayer("res/sound/jump0.wav");
 		hitSound = new SoundPlayer("res/sound/hitting_sound.wav");
 		
 		x = BUNNY_STARTING_X;

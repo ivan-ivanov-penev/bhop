@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.bhop.game.gameobjects.GameObject;
+import com.bhop.game.sound.SoundPlayer;
 import com.bhop.game.states.Play;
 import com.bhop.game.util.InputUtils;
 import com.bhop.game.util.singleton.Singleton;
@@ -20,6 +21,8 @@ public class AgainButton implements GameObject, Singleton
 	
 	private final Image image;
 	
+	private final SoundPlayer soundPlayer;
+	
 	private float x;
 	
 	private float y;
@@ -29,6 +32,8 @@ public class AgainButton implements GameObject, Singleton
 	private AgainButton() throws SlickException
 	{
 		image = createImage("again_button/again_button.png");
+		
+		soundPlayer = new SoundPlayer("res/sound/button.wav");
 		
 		x = (WINDOW_WIDTH - image.getWidth()) * 0.5f;
 		y = WINDOW_HEIGHT * 0.5f;
@@ -40,6 +45,12 @@ public class AgainButton implements GameObject, Singleton
 		if (isGameEnd() && mouseIsOverImage(input, image, x, y) && InputUtils.isLeftMouseButtonPressed())
 		{
 			playerHasPressedButton = true;
+			
+			soundPlayer.playSoundOnce();
+		}
+		else
+		{
+			soundPlayer.alertSoundHasToBePlayed();
 		}
 		
 		attemtPlayButtonAnimation();

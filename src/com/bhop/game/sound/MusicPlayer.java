@@ -65,11 +65,23 @@ public class MusicPlayer implements Singleton, GameObject
     {
 		if (SoundWatcher.isSoundEnabled() && !musicToPlay.playing())
 		{
-			musicToPlay = getRandomElement(musicForTimePeriod);
-			
+			setUnrepeateableMusicToPlay();
+
 			musicToPlay.play();
 		}
     }
+	
+	private void setUnrepeateableMusicToPlay()
+	{
+		Music musicToPlay = getRandomElement(musicForTimePeriod);
+		
+		while (MusicPlayer.musicToPlay == musicToPlay)
+		{
+			musicToPlay = getRandomElement(musicForTimePeriod);
+		}
+		
+		MusicPlayer.musicToPlay = musicToPlay;
+	}
 
 	@Override
     public void render() throws SlickException {}

@@ -54,7 +54,7 @@ public final class SoundUtils
 		
 		putSoundInMap("res/sound/booster_collect.wav");
 		putSoundInMap("res/sound/carrot_collect.wav");
-		putSoundInMap("res/sound/click.wav");
+//		putSoundInMap("res/sound/click.wav");
 		putSoundInMap("res/sound/hitting_sound.wav");
 		putSoundInMap("res/sound/jump.wav");
 		putSoundInMap("res/sound/padane.wav");

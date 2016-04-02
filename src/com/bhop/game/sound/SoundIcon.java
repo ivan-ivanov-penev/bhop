@@ -19,6 +19,8 @@ public class SoundIcon implements Singleton, GameObject
 	
 	private final Image soundIconUnchecked;
 	
+	private final SoundPlayer soundPlayer;
+	
 	private Image renderImage;
 	
 	private float x;
@@ -32,6 +34,7 @@ public class SoundIcon implements Singleton, GameObject
 		soundIcon = createImage("sound_icon/music_icon.png");
 		soundIconUnchecked = createImage("sound_icon/music_icon_unwanted.png");
 		renderImage = isSoundEnabled() ? soundIcon : soundIconUnchecked;
+		soundPlayer = new SoundPlayer("res/sound/button.wav");
 		x = 8;
 		y = WINDOW_HEIGHT - renderImage.getHeight() - 7;
 	}
@@ -41,6 +44,8 @@ public class SoundIcon implements Singleton, GameObject
 	{
 		if (mouseIsOverImage(input, renderImage, x, y) && InputUtils.isLeftMouseButtonPressed())
 		{
+			soundPlayer.playSoundOnce();
+			
 			alertPlayerHasClickedIcon();
 			
 			renderImage = renderImage == soundIcon ? soundIconUnchecked : soundIcon;
@@ -53,6 +58,8 @@ public class SoundIcon implements Singleton, GameObject
 		else
 		{
 			clickedOnIcon = false;
+			
+			soundPlayer.alertSoundHasToBePlayed();
 		}
 	}
 
