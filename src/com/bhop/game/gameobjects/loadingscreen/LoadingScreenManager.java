@@ -64,7 +64,7 @@ public class LoadingScreenManager implements GameObject, Singleton
 	private void fillHints() throws SlickException
 	{
 //		HINTS.put("THIS HINT IS NOT VERY HELPFUL. PROBLEM? :)", createAnimationWithArguments("troll", 1f, false));
-		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimationWithArguments("speed_bonus", 0.1f, false));
+		HINTS.put("IF YOU CLICK ON THE SCRREN EXACTLY WHEN BUNNY HAS LANDED YOU WILL GET AN EXTRA SPEED BONUS!", createAnimationWithArguments("speed_bonus", 0.15f, false));
 		HINTS.put("THE TIME INDEXATOR ON TOP RIGHT CORNER OF THE SCREEN SHOWS IF YOU WILL REACH THE CARROT ON TIME", createAnimationWithArguments("indexator", 0.2f, false));
 		HINTS.put("IF YOU MISSED THE CARROT DON'T WORRY - A NEW ONE WILL APPEAR BASED ON THE TIME YOU GOT LEFT", createAnimationWithArguments("carrot", 1.2f, true));
 		HINTS.put("THE BOOSTER WILL GRANT YOU CONSTANT TOP SPEED FOR THE NEXT 10 SECONDS", createAnimationWithArguments("booster", 1f, false));

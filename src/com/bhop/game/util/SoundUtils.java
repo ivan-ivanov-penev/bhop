@@ -54,14 +54,10 @@ public final class SoundUtils
 		
 		putSoundInMap("res/sound/booster_collect.wav");
 		putSoundInMap("res/sound/carrot_collect.wav");
-//		putSoundInMap("res/sound/click.wav");
 		putSoundInMap("res/sound/hitting_sound.wav");
-		putSoundInMap("res/sound/jump.wav");
-		putSoundInMap("res/sound/padane.wav");
+		putSoundInMap("res/sound/jump0.wav");
 		putSoundInMap("res/sound/pop_up.wav");
-		putSoundInMap("res/sound/skachane_revert_padane.wav");
 		putSoundInMap("res/sound/pop_up_hide.wav");
-//		putSoundInMap("");
 	}
 	
 	private static void putSoundInMap(String soundName)

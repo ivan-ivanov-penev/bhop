@@ -29,7 +29,14 @@ public final class UserInfoProvider
 	
 	public static void createInfoSerFilesIfNonExist() throws Exception
 	{
-		File[] infoCandidates = new File(INFO_TEMP_DIR).listFiles();
+		final File tempDir = new File(INFO_TEMP_DIR);
+		
+		if (!tempDir.exists())
+		{
+			tempDir.mkdirs();
+		}
+		
+		File[] infoCandidates = tempDir.listFiles();
 		
 		if (!checkIfInfoFilesExist(infoCandidates))
 		{

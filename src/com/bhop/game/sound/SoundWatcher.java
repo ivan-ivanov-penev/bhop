@@ -31,7 +31,7 @@ public final class SoundWatcher
     {
 	    SoundWatcher.gameContainer = gameContainer;
 	    
-	    gameContainer.setMusicVolume(0.1f);
+	    gameContainer.setMusicVolume(0.25f);
     }
 
 }
